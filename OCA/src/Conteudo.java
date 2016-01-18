@@ -36,11 +36,11 @@ public class Conteudo {
 
 	private void preenxerAlternativas() {
 		
-		alternativas[0][0] = "How to run Java program on the command prompt?";
-		alternativas[0][1] = "javac JavaProgram";
-		alternativas[0][2] = "java JavaProgram";
-		alternativas[0][3] = "javac JavaProgram.java";
-		alternativas[0][4] = "No one";
+		alternativas[0][0] = "Which of the following statements are true?";
+		alternativas[0][1] = "A. For any non-null reference o1, the expression (o1 instanceof o1) will always yield true.";
+		alternativas[0][2] = "B. For any non-null reference o1, the expression (o1 instanceof Object) will always yield true.";
+		alternativas[0][3] = "C.For any non-null reference o1, the expression (o1 instanceof Object) may yield false.";
+		alternativas[0][4] = "D.None of the above.";
 
 		alternativas[1][0] = "What is the use of the println method?";
 		alternativas[1][1] = "It is used to print text on the screen.";
@@ -99,8 +99,8 @@ public class Conteudo {
 	
 	public void preenxerPerguntas() {
 		
-		perguntas[0][0] = "How to run Java program on the command prompt?";
-		perguntas[0][1] = "java JavaProgram";
+		perguntas[0][0] = "Which of the following statements are true?";
+		perguntas[0][1] = "B. For any non-null reference o1, the expression (o1 instanceof Object) will always yield true.";
 
 		perguntas[1][0] = "What is the use of the println method?";
 		perguntas[1][1] = "It is used to print text on the screen with the line break.";

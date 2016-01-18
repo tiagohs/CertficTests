@@ -25,13 +25,21 @@ public class Desenhar extends Canvas {
 		
 		for (int i = 0; i < numeroQuestoes; i++) {
 			// print the 1st column
+			g.setColor(Color.BLACK);
 			g.setFont(new Font("Arial", Font.BOLD, 12));
 			g.drawString(i + 1 + ". " + questoes[i][0], x, y);
 			y += 30;
 			g.setFont(new Font("Arial", Font.PLAIN, 12));
 			g.drawString("      Resposta Correta:" + questoes[i][1], x, y);
 			y += 30;
-			g.drawString("      Sua Resposta:" + respostas.get(i), x, y);
+			if (questoes[i][1].equals(respostas.get(i))) {
+				g.setColor(Color.GREEN);
+				g.drawString("      Sua Resposta:" + respostas.get(i), x, y);
+			} else {
+				g.setColor(Color.RED);
+				g.drawString("      Sua Resposta:" + respostas.get(i), x, y);
+			}
+			
 			y += 30;
 			
 			if (y > 400) {

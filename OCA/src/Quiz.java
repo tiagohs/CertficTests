@@ -19,14 +19,16 @@ import javax.swing.JRadioButton;
 public class Quiz extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	
-	private JPanel janelaPrincipal;
+	private JPanel regiaoAlternativas;
+	private JPanel regiaoPergunta;
 	private JRadioButton opcaoA;
 	private JRadioButton opcaoB;
 	private JRadioButton opcaoC;
 	private JRadioButton opcaoD;
 	private ButtonGroup buttonGroupOpcoes;
-	private JLabel lblmess;
-	private JButton btnext;
+	private JLabel lblQuestao;
+	private JButton btProximo;
+	private JButton btAjuda;
 	private String[][] alternativas;
 
 	private int numeroQuestao;
@@ -43,58 +45,82 @@ public class Quiz extends JFrame implements ActionListener {
 		setSize(800, 700);
 		setLocation(300, 100);
 		setResizable(false);
-		Container cont = getContentPane();
-		cont.setLayout(null);
-
-		buttonGroupOpcoes = new ButtonGroup();
+		Container janelaPrincipal = getContentPane();
+		janelaPrincipal.setLayout(null);
+		
+		preenxerJanelaRegiaoPerguntas();
+		preenxerJanelaRegiaoAlternativas();
+		preenxerJanelaRegiaoBotoes();
+		
+		janelaPrincipal.add(regiaoPergunta);
+		janelaPrincipal.add(regiaoAlternativas);
+		setVisible(true);
+		numeroQuestao = 0;
+		setAlternativas(numeroQuestao);
+	}
+	
+	private void preenxerJanelaRegiaoPerguntas() {
+		
+		regiaoPergunta = new JPanel();
+		regiaoPergunta.setLocation(10, 10);
+		regiaoPergunta.setSize(780, 250);
+		regiaoPergunta.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+		
+		lblQuestao = new JLabel("Escolha a Resposta Correta: ");
+		lblQuestao.setFont(new Font("Arial", Font.LAYOUT_LEFT_TO_RIGHT, 22));
+		regiaoPergunta.add(lblQuestao);
+	}
+	
+	private void preenxerJanelaRegiaoAlternativas() {
+		regiaoAlternativas = new JPanel();
+		regiaoAlternativas.setLayout(new GridLayout(6,2));
+		regiaoAlternativas.setLocation(10, 290);
+		regiaoAlternativas.setSize(780, 360);
+		regiaoAlternativas.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 		
 		opcaoA = new JRadioButton("Choice1", true);
 		opcaoB = new JRadioButton("Choice2", false);
 		opcaoC = new JRadioButton("Choice3", false);
 		opcaoD = new JRadioButton("Choice4", false);
-
+		
+		buttonGroupOpcoes = new ButtonGroup();
 		buttonGroupOpcoes.add(opcaoA);
 		buttonGroupOpcoes.add(opcaoB);
 		buttonGroupOpcoes.add(opcaoC);
 		buttonGroupOpcoes.add(opcaoD);
-
-		lblmess = new JLabel("Escolha a Resposta Correta: ");
-		lblmess.setForeground(Color.BLUE);
-		lblmess.setFont(new Font("Arial", Font.BOLD, 11));
-		btnext = new JButton("Próxima Questão");
 		
-		btnext.addActionListener(this);
-		btnext.setPreferredSize(new Dimension(300, 200));
-		janelaPrincipal = new JPanel();
-		janelaPrincipal.setLocation(10, 10);
-		janelaPrincipal.setSize(780, 650);
-		janelaPrincipal.setLayout(new GridLayout(6, 4));
-		janelaPrincipal.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-		janelaPrincipal.add(lblmess);
-		janelaPrincipal.add(opcaoA);
-		janelaPrincipal.add(opcaoB);
-		janelaPrincipal.add(opcaoC);
-		janelaPrincipal.add(opcaoD);
-
-		janelaPrincipal.add(btnext);
-		cont.add(janelaPrincipal);
-		setVisible(true);
-		numeroQuestao = 0;
-		setAlternativas(numeroQuestao);
+		regiaoAlternativas.add(opcaoA);
+		regiaoAlternativas.add(opcaoB);
+		regiaoAlternativas.add(opcaoC);
+		regiaoAlternativas.add(opcaoD);
 	}
-
+	
+	private void preenxerJanelaRegiaoBotoes() {
+		
+		btProximo = new JButton("Próxima Questão");
+		btAjuda = new JButton("Ajuda com a Questão");
+		btAjuda.addActionListener(this);
+		btAjuda.setPreferredSize(new Dimension(180, 40));
+		
+		btProximo.addActionListener(this);
+		btProximo.setPreferredSize(new Dimension(100, 40));
+		
+		regiaoAlternativas.add(btProximo);
+		regiaoAlternativas.add(btAjuda);
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		
-		if (btnext.getText().equals("Próxima Questão")) {
+		if (btProximo.getText().equals("Próxima Questão")) {
 			if (numeroQuestao < 9) {
 				map.put(numeroQuestao, getOpcaoSelecionada());
 				numeroQuestao++;
 				setAlternativas(numeroQuestao);
 			} else {
 				map.put(numeroQuestao, getOpcaoSelecionada());
-				btnext.setText("Exibir Respostas.");
+				btProximo.setText("Exibir Respostas.");
 			}
-		} else if (btnext.getText().equals("Exibir Respostas.")) {
+		} else if (btProximo.getText().equals("Exibir Respostas.")) {
 			new Resultados(map);
 		}
 			
@@ -118,7 +144,7 @@ public class Quiz extends JFrame implements ActionListener {
 
 	public void setAlternativas(int qid) {
 
-		lblmess.setText("  " + alternativas[qid][0]);
+		lblQuestao.setText("  " + alternativas[qid][0]);
 		opcaoA.setText(alternativas[qid][1]);
 		opcaoB.setText(alternativas[qid][2]);
 		opcaoC.setText(alternativas[qid][3]);
@@ -132,6 +158,6 @@ public class Quiz extends JFrame implements ActionListener {
 		numeroQuestao = 0;
 		map.clear();
 		setAlternativas(numeroQuestao);
-		btnext.setText("Próxima Questão");
+		btProximo.setText("Próxima Questão");
 	}
 }
