@@ -1,11 +1,12 @@
+package br.com.oca.conteudo;
 
-public class Conteudo {
-	private volatile static Conteudo instance;
+public class ConteudoOCA {
+	private volatile static ConteudoOCA instance;
 	
 	private String[][] alternativas;
 	private String[][] perguntas;
 	
-	private Conteudo() {
+	private ConteudoOCA() {
 		alternativas = new String[10][5];
 		perguntas = new String[10][2];
 		
@@ -13,12 +14,12 @@ public class Conteudo {
 		preenxerPerguntas();
 	}
 	
-	public static Conteudo getInstance() {
+	public static ConteudoOCA getInstance() {
 		
 		if (instance == null) {
-			synchronized (Conteudo.class) {
+			synchronized (ConteudoOCA.class) {
 				if (instance == null) {
-					instance = new Conteudo();
+					instance = new ConteudoOCA();
 				}
 			}
 		}

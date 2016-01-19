@@ -1,19 +1,22 @@
+package br.com.oca.quiz;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.HashMap;
 
+import br.com.oca.conteudo.ConteudoOCA;
+
 
 public class Desenhar extends Canvas {
 	private static final long serialVersionUID = 1L;
 	
-	private Conteudo conteudo;
+	private ConteudoOCA conteudo;
 	private HashMap<Integer, String> respostas;
 	private String[][] questoes;
 	
 	public Desenhar(HashMap<Integer, String> _respostas) {
-		conteudo = Conteudo.getInstance();
+		conteudo = ConteudoOCA.getInstance();
 		respostas = _respostas;
 		questoes = conteudo.getPerguntas();
 	}

@@ -1,3 +1,4 @@
+package br.com.oca.quiz;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -7,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Enumeration;
 import java.util.HashMap;
+
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -15,6 +17,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
+import br.com.oca.conteudo.ConteudoOCA;
 
 public class Quiz extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -32,16 +36,16 @@ public class Quiz extends JFrame implements ActionListener {
 	private String[][] alternativas;
 
 	private int numeroQuestao;
-	private Conteudo conteudo;
+	private ConteudoOCA conteudo;
 	private HashMap<Integer, String> map;
 
 	public Quiz() {
-		conteudo = Conteudo.getInstance();
+		conteudo = ConteudoOCA.getInstance();
 		map = new HashMap<Integer, String>();
 		alternativas = conteudo.getAlternativas();
 
 		setTitle("Oracle Certified Associate, Java SE 7 Programmer");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(800, 700);
 		setLocation(300, 100);
 		setResizable(false);
