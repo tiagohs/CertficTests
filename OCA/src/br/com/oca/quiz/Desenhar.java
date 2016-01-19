@@ -5,50 +5,45 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.HashMap;
 
-import br.com.oca.conteudo.ConteudoOCA;
+import br.com.oca.conteudo.OCA;
 
 
 public class Desenhar extends Canvas {
 	private static final long serialVersionUID = 1L;
 	
-	private ConteudoOCA conteudo;
+	private OCA conteudo;
 	private HashMap<Integer, String> respostas;
 	private String[][] questoes;
 	
 	public Desenhar(HashMap<Integer, String> _respostas) {
-		conteudo = ConteudoOCA.getInstance();
+		conteudo = OCA.getInstance();
 		respostas = _respostas;
 		questoes = conteudo.getPerguntas();
 	}
 	
 	public void paint(Graphics g) {
-		int numeroQuestoes = 10;
 		int x = 10;
 		int y = 20;
 		
-		for (int i = 0; i < numeroQuestoes; i++) {
-			// print the 1st column
-			g.setColor(Color.BLACK);
+		for (int count = 0; count < conteudo.getNumeroMaximoQuestoes(); count++) {
 			g.setFont(new Font("Arial", Font.BOLD, 12));
-			g.drawString(i + 1 + ". " + questoes[i][0], x, y);
-			y += 30;
+			g.setColor(Color.BLACK);
+			g.drawString(count + 1 + ". " + questoes[count][0], x, y);
 			g.setFont(new Font("Arial", Font.PLAIN, 12));
-			g.drawString("      Resposta Correta:" + questoes[i][1], x, y);
 			y += 30;
-			if (questoes[i][1].equals(respostas.get(i))) {
-				g.setColor(Color.GREEN);
-				g.drawString("      Sua Resposta:" + respostas.get(i), x, y);
-			} else {
-				g.setColor(Color.RED);
-				g.drawString("      Sua Resposta:" + respostas.get(i), x, y);
-			}
-			
+			g.drawString("      Resposta Correta:" + questoes[count][1], x, y);
 			y += 30;
-			
-			if (y > 400) {
-				y = 20;
-				x = 450;
-			}
+			if (questoes[count][1].equals(respostas.get(count))) 
+				exibirRespostaUsuario(g, Color.GREEN, count, x, y);
+			 else
+				exibirRespostaUsuario(g, Color.RED, count, x, y);
+
+			y += 30;
+//			
+//			if (y > 400) {
+//				y = 20;
+//				x = 450;
+//			}
 
 		}
 
@@ -57,11 +52,15 @@ public class Desenhar extends Canvas {
 		g.drawString("Você Acertou " + getNumeroQuestoesCorretas() + " Questões.", 300, 500);
 	}
 	
+	private void exibirRespostaUsuario(Graphics g, Color cor, int count, int x, int y) {
+		g.setColor(cor);
+		g.drawString("      Sua Resposta:" + respostas.get(count), x, y);
+	}
+	
 	private int getNumeroQuestoesCorretas() {
-		int numeroQuestoes = 10;
 		int numeroQuestoesCorretas = 0;
 
-		for (int count = 0; count < numeroQuestoes; count++) {
+		for (int count = 0; count < conteudo.getNumeroMaximoQuestoes(); count++) {
 			if (questoes[count][1].equals(respostas.get(count)))
 				numeroQuestoesCorretas++;
 		}

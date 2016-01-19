@@ -1,41 +1,27 @@
 package br.com.oca.conteudo;
 
-public class ConteudoOCA {
-	private volatile static ConteudoOCA instance;
+public class OCA extends Conteudo {
+	private volatile static OCA instance;
 	
-	private String[][] alternativas;
-	private String[][] perguntas;
-	
-	private ConteudoOCA() {
-		alternativas = new String[10][5];
-		perguntas = new String[10][2];
-		
-		preenxerAlternativas();
-		preenxerPerguntas();
+	private OCA() {
+		super(9);
 	}
 	
-	public static ConteudoOCA getInstance() {
+	public static OCA getInstance() {
 		
 		if (instance == null) {
-			synchronized (ConteudoOCA.class) {
+			synchronized (OCA.class) {
 				if (instance == null) {
-					instance = new ConteudoOCA();
+					instance = new OCA();
 				}
 			}
 		}
 		
 		return instance;
 	}
-		
-	public String[][] getAlternativas() {
-		return alternativas;
-	}
-
-	public String[][] getPerguntas() {
-		return perguntas;
-	}
-
-	private void preenxerAlternativas() {
+	
+	@Override
+	protected void preenxerAlternativas() {
 		
 		alternativas[0][0] = "Which of the following statements are true?";
 		alternativas[0][1] = "A. For any non-null reference o1, the expression (o1 instanceof o1) will always yield true.";
@@ -91,14 +77,10 @@ public class ConteudoOCA {
 		alternativas[8][3] = "int[size] arr=new int[size]";
 		alternativas[8][4] = "int[] arr=new int[size]";
 
-		alternativas[9][0] = "What is the correct way to allocate two-dimensional array?";
-		alternativas[9][1] = "int[size][] arr=new int[][]";
-		alternativas[9][2] = "int arr=new int[rows][cols]";
-		alternativas[9][3] = "int arr[rows][]=new int[rows][cols]";
-		alternativas[9][4] = "int[][] arr=new int[rows][cols]";
 	}
-	
-	public void preenxerPerguntas() {
+
+	@Override
+	protected void preenxerPerguntas() {
 		
 		perguntas[0][0] = "Which of the following statements are true?";
 		perguntas[0][1] = "B. For any non-null reference o1, the expression (o1 instanceof Object) will always yield true.";
@@ -127,7 +109,5 @@ public class ConteudoOCA {
 		perguntas[8][0] = "What is the correct way to allocate one-dimensional array?";
 		perguntas[8][1] = "int[] arr=new int[size]";
 
-		perguntas[9][0] = "What is the correct way to allocate two-dimensional array?";
-		perguntas[9][1] = "int[][] arr=new int[rows][cols]";
 	}
 }

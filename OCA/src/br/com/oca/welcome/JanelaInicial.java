@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 import javax.swing.Action;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -39,9 +38,8 @@ public class JanelaInicial extends JFrame {
 	private JScrollPane barraRolagem; 
 	private DefaultTableModel modelo = new DefaultTableModel(); 
 
-	
 	public JanelaInicial() {
-		setTitle("OCATests");
+		setTitle("CertificTests");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(500, 400);
 		setLocation(300, 100);
@@ -115,15 +113,15 @@ public class JanelaInicial extends JFrame {
         JMenuItem pasteAction = new JMenuItem("Colar");
         pasteAction.setAction(getActionByName(DefaultEditorKit.pasteAction));
         
-        JMenuItem aboutAction = new JMenuItem("About OCATests");
+        JMenuItem aboutAction = new JMenuItem("About CertificTests");
         aboutAction.addActionListener(new ActionListener() { 
         	public void actionPerformed(ActionEvent e) {
-        		JOptionPane.showMessageDialog(null,"OCATests\n\n"
+        		JOptionPane.showMessageDialog(null,"CertificTests\n\n"
         									+ "Versão: 1.0.0\n"
-        									+ "(c) Copyright OCATests contributors and others 2016.  All rights reserved.\n\n"
+        									+ "(c) Copyright CertificTests contributors and others 2016.  All rights reserved.\n\n"
         									+ "Autor: Tiago H. Silva.\n"
         									+ "Adaptado encima da Versão de Dara Yuk: http://java.worldbestlearningcenter.com/\n"
-        									, "About OCATests", JOptionPane.INFORMATION_MESSAGE);
+        									, "About CertificTests", JOptionPane.INFORMATION_MESSAGE);
         	}
         });
         

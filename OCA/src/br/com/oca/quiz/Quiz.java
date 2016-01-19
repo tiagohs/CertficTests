@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Enumeration;
 import java.util.HashMap;
-
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -18,9 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import br.com.oca.conteudo.ConteudoOCA;
+import br.com.oca.conteudo.OCA;
 
-public class Quiz extends JFrame implements ActionListener {
+public class Quiz extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel regiaoAlternativas;
@@ -36,11 +35,11 @@ public class Quiz extends JFrame implements ActionListener {
 	private String[][] alternativas;
 
 	private int numeroQuestao;
-	private ConteudoOCA conteudo;
+	private OCA conteudo;
 	private HashMap<Integer, String> map;
 
 	public Quiz() {
-		conteudo = ConteudoOCA.getInstance();
+		conteudo = OCA.getInstance();
 		map = new HashMap<Integer, String>();
 		alternativas = conteudo.getAlternativas();
 
@@ -103,31 +102,41 @@ public class Quiz extends JFrame implements ActionListener {
 		
 		btProximo = new JButton("Próxima Questão");
 		btAjuda = new JButton("Ajuda com a Questão");
-		btAjuda.addActionListener(this);
+		
+		btAjuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btAjuda.setPreferredSize(new Dimension(180, 40));
 		
-		btProximo.addActionListener(this);
+		btProximo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {	
+				switch (btProximo.getText()) {
+					case "Próxima Questão":
+						verificaEstadoPerguntas();
+					break;
+					case "Exibir Respostas.":
+						new Resultados(map);
+				}
+			}
+		});
 		btProximo.setPreferredSize(new Dimension(100, 40));
 		
 		regiaoAlternativas.add(btProximo);
 		regiaoAlternativas.add(btAjuda);
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		
-		if (btProximo.getText().equals("Próxima Questão")) {
-			if (numeroQuestao < 9) {
-				map.put(numeroQuestao, getOpcaoSelecionada());
-				numeroQuestao++;
-				setAlternativas(numeroQuestao);
-			} else {
-				map.put(numeroQuestao, getOpcaoSelecionada());
-				btProximo.setText("Exibir Respostas.");
-			}
-		} else if (btProximo.getText().equals("Exibir Respostas.")) {
-			new Resultados(map);
+	private void verificaEstadoPerguntas() {
+
+		if (numeroQuestao < conteudo.getNumeroMaximoQuestoes()-1) {
+			map.put(numeroQuestao, getOpcaoSelecionada());
+			numeroQuestao++;
+			setAlternativas(numeroQuestao);
+		} else {
+			map.put(numeroQuestao, getOpcaoSelecionada());
+			btProximo.setText("Exibir Respostas.");
 		}
-			
 	}
 
 	public String getOpcaoSelecionada() {
@@ -146,13 +155,13 @@ public class Quiz extends JFrame implements ActionListener {
 		return (opcaoSelecionada);
 	}
 
-	public void setAlternativas(int qid) {
+	public void setAlternativas(int numeroQuestao) {
 
-		lblQuestao.setText("  " + alternativas[qid][0]);
-		opcaoA.setText(alternativas[qid][1]);
-		opcaoB.setText(alternativas[qid][2]);
-		opcaoC.setText(alternativas[qid][3]);
-		opcaoD.setText(alternativas[qid][4]);
+		lblQuestao.setText("  " + alternativas[numeroQuestao][0]);
+		opcaoA.setText(alternativas[numeroQuestao][1]);
+		opcaoB.setText(alternativas[numeroQuestao][2]);
+		opcaoC.setText(alternativas[numeroQuestao][3]);
+		opcaoD.setText(alternativas[numeroQuestao][4]);
 		opcaoA.setSelected(true);
 
 	}
