@@ -37,11 +37,13 @@ public class Quiz extends JFrame {
 	private String[][] alternativas;
 	
 	private PerguntasSource label;
+	private String nomeTeste;
+	private String tipoTeste;
 	private int numeroQuestao;
 	private OCA conteudo;
 	private HashMap<Integer, String> map;
 
-	public Quiz(String idiomaTeste, String nomeTeste, String tipoTeste) {
+	public Quiz(String idiomaTeste, String _nomeTeste, String _tipoTeste) {
 		conteudo = OCA.getInstance();
 		map = new HashMap<Integer, String>();
 		alternativas = conteudo.getAlternativas();
@@ -53,6 +55,10 @@ public class Quiz extends JFrame {
 		setResizable(false);
 		Container janelaPrincipal = getContentPane();
 		janelaPrincipal.setLayout(null);
+		
+		nomeTeste = _nomeTeste;
+		tipoTeste = _tipoTeste;
+		label = new PerguntasSource(idiomaTeste, nomeTeste);
 		
 		preenxerJanelaRegiaoPerguntas();
 		preenxerJanelaRegiaoAlternativas();
@@ -161,10 +167,10 @@ public class Quiz extends JFrame {
 	public void setAlternativas(int numeroQuestao) {
 
 		lblQuestao.setText("  " + alternativas[numeroQuestao][0]);
-		opcaoA.setText(alternativas[numeroQuestao][1]);
-		opcaoB.setText(alternativas[numeroQuestao][2]);
-		opcaoC.setText(alternativas[numeroQuestao][3]);
-		opcaoD.setText(alternativas[numeroQuestao][4]);
+		opcaoA.setText("A - " + alternativas[numeroQuestao][1]);
+		opcaoB.setText("B - " + alternativas[numeroQuestao][2]);
+		opcaoC.setText("C - " + alternativas[numeroQuestao][3]);
+		opcaoD.setText("D - " + alternativas[numeroQuestao][4]);
 		opcaoA.setSelected(true);
 
 	}

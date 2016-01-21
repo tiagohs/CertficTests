@@ -26,4 +26,8 @@ public class PerguntasSource {
 		return bundle.getString(key);
 	}
 	
+	public ResourceBundle getBundle() {
+		return bundle;
+	}
+	
 }
