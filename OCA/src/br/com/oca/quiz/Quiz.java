@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Enumeration;
 import java.util.HashMap;
+
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -18,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import br.com.oca.conteudo.OCA;
+import br.com.oca.i18n.perguntas.PerguntasSource;
 
 public class Quiz extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -33,12 +35,13 @@ public class Quiz extends JFrame {
 	private JButton btProximo;
 	private JButton btAjuda;
 	private String[][] alternativas;
-
+	
+	private PerguntasSource label;
 	private int numeroQuestao;
 	private OCA conteudo;
 	private HashMap<Integer, String> map;
 
-	public Quiz() {
+	public Quiz(String idiomaTeste, String nomeTeste, String tipoTeste) {
 		conteudo = OCA.getInstance();
 		map = new HashMap<Integer, String>();
 		alternativas = conteudo.getAlternativas();

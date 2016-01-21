@@ -5,12 +5,11 @@ import java.util.ResourceBundle;
 
 public class PerguntasSource {
 	private ResourceBundle bundle;
-	private String nomeExame;
 	private Locale local;
 
-	public PerguntasSource(String idiomaEscolhido) {
+	public PerguntasSource(String idiomaEscolhido, String nomeExame) {
 		local = verificaIdioma(idiomaEscolhido);
-		bundle = ResourceBundle.getBundle("br.com.oca.i18n.perguntas/perguntasOCA", local);
+		bundle = ResourceBundle.getBundle("br.com.oca.i18n.perguntas/perguntas" + nomeExame, local);
 	}
 
 	private Locale verificaIdioma(String idiomaEscolhido) {
@@ -23,7 +22,8 @@ public class PerguntasSource {
 		}
 	}
 	
-	public static void main(String[] args) {
-		new PerguntasSource("Inglês");
+	public String getString(String key) {
+		return bundle.getString(key);
 	}
+	
 }
