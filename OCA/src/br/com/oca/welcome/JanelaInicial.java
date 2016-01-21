@@ -5,6 +5,8 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.Action;
 import javax.swing.BorderFactory;
@@ -34,6 +36,7 @@ public class JanelaInicial extends JFrame {
 	private JMenu menuAjuda;
 	private HashMap<Object, Action> actions;
 	
+	private String idioma;
 	private JTable tabela; 
 	private JScrollPane barraRolagem; 
 	private DefaultTableModel modelo = new DefaultTableModel(); 
@@ -44,7 +47,8 @@ public class JanelaInicial extends JFrame {
 		setSize(500, 400);
 		setLocation(300, 100);
 		setResizable(false);
-		
+		idioma = getIdioma();
+		System.out.println(idioma);
 		menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         criarMenuBar();
@@ -60,6 +64,13 @@ public class JanelaInicial extends JFrame {
         regiaoTabela.add(painelFundo);
         janelaPrincipal.add(regiaoTabela);
         setVisible(true);
+	}
+	
+	private String getIdioma() {
+		String[] idiomas = { "Inglês", "Português Brasil"};
+
+		return (String) JOptionPane.showInputDialog(this, "Entre com o Idioma Desejado (Enter the Language Desire): ", 
+				"Escolher Idioma",JOptionPane.QUESTION_MESSAGE,  null, idiomas, idiomas[0]);
 	}
 	
 	private void criarTabela() {
