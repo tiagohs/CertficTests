@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -18,7 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import br.com.oca.conteudo.Conteudo;
 import br.com.oca.conteudo.OCA;
+import br.com.oca.conteudo.Questao;
 import br.com.oca.i18n.perguntas.PerguntasSource;
 
 public class Quiz extends JFrame {
@@ -26,10 +29,7 @@ public class Quiz extends JFrame {
 	
 	private JPanel regiaoAlternativas;
 	private JPanel regiaoPergunta;
-	private JRadioButton opcaoA;
-	private JRadioButton opcaoB;
-	private JRadioButton opcaoC;
-	private JRadioButton opcaoD;
+	private JRadioButton botaoAlternativa;
 	private ButtonGroup buttonGroupOpcoes;
 	private JLabel lblQuestao;
 	private JButton btProximo;
@@ -40,12 +40,12 @@ public class Quiz extends JFrame {
 	private String nomeTeste;
 	private String tipoTeste;
 	private int numeroQuestao;
-	private OCA conteudo;
-	private HashMap<Integer, String> map;
+	private Conteudo conteudo;
+	private HashMap<Integer, Questao> opcoesSelecionadas;
 
 	public Quiz(String idiomaTeste, String _nomeTeste, String _tipoTeste) {
-		conteudo = OCA.getInstance();
-		map = new HashMap<Integer, String>();
+		conteudo = OCA.getInstance(_nomeTeste, _tipoTeste);
+		opcoesSelecionadas = new HashMap<Integer, Questao>();
 		alternativas = conteudo.getAlternativas();
 
 		setTitle("Oracle Certified Associate, Java SE 7 Programmer");
@@ -68,7 +68,7 @@ public class Quiz extends JFrame {
 		janelaPrincipal.add(regiaoAlternativas);
 		setVisible(true);
 		numeroQuestao = 0;
-		setAlternativas(numeroQuestao);
+		setAlternativas(conteudo.getQuestao(numeroQuestao));
 	}
 	
 	private void preenxerJanelaRegiaoPerguntas() {
@@ -90,21 +90,7 @@ public class Quiz extends JFrame {
 		regiaoAlternativas.setSize(780, 360);
 		regiaoAlternativas.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 		
-		opcaoA = new JRadioButton("Choice1", true);
-		opcaoB = new JRadioButton("Choice2", false);
-		opcaoC = new JRadioButton("Choice3", false);
-		opcaoD = new JRadioButton("Choice4", false);
 		
-		buttonGroupOpcoes = new ButtonGroup();
-		buttonGroupOpcoes.add(opcaoA);
-		buttonGroupOpcoes.add(opcaoB);
-		buttonGroupOpcoes.add(opcaoC);
-		buttonGroupOpcoes.add(opcaoD);
-		
-		regiaoAlternativas.add(opcaoA);
-		regiaoAlternativas.add(opcaoB);
-		regiaoAlternativas.add(opcaoC);
-		regiaoAlternativas.add(opcaoD);
 	}
 	
 	private void preenxerJanelaRegiaoBotoes() {
@@ -126,7 +112,7 @@ public class Quiz extends JFrame {
 						verificaEstadoPerguntas();
 					break;
 					case "Exibir Respostas.":
-						new Resultados(map);
+						new Resultados(opcoesSelecionadas, conteudo);
 				}
 			}
 		});
@@ -137,13 +123,12 @@ public class Quiz extends JFrame {
 	}
 	
 	private void verificaEstadoPerguntas() {
-
-		if (numeroQuestao < conteudo.getNumeroMaximoQuestoes()-1) {
-			map.put(numeroQuestao, getOpcaoSelecionada());
+		
+		opcoesSelecionadas.put(numeroQuestao, conteudo.getQuestao(numeroQuestao));
+		if (numeroQuestao <= conteudo.getNumeroMaximoQuestoes()) {
 			numeroQuestao++;
-			setAlternativas(numeroQuestao);
+			setAlternativas(conteudo.getQuestao(numeroQuestao));
 		} else {
-			map.put(numeroQuestao, getOpcaoSelecionada());
 			btProximo.setText("Exibir Respostas.");
 		}
 	}
@@ -164,22 +149,17 @@ public class Quiz extends JFrame {
 		return (opcaoSelecionada);
 	}
 
-	public void setAlternativas(int numeroQuestao) {
-
-		lblQuestao.setText("  " + alternativas[numeroQuestao][0]);
-		opcaoA.setText("A - " + alternativas[numeroQuestao][1]);
-		opcaoB.setText("B - " + alternativas[numeroQuestao][2]);
-		opcaoC.setText("C - " + alternativas[numeroQuestao][3]);
-		opcaoD.setText("D - " + alternativas[numeroQuestao][4]);
-		opcaoA.setSelected(true);
-
+	public void setAlternativas(Questao questao) {
+		
+		lblQuestao.setText("  " + questao.getEnunciado());
+		buttonGroupOpcoes = new ButtonGroup();
+		
+		for (Map.Entry<Character, String> alternativa : questao.getlistaAlternativas().entrySet()) {
+			botaoAlternativa = new JRadioButton(alternativa.getKey() + " - " + alternativa.getValue());
+			buttonGroupOpcoes.add(botaoAlternativa);
+			regiaoAlternativas.add(botaoAlternativa);
+		}
+		
 	}
 
-	public void reset() {
-
-		numeroQuestao = 0;
-		map.clear();
-		setAlternativas(numeroQuestao);
-		btProximo.setText("Próxima Questão");
-	}
 }
