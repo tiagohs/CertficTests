@@ -4,7 +4,7 @@ public class OCA extends Conteudo {
 	private volatile static OCA instance;
 
 	private OCA(String idiomaTeste, String nomeTeste) {
-		super(2, idiomaTeste, nomeTeste);
+		super(nomeTeste, idiomaTeste);
 	}
 
 	public static OCA getInstance(String idiomaTeste, String nomeTeste) {
@@ -35,12 +35,8 @@ public class OCA extends Conteudo {
 		questao = new Questao(perguntasSource.getString("exercicio2.questao"), 'A');
 		questao.addAlternativa('A', perguntasSource.getString("exercicio2.opcao_a"));
 		questao.addAlternativa('B', perguntasSource.getString("exercicio2.opcao_b"));
-		questao.addAlternativa('C', perguntasSource.getString("exercicio2.opcao_c"));
-		questao.addAlternativa('D', perguntasSource.getString("exercicio2.opcao_d"));
-		questao.addAlternativa('E', perguntasSource.getString("exercicio2.opcao_e"));
 		
 		listaQuestoes.add(questao);
 		
-
 	}
 }

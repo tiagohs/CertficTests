@@ -60,12 +60,16 @@ public class Questao {
 	public void setAlternativaCorreta(Character alternativaCorreta) {
 		this.alternativaCorreta = alternativaCorreta;
 	}
-
+	
+	public String getEnunciadoAlternativaCorreta() {
+		return getAlternativa(alternativaCorreta);
+	}
+	
 	public boolean containsAlternativa(Character key) {
 		return listaAlternativas.containsKey(key);
 	}
 	
-	public String getAlternativa(String letra) {
+	public String getAlternativa(Character letra) {
 		return listaAlternativas.get(letra);
 	}
 	

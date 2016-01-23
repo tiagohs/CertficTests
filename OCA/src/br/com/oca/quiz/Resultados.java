@@ -19,16 +19,15 @@ public class Resultados extends JFrame {
 	private JScrollPane barraRolagem;
 	
 	private Conteudo conteudo;
-	private HashMap<Integer, Questao> respostas;
-	private String[][] questoes;
+	private HashMap<Integer, String> respostas;
 	
-	public Resultados(HashMap<Integer, Questao> _respostas, Conteudo _conteudo) {
+	public Resultados(HashMap<Integer, String> _respostas, Conteudo _conteudo) {
 		conteudo = _conteudo;
 		respostas = _respostas;
-		questoes = conteudo.getPerguntas();
 		
 		setTitle("Resultados | CertificTests");
 		setSize(850, 550);
+		setLocation(300, 10);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setResizable(false);
 		
@@ -47,15 +46,15 @@ public class Resultados extends JFrame {
 		int numeroQuestao = 1;
 		
 		regiaoResultados.add(new JLabel("  "));
-		for (int count = 0; count < conteudo.getNumeroMaximoQuestoes(); count++) {
-			inserirLinha(Color.BLACK, new Font("Arial",Font.PLAIN, 12), "    " + numeroQuestao++ + ". " + questoes[count][0]);
+		for (int count = 0; count < conteudo.getTotalQuestoes(); count++) {
+			inserirLinha(Color.BLACK, new Font("Arial",Font.PLAIN, 12), "    " + numeroQuestao++ + ". " + conteudo.getQuestao(count).getEnunciado());
 			regiaoResultados.add(new JLabel("  "));
-			inserirLinha(Color.BLACK, new Font("Arial",Font.BOLD, 12), "       Resposta Correta: " + questoes[count][1]);
+			inserirLinha(Color.BLACK, new Font("Arial",Font.BOLD, 12), "       Resposta Correta: " + conteudo.getQuestao(count).getEnunciadoAlternativaCorreta());
 
-			if (questoes[count][1].equals(respostas.get(count))) 
-				inserirLinha(Color.GREEN, new Font("Arial",Font.BOLD, 12), "     Sua Resposta:: " + questoes[count][1]);
+			if (conteudo.getQuestao(count).getEnunciadoAlternativaCorreta().equals(respostas.get(count))) 
+				inserirLinha(Color.GREEN, new Font("Arial",Font.BOLD, 14), "     Sua Resposta:: " + respostas.get(count));
 			 else 
-				inserirLinha(Color.RED, new Font("Arial", Font.BOLD, 14), "     Sua Resposta:: " + questoes[count][1]);
+				inserirLinha(Color.RED, new Font("Arial", Font.BOLD, 14), "     Sua Resposta:: " + respostas.get(count));
 			
 			regiaoResultados.add(new JLabel("  "));
 			regiaoResultados.add(new JLabel("  "));
@@ -76,8 +75,8 @@ public class Resultados extends JFrame {
 	private int getNumeroQuestoesCorretas() {
 		int numeroQuestoesCorretas = 0;
 
-		for (int count = 0; count < conteudo.getNumeroMaximoQuestoes(); count++) {
-			if (questoes[count][1].equals(respostas.get(count)))
+		for (int count = 0; count < conteudo.getTotalQuestoes(); count++) {
+			if (conteudo.getQuestao(count).getEnunciadoAlternativaCorreta().equals(respostas.get(count)))
 				numeroQuestoesCorretas++;
 		}
 

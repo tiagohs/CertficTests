@@ -8,18 +8,9 @@ public abstract class Conteudo {
 	protected ArrayList<Questao> listaQuestoes;
 	protected PerguntasSource perguntasSource;
 	
-	protected String[][] alternativas;
-	protected String[][] perguntas;
-	private Integer numeroMaximoQuestoes;
-	
-	protected Conteudo(int _numeroMaximoQuestoes, String nomeTeste, String idiomaTeste) {
-		numeroMaximoQuestoes = _numeroMaximoQuestoes;
+	protected Conteudo(String nomeTeste, String idiomaTeste) {
 		listaQuestoes = new ArrayList<Questao>();
-		perguntasSource = new PerguntasSource(idiomaTeste, nomeTeste);
-		
-		alternativas = new String[numeroMaximoQuestoes][5];
-		perguntas = new String[numeroMaximoQuestoes][2];
-		
+		perguntasSource = new PerguntasSource(nomeTeste, idiomaTeste);
 		preenxerQuestoes();
 	}
 	
@@ -30,21 +21,13 @@ public abstract class Conteudo {
 	public void setListaQuestoes(ArrayList<Questao> listaQuestoes) {
 		this.listaQuestoes = listaQuestoes;
 	}
-
-	public String[][] getAlternativas() {
-		return alternativas;
-	}
-
-	public String[][] getPerguntas() {
-		return perguntas;
-	}
 	
 	public Questao getQuestao(int numeroQuestao) {
 		return listaQuestoes.get(numeroQuestao);
 	}
 	
-	public Integer getNumeroMaximoQuestoes() {
-		return numeroMaximoQuestoes;
+	public Integer getTotalQuestoes() {
+		return listaQuestoes.size();
 	}
 	
 	public boolean isEmpty() {
