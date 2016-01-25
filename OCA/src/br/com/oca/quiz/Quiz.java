@@ -24,12 +24,16 @@ import javax.swing.JTextArea;
 import br.com.oca.conteudo.Conteudo;
 import br.com.oca.conteudo.OCA;
 import br.com.oca.conteudo.Questao;
+import br.com.oca.enums.Certificacao;
+import br.com.oca.enums.Idioma;
+import br.com.oca.enums.TipoTeste;
+import br.com.oca.i18n.janelas.JanelasSource;
 
 public class Quiz extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel regiaoAlternativas;
-	private JPanel regiaoPergunta;
+	private JPanel regiaoEnunciado;
 	private JPanel regiaoBotoes;
 	private Container janelaPrincipal;
 	private JRadioButton botaoAlternativa;
@@ -37,17 +41,23 @@ public class Quiz extends JFrame {
 	private JButton btProximo;
 	private JTextArea txtEnunciado;
 	private JButton btAjuda;
-
+	
+	private JanelasSource label;
 	private int numeroQuestao;
+	private Idioma idioma;
+	private TipoTeste tipoTeste;
 	private Conteudo conteudo;
 	private HashMap<Integer, String> opcoesSelecionadas;
 
-	public Quiz(String idiomaTeste, String nomeTeste, String tipoTeste) {
-		conteudo = OCA.getInstance(nomeTeste, idiomaTeste);
+	public Quiz(Idioma idiomaTeste, Certificacao nomeTeste, TipoTeste _tipoTeste) {
+		idioma = idiomaTeste;
+		tipoTeste = _tipoTeste;
+		conteudo = OCA.getInstance(nomeTeste, idioma);
 		opcoesSelecionadas = new HashMap<Integer, String>();
+		label = JanelasSource.getInstance(idioma);
 		numeroQuestao = 0;
 		
-		setTitle("Oracle Certified Associate, Java SE 7 Programmer");
+		setTitle(nomeTeste.getNome());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(800, 700);
 		setLocation(300, 10);
@@ -55,23 +65,20 @@ public class Quiz extends JFrame {
 		janelaPrincipal = getContentPane();
 		janelaPrincipal.setLayout(null);
 
-		preenxerJanelaRegiaoPerguntas();
+		preenxerJanelaRegiaoEnunciado();
 		preenxerJanelaRegiaoAlternativas();
 		preenxerJanelaRegiaoBotoes();
 
-		janelaPrincipal.add(regiaoPergunta);
-		janelaPrincipal.add(regiaoAlternativas);
-		janelaPrincipal.add(regiaoBotoes);
 		setVisible(true);
 	}
 
-	private void preenxerJanelaRegiaoPerguntas() {
+	private void preenxerJanelaRegiaoEnunciado() {
 
-		regiaoPergunta = new JPanel();
-		regiaoPergunta.setLayout(new BoxLayout(regiaoPergunta, BoxLayout.PAGE_AXIS));
-		regiaoPergunta.setLocation(10, 80);
-		regiaoPergunta.setSize(780, 150);
-		regiaoPergunta.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+		regiaoEnunciado = new JPanel();
+		regiaoEnunciado.setLayout(new BoxLayout(regiaoEnunciado, BoxLayout.PAGE_AXIS));
+		regiaoEnunciado.setLocation(10, 80);
+		regiaoEnunciado.setSize(780, 150);
+		regiaoEnunciado.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 
 		txtEnunciado = new JTextArea(7, 40);
 		txtEnunciado.setEditable(false);
@@ -81,8 +88,8 @@ public class Quiz extends JFrame {
 		txtEnunciado.setLineWrap(true);
 		txtEnunciado.setWrapStyleWord(true);
 	
-		regiaoPergunta.add(txtEnunciado);
-		
+		regiaoEnunciado.add(txtEnunciado);
+		janelaPrincipal.add(regiaoEnunciado);
 	}
 	
 	private void preenxerJanelaRegiaoAlternativas() {
@@ -93,7 +100,8 @@ public class Quiz extends JFrame {
 		regiaoAlternativas.setSize(780, 340);
 		regiaoAlternativas.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 		
-		setAlternativas(conteudo.getQuestao(numeroQuestao));
+		setTextoQuestao(conteudo.getQuestao(numeroQuestao));
+		janelaPrincipal.add(regiaoAlternativas);
 	}
 
 	private void preenxerJanelaRegiaoBotoes() {
@@ -102,9 +110,9 @@ public class Quiz extends JFrame {
 		regiaoBotoes.setLocation(10, 620);
 		regiaoBotoes.setSize(780, 100);
 
-		btProximo = new JButton("Próxima Questão");
-		btAjuda = new JButton("Ajuda com a Questão");
-
+		btProximo = new JButton(label.getString("botaoProximo"));
+		btAjuda = new JButton(label.getString("botaoAjuda"));
+		
 		btAjuda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -114,20 +122,14 @@ public class Quiz extends JFrame {
 
 		btProximo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switch (btProximo.getText()) {
-					case "Próxima Questão":
-						verificaEstadoPerguntas();
-						break;
-					case "Exibir Respostas.":
-						setVisible(false);
-						new Resultados(opcoesSelecionadas, conteudo);
-				}
+				verificaEstadoPerguntas();
 			}
 		});
 		btProximo.setPreferredSize(new Dimension(160, 40));
 
 		regiaoBotoes.add(btProximo);
 		regiaoBotoes.add(btAjuda);
+		janelaPrincipal.add(regiaoBotoes);
 	}
 
 	private void verificaEstadoPerguntas() {
@@ -138,12 +140,18 @@ public class Quiz extends JFrame {
 			numeroQuestao++;
 			regiaoAlternativas.removeAll();
 			regiaoAlternativas.setForeground(Color.LIGHT_GRAY);
-			setAlternativas(conteudo.getQuestao(numeroQuestao));
+			setTextoQuestao(conteudo.getQuestao(numeroQuestao));
 		} else {
-			btProximo.setText("Exibir Respostas.");
+			btProximo.setText(label.getString("botaoExibirRespostas"));
+			btProximo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setVisible(false);
+					new Resultados(opcoesSelecionadas, conteudo, idioma, tipoTeste);
+				}
+			});
 		}
 	}
-
+	
 	private String getOpcaoSelecionada() {
 		
 		for (Enumeration<AbstractButton> buttons = buttonGroupOpcoes.getElements(); buttons.hasMoreElements();) {
@@ -156,7 +164,7 @@ public class Quiz extends JFrame {
 		return null;
 	}
 
-	public void setAlternativas(Questao questao) {
+	public void setTextoQuestao(Questao questao) {
 		
 		txtEnunciado.setText(questao.getEnunciado());
 		
@@ -171,4 +179,100 @@ public class Quiz extends JFrame {
 		buttonGroupOpcoes.getElements().nextElement().setSelected(true);
 	}
 
+	public JPanel getRegiaoAlternativas() {
+		return regiaoAlternativas;
+	}
+
+	public void setRegiaoAlternativas(JPanel regiaoAlternativas) {
+		this.regiaoAlternativas = regiaoAlternativas;
+	}
+
+	public JPanel getRegiaoEnunciado() {
+		return regiaoEnunciado;
+	}
+
+	public void setRegiaoEnunciado(JPanel regiaoEnunciado) {
+		this.regiaoEnunciado = regiaoEnunciado;
+	}
+
+	public JPanel getRegiaoBotoes() {
+		return regiaoBotoes;
+	}
+
+	public void setRegiaoBotoes(JPanel regiaoBotoes) {
+		this.regiaoBotoes = regiaoBotoes;
+	}
+
+	public Container getJanelaPrincipal() {
+		return janelaPrincipal;
+	}
+
+	public void setJanelaPrincipal(Container janelaPrincipal) {
+		this.janelaPrincipal = janelaPrincipal;
+	}
+
+	public JRadioButton getBotaoAlternativa() {
+		return botaoAlternativa;
+	}
+
+	public void setBotaoAlternativa(JRadioButton botaoAlternativa) {
+		this.botaoAlternativa = botaoAlternativa;
+	}
+
+	public ButtonGroup getButtonGroupOpcoes() {
+		return buttonGroupOpcoes;
+	}
+
+	public void setButtonGroupOpcoes(ButtonGroup buttonGroupOpcoes) {
+		this.buttonGroupOpcoes = buttonGroupOpcoes;
+	}
+
+	public JButton getBtProximo() {
+		return btProximo;
+	}
+
+	public void setBtProximo(JButton btProximo) {
+		this.btProximo = btProximo;
+	}
+
+	public JTextArea getTxtEnunciado() {
+		return txtEnunciado;
+	}
+
+	public void setTxtEnunciado(JTextArea txtEnunciado) {
+		this.txtEnunciado = txtEnunciado;
+	}
+
+	public JButton getBtAjuda() {
+		return btAjuda;
+	}
+
+	public void setBtAjuda(JButton btAjuda) {
+		this.btAjuda = btAjuda;
+	}
+
+	public int getNumeroQuestao() {
+		return numeroQuestao;
+	}
+
+	public void setNumeroQuestao(int numeroQuestao) {
+		this.numeroQuestao = numeroQuestao;
+	}
+
+	public Conteudo getConteudo() {
+		return conteudo;
+	}
+
+	public void setConteudo(Conteudo conteudo) {
+		this.conteudo = conteudo;
+	}
+
+	public HashMap<Integer, String> getOpcoesSelecionadas() {
+		return opcoesSelecionadas;
+	}
+
+	public void setOpcoesSelecionadas(HashMap<Integer, String> opcoesSelecionadas) {
+		this.opcoesSelecionadas = opcoesSelecionadas;
+	}
+	
 }

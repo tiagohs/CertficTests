@@ -2,15 +2,17 @@ package br.com.oca.conteudo;
 
 import java.util.ArrayList;
 
+import br.com.oca.enums.Certificacao;
+import br.com.oca.enums.Idioma;
 import br.com.oca.i18n.perguntas.PerguntasSource;
 
 public abstract class Conteudo {
 	protected ArrayList<Questao> listaQuestoes;
 	protected PerguntasSource perguntasSource;
 	
-	protected Conteudo(String nomeTeste, String idiomaTeste) {
+	protected Conteudo(Certificacao nomeTeste, Idioma idiomaTeste) {
 		listaQuestoes = new ArrayList<Questao>();
-		perguntasSource = new PerguntasSource(nomeTeste, idiomaTeste);
+		perguntasSource = PerguntasSource.getInstance(idiomaTeste, nomeTeste);
 		preenxerQuestoes();
 	}
 	

@@ -1,18 +1,21 @@
 package br.com.oca.conteudo;
 
+import br.com.oca.enums.Certificacao;
+import br.com.oca.enums.Idioma;
+
 public class OCA extends Conteudo {
 	private volatile static OCA instance;
 
-	private OCA(String idiomaTeste, String nomeTeste) {
+	private OCA(Certificacao nomeTeste, Idioma idiomaTeste) {
 		super(nomeTeste, idiomaTeste);
 	}
 
-	public static OCA getInstance(String idiomaTeste, String nomeTeste) {
+	public static OCA getInstance(Certificacao nomeTeste, Idioma idiomaTeste) {
 
 		if (instance == null) {
 			synchronized (OCA.class) {
 				if (instance == null) {
-					instance = new OCA(idiomaTeste, nomeTeste);
+					instance = new OCA(nomeTeste, idiomaTeste);
 				}
 			}
 		}

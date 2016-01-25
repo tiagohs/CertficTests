@@ -3,20 +3,42 @@ package br.com.oca.i18n.perguntas;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import br.com.oca.enums.Certificacao;
+import br.com.oca.enums.Idioma;
+
 public class PerguntasSource {
+	private volatile static PerguntasSource instance;
+	
 	private ResourceBundle bundle;
 	private Locale local;
-
-	public PerguntasSource(String idiomaEscolhido, String nomeExame) {
+	
+	private PerguntasSource(Idioma idiomaEscolhido, Certificacao nomeExame) {
 		local = verificaIdioma(idiomaEscolhido);
 		bundle = ResourceBundle.getBundle("br.com.oca.i18n.perguntas/perguntas" + nomeExame, local);
 	}
+	
+	public static PerguntasSource getInstance(Idioma idiomaEscolhido, Certificacao nomeExame) {
 
-	private Locale verificaIdioma(String idiomaEscolhido) {
+		if (instance == null) {
+			synchronized (PerguntasSource.class) {
+				if (instance == null) {
+					instance = new PerguntasSource(idiomaEscolhido, nomeExame);
+				}
+			}
+		}
+
+		return instance;
+	}
+	
+	
+
+	private Locale verificaIdioma(Idioma idiomaEscolhido) {
 
 		switch (idiomaEscolhido) {
-			case "Inglês":
+			case Ingles:
 				return new Locale("en", "US");
+			case Portugues:
+				return new Locale("pt", "BR");
 			default:
 				return new Locale("en", "en");
 		}
