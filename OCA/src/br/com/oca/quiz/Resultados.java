@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import br.com.oca.conteudo.Conteudo;
+import br.com.oca.enums.Certificacao;
 import br.com.oca.enums.Idioma;
 import br.com.oca.enums.TipoTeste;
 import br.com.oca.i18n.janelas.JanelasSource;
@@ -28,15 +29,17 @@ public class Resultados extends JFrame {
 	private JanelasSource label;
 	private Conteudo conteudo;
 	private TipoTeste tipoTeste;
+	private Certificacao exame;
 	private Integer numQuestoesCorretas;
 	private Double nota;
 	private HashMap<Integer, String> respostas;
 	
-	public Resultados(HashMap<Integer, String> _respostas, Conteudo _conteudo, Idioma idioma, TipoTeste _tipoTeste) {
+	public Resultados(HashMap<Integer, String> _respostas, Conteudo _conteudo, Idioma idioma, TipoTeste _tipoTeste, Certificacao _exame) {
 		conteudo = _conteudo;
 		respostas = _respostas;
 		tipoTeste = _tipoTeste;
 		label = JanelasSource.getInstance(idioma);
+		exame = _exame;
 		
 		setTitle(label.getString("resultadosTitulo"));
 		setSize(850, 550);
@@ -117,15 +120,15 @@ public class Resultados extends JFrame {
 	}
 	
 	private void registrarTentativa() {
-		File file = new File ("tentativas.bin");
+		File file = new File (Tentativa.filename);
         ObjectOutputStream out = null;
 
         try {
             if (!file.exists ()) 
-            	out = new ObjectOutputStream (new FileOutputStream ("tentativas.bin"));
+            	out = new ObjectOutputStream (new FileOutputStream (Tentativa.filename));
             else 
-            	out = new AppendingObjectOutputStream (new FileOutputStream ("tentativas.bin", true));
-            out.writeObject(new Tentativa(tipoTeste, nota));
+            	out = new AppendingObjectOutputStream (new FileOutputStream (Tentativa.filename, true));
+            out.writeObject(new Tentativa(exame, tipoTeste, nota, numQuestoesCorretas));
             out.flush ();
             out.close();
         } catch (Exception e){

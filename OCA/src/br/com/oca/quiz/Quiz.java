@@ -45,19 +45,21 @@ public class Quiz extends JFrame {
 	private JanelasSource label;
 	private int numeroQuestao;
 	private Idioma idioma;
+	private Certificacao exame;
 	private TipoTeste tipoTeste;
 	private Conteudo conteudo;
 	private HashMap<Integer, String> opcoesSelecionadas;
 
-	public Quiz(Idioma idiomaTeste, Certificacao nomeTeste, TipoTeste _tipoTeste) {
+	public Quiz(Idioma idiomaTeste, Certificacao _exame, TipoTeste _tipoTeste) {
 		idioma = idiomaTeste;
 		tipoTeste = _tipoTeste;
-		conteudo = OCA.getInstance(nomeTeste, idioma);
+		exame = _exame;
+		conteudo = OCA.getInstance(exame, idioma);
 		opcoesSelecionadas = new HashMap<Integer, String>();
 		label = JanelasSource.getInstance(idioma);
 		numeroQuestao = 0;
 		
-		setTitle(nomeTeste.getNome());
+		setTitle(exame.getNome());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(800, 700);
 		setLocation(300, 10);
@@ -146,7 +148,7 @@ public class Quiz extends JFrame {
 			btProximo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setVisible(false);
-					new Resultados(opcoesSelecionadas, conteudo, idioma, tipoTeste);
+					new Resultados(opcoesSelecionadas, conteudo, idioma, tipoTeste, exame);
 				}
 			});
 		}
