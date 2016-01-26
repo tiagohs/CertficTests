@@ -39,7 +39,6 @@ import br.com.oca.tentativas.Tentativa;
 public class JanelaInicial extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	private JPanel painelFundo;
 	private JPanel regiaoTabela;
 	private JPanel popUpNovoTeste;
 	private Container janelaPrincipal;
@@ -70,7 +69,7 @@ public class JanelaInicial extends JFrame {
 		
 		setTitle("CertificTests");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(500, 400);
+		setSize(700, 600);
 		setLocation(300, 100);
 		setResizable(false);
 		janelaPrincipal = getContentPane();
@@ -106,28 +105,29 @@ public class JanelaInicial extends JFrame {
 	}
 	
 	private void criarTabela() {
+		
 		regiaoTabela = new JPanel();
 		regiaoTabela.setLocation(10, 10);
-		regiaoTabela.setSize(460, 320);
+		regiaoTabela.setSize(660, 520);
 		regiaoTabela.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 
 		tabela = new JTable(modelo);
+		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		modelo.addColumn(label.getString("tabelaTentativa"));
 		modelo.addColumn(label.getString("tabelaTesteEscolhido"));
 		modelo.addColumn(label.getString("tabelaNota"));
 		modelo.addColumn(label.getString("tabelaAcertos"));
-		tabela.getColumnModel().getColumn(0).setPreferredWidth(10);
-		tabela.getColumnModel().getColumn(1).setPreferredWidth(300);
-		tabela.getColumnModel().getColumn(1).setPreferredWidth(30);
-		tabela.getColumnModel().getColumn(2).setPreferredWidth(30);
+		tabela.setSize(650, 500);
+		tabela.getColumnModel().getColumn(0).setMinWidth(10);
+		tabela.getColumnModel().getColumn(1).setMinWidth(430);
+		tabela.getColumnModel().getColumn(1).setMinWidth(10);
+		tabela.getColumnModel().getColumn(2).setMinWidth(10);
 		listarTentativas();
 
 		barraRolagem = new JScrollPane(tabela);
-		painelFundo = new JPanel();
-		painelFundo.setLayout(new BorderLayout());
-		painelFundo.add(BorderLayout.CENTER, barraRolagem);
-
-		regiaoTabela.add(painelFundo);
+		regiaoTabela.setLayout(new BorderLayout());
+		regiaoTabela.add(BorderLayout.CENTER, barraRolagem);
+		
 		janelaPrincipal.add(regiaoTabela);
 	}
 
