@@ -36,12 +36,12 @@ public class Quiz extends JFrame {
 	private JPanel regiaoEnunciado;
 	private JPanel regiaoBotoes;
 	private Container janelaPrincipal;
-	private JRadioButton botaoAlternativa;
+	private JRadioButton radioAlternativa;
 	private ButtonGroup buttonGroupOpcoes;
-	private JButton btProximo;
+	private JButton botaoProximo;
+	private JButton botaoAjuda;
 	private JTextArea txtEnunciado;
-	private JButton btAjuda;
-	
+
 	private JanelasSource label;
 	private int numeroQuestao;
 	private Idioma idioma;
@@ -112,25 +112,25 @@ public class Quiz extends JFrame {
 		regiaoBotoes.setLocation(10, 620);
 		regiaoBotoes.setSize(780, 100);
 
-		btProximo = new JButton(label.getString("botaoProximo"));
-		btAjuda = new JButton(label.getString("botaoAjuda"));
+		botaoProximo = new JButton(label.getString("botaoProximo"));
+		botaoAjuda = new JButton(label.getString("botaoAjuda"));
 		
-		btAjuda.addActionListener(new ActionListener() {
+		botaoAjuda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 			}
 		});
-		btAjuda.setPreferredSize(new Dimension(180, 40));
+		botaoAjuda.setPreferredSize(new Dimension(180, 40));
 
-		btProximo.addActionListener(new ActionListener() {
+		botaoProximo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				verificaEstadoPerguntas();
 			}
 		});
-		btProximo.setPreferredSize(new Dimension(160, 40));
+		botaoProximo.setPreferredSize(new Dimension(160, 40));
 
-		regiaoBotoes.add(btProximo);
-		regiaoBotoes.add(btAjuda);
+		regiaoBotoes.add(botaoProximo);
+		regiaoBotoes.add(botaoAjuda);
 		janelaPrincipal.add(regiaoBotoes);
 	}
 
@@ -144,8 +144,8 @@ public class Quiz extends JFrame {
 			regiaoAlternativas.setForeground(Color.LIGHT_GRAY);
 			setTextoQuestao(conteudo.getQuestao(numeroQuestao));
 		} else {
-			btProximo.setText(label.getString("botaoExibirRespostas"));
-			btProximo.addActionListener(new ActionListener() {
+			botaoProximo.setText(label.getString("botaoExibirRespostas"));
+			botaoProximo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setVisible(false);
 					new Resultados(opcoesSelecionadas, conteudo, idioma, tipoTeste, exame);
@@ -172,93 +172,45 @@ public class Quiz extends JFrame {
 		
 		buttonGroupOpcoes = new ButtonGroup();
 		for (Map.Entry<Character, String> alternativa : questao.getlistaAlternativas().entrySet()) {
-			botaoAlternativa = new JRadioButton(alternativa.getKey() + " - " + alternativa.getValue());
-			botaoAlternativa.setToolTipText(alternativa.getValue());
-			buttonGroupOpcoes.add(botaoAlternativa);
-			regiaoAlternativas.add(botaoAlternativa);
+			radioAlternativa = new JRadioButton(alternativa.getKey() + " - " + alternativa.getValue());
+			radioAlternativa.setToolTipText(alternativa.getValue());
+			buttonGroupOpcoes.add(radioAlternativa);
+			regiaoAlternativas.add(radioAlternativa);
 		}
 		
 		buttonGroupOpcoes.getElements().nextElement().setSelected(true);
 	}
 
-	public JPanel getRegiaoAlternativas() {
-		return regiaoAlternativas;
+	public JanelasSource getLabel() {
+		return label;
 	}
 
-	public void setRegiaoAlternativas(JPanel regiaoAlternativas) {
-		this.regiaoAlternativas = regiaoAlternativas;
+	public void setLabel(JanelasSource label) {
+		this.label = label;
 	}
 
-	public JPanel getRegiaoEnunciado() {
-		return regiaoEnunciado;
+	public Idioma getIdioma() {
+		return idioma;
 	}
 
-	public void setRegiaoEnunciado(JPanel regiaoEnunciado) {
-		this.regiaoEnunciado = regiaoEnunciado;
+	public void setIdioma(Idioma idioma) {
+		this.idioma = idioma;
 	}
 
-	public JPanel getRegiaoBotoes() {
-		return regiaoBotoes;
+	public Certificacao getExame() {
+		return exame;
 	}
 
-	public void setRegiaoBotoes(JPanel regiaoBotoes) {
-		this.regiaoBotoes = regiaoBotoes;
+	public void setExame(Certificacao exame) {
+		this.exame = exame;
 	}
 
-	public Container getJanelaPrincipal() {
-		return janelaPrincipal;
+	public TipoTeste getTipoTeste() {
+		return tipoTeste;
 	}
 
-	public void setJanelaPrincipal(Container janelaPrincipal) {
-		this.janelaPrincipal = janelaPrincipal;
-	}
-
-	public JRadioButton getBotaoAlternativa() {
-		return botaoAlternativa;
-	}
-
-	public void setBotaoAlternativa(JRadioButton botaoAlternativa) {
-		this.botaoAlternativa = botaoAlternativa;
-	}
-
-	public ButtonGroup getButtonGroupOpcoes() {
-		return buttonGroupOpcoes;
-	}
-
-	public void setButtonGroupOpcoes(ButtonGroup buttonGroupOpcoes) {
-		this.buttonGroupOpcoes = buttonGroupOpcoes;
-	}
-
-	public JButton getBtProximo() {
-		return btProximo;
-	}
-
-	public void setBtProximo(JButton btProximo) {
-		this.btProximo = btProximo;
-	}
-
-	public JTextArea getTxtEnunciado() {
-		return txtEnunciado;
-	}
-
-	public void setTxtEnunciado(JTextArea txtEnunciado) {
-		this.txtEnunciado = txtEnunciado;
-	}
-
-	public JButton getBtAjuda() {
-		return btAjuda;
-	}
-
-	public void setBtAjuda(JButton btAjuda) {
-		this.btAjuda = btAjuda;
-	}
-
-	public int getNumeroQuestao() {
-		return numeroQuestao;
-	}
-
-	public void setNumeroQuestao(int numeroQuestao) {
-		this.numeroQuestao = numeroQuestao;
+	public void setTipoTeste(TipoTeste tipoTeste) {
+		this.tipoTeste = tipoTeste;
 	}
 
 	public Conteudo getConteudo() {
@@ -267,14 +219,6 @@ public class Quiz extends JFrame {
 
 	public void setConteudo(Conteudo conteudo) {
 		this.conteudo = conteudo;
-	}
-
-	public HashMap<Integer, String> getOpcoesSelecionadas() {
-		return opcoesSelecionadas;
-	}
-
-	public void setOpcoesSelecionadas(HashMap<Integer, String> opcoesSelecionadas) {
-		this.opcoesSelecionadas = opcoesSelecionadas;
 	}
 	
 }

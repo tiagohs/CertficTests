@@ -276,4 +276,16 @@ public class JanelaInicial extends JFrame {
 		return idioma;
 	}
 
+	public JanelasSource getLabel() {
+		return label;
+	}
+
+	public void setLabel(JanelasSource label) {
+		this.label = label;
+	}
+
+	public void setIdioma(Idioma idioma) {
+		this.idioma = idioma;
+	}
+	
 }

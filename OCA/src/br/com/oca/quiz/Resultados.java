@@ -140,4 +140,61 @@ public class Resultados extends JFrame {
 		double media = (double) numQuestoesCorretas / conteudo.getTotalQuestoes();
 		return media * 100;
 	}
+
+	public JanelasSource getLabel() {
+		return label;
+	}
+
+	public void setLabel(JanelasSource label) {
+		this.label = label;
+	}
+
+	public Conteudo getConteudo() {
+		return conteudo;
+	}
+
+	public void setConteudo(Conteudo conteudo) {
+		this.conteudo = conteudo;
+	}
+
+	public TipoTeste getTipoTeste() {
+		return tipoTeste;
+	}
+
+	public void setTipoTeste(TipoTeste tipoTeste) {
+		this.tipoTeste = tipoTeste;
+	}
+
+	public Certificacao getExame() {
+		return exame;
+	}
+
+	public void setExame(Certificacao exame) {
+		this.exame = exame;
+	}
+
+	public Integer getNumQuestoesCorretas() {
+		return numQuestoesCorretas;
+	}
+
+	public void setNumQuestoesCorretas(Integer numQuestoesCorretas) {
+		this.numQuestoesCorretas = numQuestoesCorretas;
+	}
+
+	public Double getNota() {
+		return nota;
+	}
+
+	public void setNota(Double nota) {
+		this.nota = nota;
+	}
+
+	public HashMap<Integer, String> getRespostas() {
+		return respostas;
+	}
+
+	public void setRespostas(HashMap<Integer, String> respostas) {
+		this.respostas = respostas;
+	}
+	
 }
