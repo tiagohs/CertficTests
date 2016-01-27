@@ -24,6 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import br.com.oca.conteudo.Conteudo;
@@ -89,12 +90,14 @@ public class Quiz extends JFrame {
 	private void preenxerJanelaRegiaoCabecalho() {
 		
 		JPanel regiaoEnunciado = new JPanel();
-		//regiaoEnunciado.setLayout(new BoxLayout(regiaoEnunciado, BoxLayout.PAGE_AXIS));
 		regiaoEnunciado.setLocation(10, 5);
 		regiaoEnunciado.setSize(780, 30);
 		regiaoEnunciado.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 		
-		JLabel j = new JLabel("  Questão " + numeroQuestao + " de " + conteudo.getTotalQuestoes());
+		JLabel j = new JLabel("  Exame: " + exame.getNome());
+		regiaoEnunciado.add(j);
+		
+		j = new JLabel("  Questão " + numeroQuestao + " de " + conteudo.getTotalQuestoes());
 		j.setFont(new Font("Arial", Font.BOLD, 14));
 		j.setForeground(Color.BLUE);
 		regiaoEnunciado.add(j);
@@ -105,19 +108,19 @@ public class Quiz extends JFrame {
 
 		regiaoEnunciado = new JPanel();
 		regiaoEnunciado.setLayout(new BoxLayout(regiaoEnunciado, BoxLayout.PAGE_AXIS));
-		regiaoEnunciado.setLocation(10, 80);
+		regiaoEnunciado.setLocation(10, 60);
 		regiaoEnunciado.setSize(780, 150);
 		regiaoEnunciado.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-
+		
+		
 		txtEnunciado = new JTextArea(7, 40);
 		txtEnunciado.setEditable(false);
 		txtEnunciado.setForeground(Color.BLACK);
-		txtEnunciado.setOpaque(false);
-		txtEnunciado.setFont(new Font("Arial", Font.LAYOUT_LEFT_TO_RIGHT, 22));
+		txtEnunciado.setFont(new Font("Arial", Font.LAYOUT_LEFT_TO_RIGHT, 14));
 		txtEnunciado.setLineWrap(true);
 		txtEnunciado.setWrapStyleWord(true);
-	
-		regiaoEnunciado.add(txtEnunciado);
+		JScrollPane barra = new JScrollPane(txtEnunciado);
+		regiaoEnunciado.add(barra);
 		janelaPrincipal.add(regiaoEnunciado);
 	}
 	
@@ -126,7 +129,7 @@ public class Quiz extends JFrame {
 		regiaoAlternativas = new JPanel();
 		regiaoAlternativas.setLayout(new GridLayout(6, 2));
 		regiaoAlternativas.setLocation(10, 280);
-		regiaoAlternativas.setSize(780, 340);
+		regiaoAlternativas.setSize(780, 320);
 		regiaoAlternativas.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 		
 		setTextoQuestao(conteudo.getQuestao(numeroQuestao));
