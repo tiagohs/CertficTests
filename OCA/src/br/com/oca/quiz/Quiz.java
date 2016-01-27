@@ -21,6 +21,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
@@ -75,7 +76,9 @@ public class Quiz extends JFrame {
 		setResizable(false);
 		janelaPrincipal = getContentPane();
 		janelaPrincipal.setLayout(null);
-
+		
+		
+		preenxerJanelaRegiaoCabecalho();
 		preenxerJanelaRegiaoEnunciado();
 		preenxerJanelaRegiaoAlternativas();
 		preenxerJanelaRegiaoBotoes();
@@ -83,6 +86,21 @@ public class Quiz extends JFrame {
 		setVisible(true);
 	}
 
+	private void preenxerJanelaRegiaoCabecalho() {
+		
+		JPanel regiaoEnunciado = new JPanel();
+		//regiaoEnunciado.setLayout(new BoxLayout(regiaoEnunciado, BoxLayout.PAGE_AXIS));
+		regiaoEnunciado.setLocation(10, 5);
+		regiaoEnunciado.setSize(780, 30);
+		regiaoEnunciado.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+		
+		JLabel j = new JLabel("  Questão " + numeroQuestao + " de " + conteudo.getTotalQuestoes());
+		j.setFont(new Font("Arial", Font.BOLD, 14));
+		j.setForeground(Color.BLUE);
+		regiaoEnunciado.add(j);
+		janelaPrincipal.add(regiaoEnunciado);
+	}
+	
 	private void preenxerJanelaRegiaoEnunciado() {
 
 		regiaoEnunciado = new JPanel();
