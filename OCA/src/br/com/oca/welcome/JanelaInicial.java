@@ -61,8 +61,12 @@ public class JanelaInicial extends JFrame {
 	private JanelasSource label;
 	private Idioma idioma;
 
-	public JanelaInicial() {
-		idioma = selecionarIdioma();
+	public JanelaInicial(Idioma _idioma) {
+		if (_idioma == null)
+			idioma = selecionarIdioma();
+		else
+			idioma = _idioma;
+		
 		label = JanelasSource.getInstance(idioma);
 		modelo = new DefaultTableModel();
 		actionTable = criarActionTable();
@@ -262,8 +266,7 @@ public class JanelaInicial extends JFrame {
 			new Quiz(idioma, (Certificacao) jcNomesTestes.getSelectedItem(),
 					(TipoTeste) jcTipoTestes.getSelectedItem())
 					.setVisible(true);
-			modelo.setRowCount(0);
-			listarTentativas();
+			this.dispose();
 		}
 
 	}

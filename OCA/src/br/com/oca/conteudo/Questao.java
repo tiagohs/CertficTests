@@ -1,38 +1,41 @@
 package br.com.oca.conteudo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import br.com.oca.enums.TipoQuestao;
+
 public class Questao {
+	private TipoQuestao tipoQuestao;
 	private String enunciado;
 	private HashMap<Character, String> listaAlternativas;
 	private Character alternativaCorreta;
+	private ArrayList<Character> alternativasCorretas;
 	
-	public Questao(String _enunciado, HashMap<Character, String> _alternativas, Character _alternativaCorreta) {
+	public Questao(String _enunciado, HashMap<Character, String> _alternativas, Character _alternativaCorreta, ArrayList<Character> _alternativasCorretas, TipoQuestao _tipoQuestao) {
 		enunciado = _enunciado;
 		listaAlternativas = _alternativas;
 		alternativaCorreta = _alternativaCorreta;
+		alternativasCorretas = _alternativasCorretas;
+		tipoQuestao = _tipoQuestao;
+	}
+	
+	public Questao(String _enunciado, TipoQuestao _tipoQuestao) {
+		this(_enunciado, new HashMap<Character, String>(), ' ', new ArrayList<Character>(), _tipoQuestao);
+	}
+	
+	public Questao(String _enunciado, ArrayList<Character> _alternativasCorretas) {
+		this(_enunciado, new HashMap<Character, String>(), null, _alternativasCorretas, TipoQuestao.MULTIPLA);
 	}
 	
 	public Questao(String _enunciado, Character _alternativaCorreta) {
-		this(_enunciado, new HashMap<Character, String>(), _alternativaCorreta);
+		this(_enunciado, new HashMap<Character, String>(), _alternativaCorreta, null, TipoQuestao.UNICA);
 	}
 	
-	public Questao(String enunciado) {
-		this(enunciado, new HashMap<Character, String>(), ' ');
-	}
-
-	public Questao(HashMap<Character, String> alternativas) {
-		this("", alternativas, ' ');
-	}
-
 	public Questao() {
-		this("", new HashMap<Character, String>(), ' ');
+		this("", new HashMap<Character, String>(), ' ', new ArrayList<Character>(), TipoQuestao.UNICA);
 	}
 	
-	public Questao(Character alternativaCorreta) {
-		this("", new HashMap<Character, String>(), alternativaCorreta);
-	}
-
 	public void addAlternativa(Character letra, String enunciado) {
 		listaAlternativas.put(letra, enunciado);
 	}
@@ -75,6 +78,35 @@ public class Questao {
 	
 	public int getNumeroTotalAlternativas() {
 		return listaAlternativas.size();
+	}
+	
+	public HashMap<Character, String> getListaAlternativas() {
+		return listaAlternativas;
+	}
+	
+	public void setListaAlternativas(
+			HashMap<Character, String> listaAlternativas) {
+		this.listaAlternativas = listaAlternativas;
+	}
+	
+	public TipoQuestao getTipoQuestao() {
+		return tipoQuestao;
+	}
+	
+	public void setTipoQuestao(TipoQuestao tipoQuestao) {
+		this.tipoQuestao = tipoQuestao;
+	}
+	
+	public ArrayList<Character> getAlternativasCorretas() {
+		return alternativasCorretas;
+	}
+	
+	public void setAlternativasCorretas(ArrayList<Character> alternativasCorretas) {
+		this.alternativasCorretas = alternativasCorretas;
+	}
+	
+	public void addAlternativaCorreta(Character letra) {
+		alternativasCorretas.add(letra);
 	}
 	
 	@Override

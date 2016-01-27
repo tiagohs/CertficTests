@@ -12,9 +12,9 @@ public class Tentativa implements Serializable {
 	private Certificacao exame;
 	private TipoTeste testeEscolhido;
 	private Double nota;
-	private Integer numeroAcertos;
+	private Double numeroAcertos;
 	
-	public Tentativa(Certificacao _exame, TipoTeste _testeEscolhido, Double _nota, Integer _numeroAcertos) {
+	public Tentativa(Certificacao _exame, TipoTeste _testeEscolhido, Double _nota, Double _numeroAcertos) {
 		exame = _exame;
 		testeEscolhido = _testeEscolhido;
 		nota = _nota;
@@ -45,11 +45,11 @@ public class Tentativa implements Serializable {
 		this.nota = nota;
 	}
 	
-	public Integer getNumeroAcertos() {
+	public Double getNumeroAcertos() {
 		return numeroAcertos;
 	}
 	
-	public void setNumeroAcertos(Integer numeroAcertos) {
+	public void setNumeroAcertos(Double numeroAcertos) {
 		this.numeroAcertos = numeroAcertos;
 	}
 	

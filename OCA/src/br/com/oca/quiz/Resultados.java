@@ -1,6 +1,9 @@
 package br.com.oca.quiz;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -8,6 +11,7 @@ import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,34 +24,41 @@ import br.com.oca.enums.TipoTeste;
 import br.com.oca.i18n.janelas.JanelasSource;
 import br.com.oca.tentativas.Tentativa;
 import br.com.oca.util.AppendingObjectOutputStream;
+import br.com.oca.welcome.JanelaInicial;
 
 public class Resultados extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel regiaoResultados;
+	private JPanel regiaoBotoes;
+	private JButton botaoVoltar;
 	private JScrollPane barraRolagem;
 	
 	private JanelasSource label;
 	private Conteudo conteudo;
 	private TipoTeste tipoTeste;
+	private Idioma idioma;
 	private Certificacao exame;
-	private Integer numQuestoesCorretas;
+	private Double numQuestoesCorretas;
 	private Double nota;
-	private HashMap<Integer, String> respostas;
+	private HashMap<Integer, Resposta> respostas;
 	
-	public Resultados(HashMap<Integer, String> _respostas, Conteudo _conteudo, Idioma idioma, TipoTeste _tipoTeste, Certificacao _exame) {
+	public Resultados(HashMap<Integer, Resposta> _respostas, Conteudo _conteudo, Idioma _idioma, TipoTeste _tipoTeste, Certificacao _exame) {
 		conteudo = _conteudo;
 		respostas = _respostas;
 		tipoTeste = _tipoTeste;
 		label = JanelasSource.getInstance(idioma);
 		exame = _exame;
+		idioma = _idioma;
 		
 		setTitle(label.getString("resultadosTitulo"));
-		setSize(850, 550);
-		setLocation(300, 10);
+		setSize(980, 700);
+		setLocation(300, 20);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setResizable(false);
 		
 		preenxerRegiaoResultados();
+		preenxerRegiaoBotoes();
+		
 		setVisible(true);
 	}
 	
@@ -72,10 +83,29 @@ public class Resultados extends JFrame {
 		}
 		
 		numQuestoesCorretas = calcularNumeroQuestoesCorretas();
-		System.out.println(calcularNota());
 		nota = calcularNota();
 		registrarTentativa();
 		inserirLinha(Color.BLUE, new Font("Arial", Font.BOLD, 14), "                                 " + label.getString("resultadosVocêAcertou") + " " + numQuestoesCorretas + " Questões - Sua Nota: " + nota + " de 100.0.\n");
+	}
+	
+	private void preenxerRegiaoBotoes() {
+		
+		regiaoBotoes = new JPanel();
+		regiaoBotoes.setLocation(30, 200);
+		regiaoBotoes.setSize(780, 200);
+		
+		botaoVoltar = new JButton(label.getString("resultadosVoltar"));
+		
+		botaoVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new JanelaInicial(idioma);
+			}
+		});
+		botaoVoltar.setPreferredSize(new Dimension(150, 50));
+		
+		regiaoBotoes.add(botaoVoltar);
+		regiaoResultados.add(regiaoBotoes);
 	}
 	
 	private void setTextoEnunciado(int count, int numeroQuestao) {
@@ -86,9 +116,9 @@ public class Resultados extends JFrame {
 		
 		inserirLinha(Color.BLACK, new Font("Arial",Font.BOLD, 12), "       " + label.getString("resultadosResposCorreta") + conteudo.getQuestao(count).getEnunciadoAlternativaCorreta());
 		if (isRespostaCorreta(count)) 
-			inserirLinha(Color.GREEN, new Font("Arial",Font.BOLD, 14), "     " + label.getString("resultadosSuaResposta") + respostas.get(count));
+			inserirLinha(Color.GREEN, new Font("Arial",Font.BOLD, 14), "     " + label.getString("resultadosSuaResposta") + respostas.get(count).getResposta());
 		 else 
-			inserirLinha(Color.RED, new Font("Arial", Font.BOLD, 14), "     " + label.getString("resultadosSuaResposta") + respostas.get(count));
+			inserirLinha(Color.RED, new Font("Arial", Font.BOLD, 14), "     " + label.getString("resultadosSuaResposta") + respostas.get(count).getResposta());
 	}
 	
 	private void inserirLinha(Color cor, Font fonte, String texto) {
@@ -104,19 +134,41 @@ public class Resultados extends JFrame {
 		regiaoResultados.add(new JLabel("  "));
 	}
 
-	private int calcularNumeroQuestoesCorretas() {
-		int numeroQuestoesCorretas = 0;
+	private Double calcularNumeroQuestoesCorretas() {
+		Double numeroQuestoesCorretas = 0.0;
 
 		for (int count = 0; count < conteudo.getTotalQuestoes(); count++) {
-			if (isRespostaCorreta(count))
-				numeroQuestoesCorretas++;
+			
+			switch (respostas.get(count).getTipoQuestao()) {
+				case UNICA:
+					if (isRespostaCorreta(count))
+						numeroQuestoesCorretas++;
+					break;
+				case MULTIPLA:
+					numeroQuestoesCorretas += totalAcertoQuestao(count);
+			}
+			
 		}
 
 		return numeroQuestoesCorretas;
 	}
 	
 	private boolean isRespostaCorreta(int count) {
-		return conteudo.getQuestao(count).getEnunciadoAlternativaCorreta().equals(respostas.get(count));
+		return conteudo.getQuestao(count).getEnunciadoAlternativaCorreta().equals(respostas.get(count).getResposta());
+	}
+	
+	private Double totalAcertoQuestao(int count) {
+		Double soma = 0.0;
+		
+		for (String resp : respostas.get(count).getRespostas()) {
+			if (conteudo.getQuestao(count).getListaAlternativas().containsValue(resp)) {
+				soma++;
+			}
+				
+		}
+		
+		Double temp = (Double) soma / conteudo.getQuestao(count).getListaAlternativas().size();
+		return temp;
 	}
 	
 	private void registrarTentativa() {
@@ -125,11 +177,11 @@ public class Resultados extends JFrame {
 
         try {
             if (!file.exists ()) 
-            	out = new ObjectOutputStream (new FileOutputStream (Tentativa.filename));
+            	out = new ObjectOutputStream (new FileOutputStream(Tentativa.filename));
             else 
-            	out = new AppendingObjectOutputStream (new FileOutputStream (Tentativa.filename, true));
+            	out = new AppendingObjectOutputStream (new FileOutputStream(Tentativa.filename, true));
             out.writeObject(new Tentativa(exame, tipoTeste, nota, numQuestoesCorretas));
-            out.flush ();
+            out.flush();
             out.close();
         } catch (Exception e){
             e.printStackTrace ();
@@ -173,11 +225,11 @@ public class Resultados extends JFrame {
 		this.exame = exame;
 	}
 
-	public Integer getNumQuestoesCorretas() {
+	public Double getNumQuestoesCorretas() {
 		return numQuestoesCorretas;
 	}
 
-	public void setNumQuestoesCorretas(Integer numQuestoesCorretas) {
+	public void setNumQuestoesCorretas(Double numQuestoesCorretas) {
 		this.numQuestoesCorretas = numQuestoesCorretas;
 	}
 
@@ -189,11 +241,11 @@ public class Resultados extends JFrame {
 		this.nota = nota;
 	}
 
-	public HashMap<Integer, String> getRespostas() {
+	public HashMap<Integer, Resposta> getRespostas() {
 		return respostas;
 	}
 
-	public void setRespostas(HashMap<Integer, String> respostas) {
+	public void setRespostas(HashMap<Integer, Resposta> respostas) {
 		this.respostas = respostas;
 	}
 	

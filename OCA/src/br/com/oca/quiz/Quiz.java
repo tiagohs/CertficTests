@@ -7,8 +7,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.AbstractButton;
@@ -16,6 +19,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -26,38 +30,43 @@ import br.com.oca.conteudo.OCA;
 import br.com.oca.conteudo.Questao;
 import br.com.oca.enums.Certificacao;
 import br.com.oca.enums.Idioma;
+import br.com.oca.enums.TipoQuestao;
 import br.com.oca.enums.TipoTeste;
 import br.com.oca.i18n.janelas.JanelasSource;
 
 public class Quiz extends JFrame {
 	private static final long serialVersionUID = 1L;
-
+	
 	private JPanel regiaoAlternativas;
 	private JPanel regiaoEnunciado;
 	private JPanel regiaoBotoes;
 	private Container janelaPrincipal;
 	private JRadioButton radioAlternativa;
+	private JCheckBox checkBoxalternativas;
+	private List<JCheckBox> listaCheckBoxs;
 	private ButtonGroup buttonGroupOpcoes;
 	private JButton botaoProximo;
 	private JButton botaoAjuda;
 	private JTextArea txtEnunciado;
-
+	
 	private JanelasSource label;
 	private int numeroQuestao;
 	private Idioma idioma;
 	private Certificacao exame;
 	private TipoTeste tipoTeste;
 	private Conteudo conteudo;
-	private HashMap<Integer, String> opcoesSelecionadas;
+	private HashMap<Integer, Resposta> opcoesSelecionadas;
 
 	public Quiz(Idioma idiomaTeste, Certificacao _exame, TipoTeste _tipoTeste) {
 		idioma = idiomaTeste;
 		tipoTeste = _tipoTeste;
 		exame = _exame;
 		conteudo = OCA.getInstance(exame, idioma);
-		opcoesSelecionadas = new HashMap<Integer, String>();
+		opcoesSelecionadas = new HashMap<Integer, Resposta>();
 		label = JanelasSource.getInstance(idioma);
 		numeroQuestao = 0;
+		listaCheckBoxs = new LinkedList<JCheckBox>();
+
 		
 		setTitle(exame.getNome());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -135,8 +144,11 @@ public class Quiz extends JFrame {
 	}
 
 	private void verificaEstadoPerguntas() {
-
-		opcoesSelecionadas.put(numeroQuestao, getOpcaoSelecionada());
+		
+		if (conteudo.getQuestao(numeroQuestao).getTipoQuestao() == TipoQuestao.UNICA)
+			opcoesSelecionadas.put(numeroQuestao, new Resposta(conteudo.getQuestao(numeroQuestao).getEnunciado(), getOpcaoSelecionada()));
+		else
+			opcoesSelecionadas.put(numeroQuestao, new Resposta(conteudo.getQuestao(numeroQuestao).getEnunciado(), getOpcoesSelecionadas()));
 
 		if (numeroQuestao < (conteudo.getTotalQuestoes() - 1)) {
 			numeroQuestao++;
@@ -147,7 +159,7 @@ public class Quiz extends JFrame {
 			botaoProximo.setText(label.getString("botaoExibirRespostas"));
 			botaoProximo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					setVisible(false);
+					dispose();
 					new Resultados(opcoesSelecionadas, conteudo, idioma, tipoTeste, exame);
 				}
 			});
@@ -165,12 +177,54 @@ public class Quiz extends JFrame {
 
 		return null;
 	}
+	
+	private ArrayList<String> getOpcoesSelecionadas() {
+		ArrayList<String> opcoes = new ArrayList<String>();
+		
+		for (JCheckBox checkBox : listaCheckBoxs) {
+		      if (checkBox.isSelected()) {
+		    	  opcoes.add(checkBox.getText());
+		      }
+		    }
+		
+		return opcoes;
+	}
 
 	public void setTextoQuestao(Questao questao) {
 		
 		txtEnunciado.setText(questao.getEnunciado());
-		
 		buttonGroupOpcoes = new ButtonGroup();
+		
+		switch (questao.getTipoQuestao()) {
+			case UNICA:
+				unicaEscolha(questao);
+				break;
+			case MULTIPLA:
+				multiplasEscolhas(questao);
+		}
+		
+		buttonGroupOpcoes.getElements().nextElement().setSelected(true);
+	}
+	
+	private void multiplasEscolhas(Questao questao) {
+		
+		for (Map.Entry<Character, String> alternativa : questao.getlistaAlternativas().entrySet()) {
+			checkBoxalternativas = new JCheckBox(alternativa.getKey() + " - " + alternativa.getValue());
+			checkBoxalternativas.setToolTipText(alternativa.getValue());
+			addCheckBox(checkBoxalternativas);
+			buttonGroupOpcoes.add(checkBoxalternativas);
+			regiaoAlternativas.add(radioAlternativa);
+		}
+		
+	}
+	
+	public void addCheckBox(JCheckBox checkBox) {
+	    listaCheckBoxs.add(checkBox);
+	  }
+
+	
+	private void unicaEscolha(Questao questao) {
+		
 		for (Map.Entry<Character, String> alternativa : questao.getlistaAlternativas().entrySet()) {
 			radioAlternativa = new JRadioButton(alternativa.getKey() + " - " + alternativa.getValue());
 			radioAlternativa.setToolTipText(alternativa.getValue());
@@ -178,7 +232,6 @@ public class Quiz extends JFrame {
 			regiaoAlternativas.add(radioAlternativa);
 		}
 		
-		buttonGroupOpcoes.getElements().nextElement().setSelected(true);
 	}
 
 	public JanelasSource getLabel() {
