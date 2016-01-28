@@ -115,10 +115,29 @@ public class Resultados extends JFrame {
 	private void setTextoRespostas(int count) {
 		
 		inserirLinha(Color.BLACK, new Font("Arial",Font.BOLD, 12), "       " + label.getString("resultadosResposCorreta") + conteudo.getQuestao(count).getEnunciadoAlternativaCorreta());
-		if (isRespostaCorreta(count)) 
-			inserirLinha(Color.GREEN, new Font("Arial",Font.BOLD, 14), "     " + label.getString("resultadosSuaResposta") + respostas.get(count).getResposta());
-		 else 
-			inserirLinha(Color.RED, new Font("Arial", Font.BOLD, 14), "     " + label.getString("resultadosSuaResposta") + respostas.get(count).getResposta());
+
+		switch (respostas.get(count).getTipoQuestao()) {
+			case UNICA:
+				if (isRespostaCorreta(count)) 
+					inserirLinha(Color.GREEN, new Font("Arial",Font.BOLD, 14), "     " + label.getString("resultadosSuaResposta") + respostas.get(count).getResposta());
+				 else 
+					inserirLinha(Color.RED, new Font("Arial", Font.BOLD, 14), "     " + label.getString("resultadosSuaResposta") + respostas.get(count).getResposta());
+				break;
+			case MULTIPLA:
+				exibirMultiplasRespostas(count);
+	}
+
+	}
+	
+	private void exibirMultiplasRespostas(int count) {
+		
+		for (int i = 0; i < respostas.get(count).getRespostas().size(); i++) {
+			if (conteudo.getQuestao(count).equals(respostas.get(count).getRespostas().get(i))) {
+				inserirLinha(Color.GREEN, new Font("Arial",Font.BOLD, 14), "     " + label.getString("resultadosSuaResposta") + respostas.get(count).getResposta());
+			} else {
+				inserirLinha(Color.GREEN, new Font("Arial",Font.BOLD, 14), "     " + label.getString("resultadosSuaResposta") + respostas.get(count).getResposta());
+			}
+		}
 	}
 	
 	private void inserirLinha(Color cor, Font fonte, String texto) {
