@@ -69,7 +69,6 @@ public class Quiz extends JFrame {
 		numeroQuestao = 0;
 		listaCheckBoxs = new LinkedList<JCheckBox>();
 
-		
 		setTitle(exame.getNome());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(800, 700);
@@ -77,7 +76,6 @@ public class Quiz extends JFrame {
 		setResizable(false);
 		janelaPrincipal = getContentPane();
 		janelaPrincipal.setLayout(null);
-		
 		
 		preenxerJanelaRegiaoCabecalho();
 		preenxerJanelaRegiaoEnunciado();
@@ -127,11 +125,11 @@ public class Quiz extends JFrame {
 	private void preenxerJanelaRegiaoAlternativas() {
 
 		regiaoAlternativas = new JPanel();
-		regiaoAlternativas.setLayout(new GridLayout(6, 2));
+		regiaoAlternativas.setLayout(new GridLayout(7, 2));
 		regiaoAlternativas.setLocation(10, 280);
 		regiaoAlternativas.setSize(780, 320);
 		regiaoAlternativas.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-		
+
 		setTextoQuestao(conteudo.getQuestao(numeroQuestao));
 		janelaPrincipal.add(regiaoAlternativas);
 	}
@@ -174,7 +172,7 @@ public class Quiz extends JFrame {
 		if (numeroQuestao < (conteudo.getTotalQuestoes() - 1)) {
 			numeroQuestao++;
 			regiaoAlternativas.removeAll();
-			regiaoAlternativas.setForeground(Color.LIGHT_GRAY);
+			//regiaoAlternativas.setForeground(Color.LIGHT_GRAY);
 			setTextoQuestao(conteudo.getQuestao(numeroQuestao));
 		} else {
 			botaoProximo.setText(label.getString("botaoExibirRespostas"));
@@ -243,7 +241,6 @@ public class Quiz extends JFrame {
 	    listaCheckBoxs.add(checkBox);
 	  }
 
-	
 	private void unicaEscolha(Questao questao) {
 		
 		for (Map.Entry<Character, String> alternativa : questao.getlistaAlternativas().entrySet()) {
@@ -252,6 +249,7 @@ public class Quiz extends JFrame {
 			buttonGroupOpcoes.add(radioAlternativa);
 			regiaoAlternativas.add(radioAlternativa);
 		}
+		
 		
 	}
 
