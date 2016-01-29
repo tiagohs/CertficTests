@@ -2,8 +2,13 @@ package br.com.oca.controllers;
 
 import java.io.IOException;
 
+import br.com.oca.model.Tentativa;
+import br.com.oca.model.enums.Certificacao;
+import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.model.i18n.janelas.JanelasSource;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -11,14 +16,24 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
-
+	private ObservableList<Tentativa> listaTentativas = listaTentativas = FXCollections.observableArrayList();
 	private Stage stagePrimario;
     private BorderPane rootLayout;
     private JanelasSource label;
-
+    
+    public MainApp() {
+    	listaTentativas.add(new Tentativa(Certificacao.OCA, TipoTeste.TESTE_1, 90.0, 2.0));
+    	listaTentativas.add(new Tentativa(Certificacao.OCP, TipoTeste.TESTE_2, 80.0, 1.0));
+    	listaTentativas.add(new Tentativa(Certificacao.OCA, TipoTeste.TESTE_1, 90.0, 2.0));
+    	listaTentativas.add(new Tentativa(Certificacao.OCP, TipoTeste.TESTE_2, 80.0, 1.0));
+    	listaTentativas.add(new Tentativa(Certificacao.OCA, TipoTeste.TESTE_1, 90.0, 2.0));
+    	listaTentativas.add(new Tentativa(Certificacao.OCP, TipoTeste.TESTE_2, 80.0, 1.0));
+    }
+    
     @Override
-    public void start(Stage primaryStage) {
-        this.stagePrimario = primaryStage;
+    public void start(Stage _stagePrimario) {
+    	
+    	this.stagePrimario = _stagePrimario;
         this.stagePrimario.setTitle("CertficTests");
 
         initRootLayout();
@@ -54,6 +69,9 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("../view/Home.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
             rootLayout.setCenter(personOverview);
+            
+            HomeController controller = loader.getController();
+            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,7 +84,11 @@ public class MainApp extends Application {
     public Stage getPrimaryStage() {
         return stagePrimario;
     }
-
+    
+    public ObservableList<Tentativa> getListaTentativas() {
+		return listaTentativas;
+	}
+    
     public static void main(String[] args) {
         launch(args);
     }

@@ -6,25 +6,30 @@ import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.TipoTeste;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 public class Tentativa implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String filename = "tentativas.bin";
 	
 	private SimpleObjectProperty<Certificacao> exame;
-	private SimpleObjectProperty<TipoTeste> testeEscolhido;
+	private SimpleObjectProperty<TipoTeste> tipoTesteEscolhido;
 	private SimpleDoubleProperty nota;
 	private SimpleDoubleProperty numeroAcertos;
 	
 	public Tentativa(Certificacao _exame, TipoTeste _testeEscolhido, Double _nota, Double _numeroAcertos) {
 		exame = new SimpleObjectProperty<Certificacao>(_exame);
-		testeEscolhido = new SimpleObjectProperty<TipoTeste>(_testeEscolhido);
+		tipoTesteEscolhido = new SimpleObjectProperty<TipoTeste>(_testeEscolhido);
 		nota = new SimpleDoubleProperty(_nota);
 		numeroAcertos = new SimpleDoubleProperty(_numeroAcertos);
 	}
 
 	public SimpleObjectProperty<Certificacao> getExame() {
 		return exame;
+	}
+	
+	public SimpleStringProperty getExameStringProperty() {
+		return new SimpleStringProperty(exame.get().getNome());
 	}
 	
 	public String getExameNome() {
@@ -35,20 +40,36 @@ public class Tentativa implements Serializable {
 		this.exame = exame;
 	}
 
-	public SimpleObjectProperty<TipoTeste> getTesteEscolhido() {
-		return testeEscolhido;
+	public SimpleObjectProperty<TipoTeste> getTipoTesteEscolhido() {
+		return tipoTesteEscolhido;
 	}
 	
-	public String getTesteEscolhidoNome() {
-		return testeEscolhido.get().getNome();
+	public SimpleStringProperty getTipoTesteEscolhidoStringProperty() {
+		return new SimpleStringProperty(tipoTesteEscolhido.get().getNome());
+	}
+	
+	public String getTipoTesteEscolhidoNome() {
+		return tipoTesteEscolhido.get().getNome();
 	}
 
-	public void setTesteEscolhido(SimpleObjectProperty<TipoTeste> testeEscolhido) {
-		this.testeEscolhido = testeEscolhido;
+	public void setTipoTesteEscolhido(SimpleObjectProperty<TipoTeste> tipoTesteEscolhido) {
+		this.tipoTesteEscolhido = tipoTesteEscolhido;
 	}
-
+	
+	public String getTesteEscolhidoString() {
+		return exame.get().getNome() + " - " + tipoTesteEscolhido.get().getNome();
+	}
+	
+	public SimpleStringProperty getTesteEscolhido() {
+		return new SimpleStringProperty(exame.get().getNome() + " - " + tipoTesteEscolhido.get().getNome());
+	}
+	
 	public SimpleDoubleProperty getNota() {
 		return nota;
+	}
+	
+	public SimpleStringProperty getNotaStringProperty() {
+		return new SimpleStringProperty(Double.toString(nota.get()));
 	}
 	
 	public Double getNotaDouble() {
@@ -61,6 +82,10 @@ public class Tentativa implements Serializable {
 
 	public SimpleDoubleProperty getNumeroAcertos() {
 		return numeroAcertos;
+	}
+	
+	public SimpleStringProperty getNumeroAcertosStringProperty() {
+		return new SimpleStringProperty(Double.toString(numeroAcertos.get()));
 	}
 
 	public Double getNumeroAcertosDouble() {
