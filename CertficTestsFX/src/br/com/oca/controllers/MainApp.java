@@ -6,6 +6,7 @@ import br.com.oca.model.Tentativa;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.model.i18n.janelas.JanelasSource;
+import br.com.oca.view.HomeController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

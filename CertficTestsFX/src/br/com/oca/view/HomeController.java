@@ -1,5 +1,6 @@
-package br.com.oca.controllers;
+package br.com.oca.view;
 
+import br.com.oca.controllers.MainApp;
 import br.com.oca.model.Tentativa;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -20,7 +21,6 @@ public class HomeController {
     private MainApp mainApp;
     
     public HomeController() {
-		
 	}
     
     @FXML
