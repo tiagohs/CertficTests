@@ -31,7 +31,17 @@ public class HomeController {
     	colunaNota.setCellValueFactory(cellData -> cellData.getValue().getNotaStringProperty());
     	colunaAcertos.setCellValueFactory(cellData -> cellData.getValue().getNumeroAcertosStringProperty());
     }
-
+    
+    @FXML
+    public void handleDialogQuiz() {
+    	mainApp.showQuiz();
+    }
+    
+    @FXML
+    public void handleQuiz() {
+    	mainApp.showQuiz();
+    }
+    
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         tabelaTentativas.setItems(mainApp.getListaTentativas());

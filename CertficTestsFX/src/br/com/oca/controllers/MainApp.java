@@ -7,6 +7,7 @@ import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.view.HomeController;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.util.Duration;
 
 public class MainApp extends Application {
 	private ObservableList<Tentativa> listaTentativas = listaTentativas = FXCollections.observableArrayList();
@@ -77,11 +80,29 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Retorna o palco principal.
-     * @return
-     */
+    
+    public void showQuiz() {
+    	
+    	Window window = new Stage();
+    	PauseTransition pause = new PauseTransition(Duration.seconds(30));
+    	pause.setOnFinished(e -> window.hide());
+    	pause.play();
+    	
+    	try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("../view/Quiz.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            
+            Stage stage = new Stage();
+            stage.setTitle("Quiz - CertificTests");
+            stage.setScene(new Scene(page));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    	
+    }
+    
     public Stage getPrimaryStage() {
         return stagePrimario;
     }

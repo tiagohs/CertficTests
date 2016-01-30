@@ -15,7 +15,7 @@
             <TableColumn fx:id="colunaAcertos" prefWidth="83.0" text="Acertos" />
         </columns>
       </TableView>
-      <Button layoutX="400.0" layoutY="471.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="107.0" text="Novo" />
+      <Button layoutX="400.0" layoutY="471.0" mnemonicParsing="false" onAction="#handleQuiz" prefHeight="35.0" prefWidth="107.0" text="Novo" />
       <Button layoutX="537.0" layoutY="471.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="107.0" text="Sair" />
       <ChoiceBox layoutX="22.0" layoutY="476.0" prefWidth="150.0" />
       <ChoiceBox layoutX="200.0" layoutY="476.0" prefWidth="150.0" />
