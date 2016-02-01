@@ -5,15 +5,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="550.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+<BorderPane prefHeight="550.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.RootLayoutController">
    <top>
       <MenuBar prefWidth="700.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Arquivo">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Novo" />
+                  <MenuItem mnemonicParsing="false" onAction="#itemNovo" text="Novo" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-              <MenuItem mnemonicParsing="false" text="Sair" />
+              <MenuItem mnemonicParsing="false" onAction="#itemSair" text="Sair" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Editar">
@@ -28,7 +28,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Ajuda">
             <items>
-              <MenuItem mnemonicParsing="false" text="Sobre" />
+              <MenuItem mnemonicParsing="false" onAction="#itemSobre" text="Sobre" />
             </items>
           </Menu>
         </menus>

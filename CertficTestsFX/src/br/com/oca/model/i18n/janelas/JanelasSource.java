@@ -13,7 +13,7 @@ public class JanelasSource {
 	
 	private JanelasSource(Idioma idiomaEscolhido) {
 		local = verificaIdioma(idiomaEscolhido);
-		bundle = ResourceBundle.getBundle("br.com.oca.i18n.janelas/janelas", local);
+		bundle = ResourceBundle.getBundle("br.com.oca.model.i18n.janelas/janelas", local);
 	}
 	
 	public static JanelasSource getInstance(Idioma idiomaEscolhido) {
@@ -43,5 +43,9 @@ public class JanelasSource {
 	
 	public String getString(String key) {
 		return bundle.getString(key);
+	}
+	
+	public ResourceBundle getBundle() {
+		return bundle;
 	}
 }
