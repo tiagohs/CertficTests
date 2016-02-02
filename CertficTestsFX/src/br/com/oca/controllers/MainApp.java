@@ -34,6 +34,7 @@ public class MainApp extends Application {
 	private Stage stagePrimario;
     private BorderPane rootLayout;
     private JanelasSource label;
+    private Idioma idioma;
     
     public MainApp() {
     	listaTentativas = listaTentativas = FXCollections.observableArrayList();
@@ -48,9 +49,10 @@ public class MainApp extends Application {
     @Override
     public void start(Stage _stagePrimario) {
     	
-    	this.stagePrimario = _stagePrimario;
-        this.stagePrimario.setTitle("CertficTests");
-        label = JanelasSource.getInstance(Idioma.Portugues);
+    	stagePrimario = _stagePrimario;
+        stagePrimario.setTitle("CertficTests");
+        idioma = Idioma.Portugues; //Idioma Padrão
+        label = JanelasSource.getInstance(idioma); 
        
         initRootLayout();
 
@@ -116,6 +118,7 @@ public class MainApp extends Application {
             
             QuizController controller = loader.getController();
             controller.setDialogStage(quizStage);
+            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -214,5 +217,13 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+    
+    public Idioma getIdioma() {
+		return idioma;
+	}
+    
+    public void setIdioma(Idioma idioma) {
+		this.idioma = idioma;
+	}
+    
 }

@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="550.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.RootLayoutController">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.RootLayoutController">
    <top>
-      <MenuBar prefWidth="700.0" BorderPane.alignment="CENTER">
+      <MenuBar prefHeight="25.0" prefWidth="493.0" BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="Arquivo">
+          <Menu mnemonicParsing="false" text="%menuArquivo">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#itemNovo" text="Novo" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-              <MenuItem mnemonicParsing="false" onAction="#itemSair" text="Sair" />
+                  <MenuItem mnemonicParsing="false" onAction="#itemNovo" text="%menuNovo" />
+              <MenuItem mnemonicParsing="false" onAction="#itemSair" text="%menuSair" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Editar">
+          <Menu mnemonicParsing="false" text="%menuEditar">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Recortar" />
-                  <MenuItem mnemonicParsing="false" text="Copiar" />
-                  <MenuItem mnemonicParsing="false" text="Colar" />
-              <MenuItem mnemonicParsing="false" text="Deletar" />
+                  <MenuItem mnemonicParsing="false" text="%menuRecortar" />
+                  <MenuItem mnemonicParsing="false" text="%menuCopiar" />
+                  <MenuItem mnemonicParsing="false" text="%menuColar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Selecionar Tudo" />
+                  <MenuItem mnemonicParsing="false" text="%menuSelecionarTudo" />
+              <MenuItem mnemonicParsing="false" text="%menuDeletar" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Ajuda">
+          <Menu mnemonicParsing="false" text="%menuAjuda">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#itemSobre" text="Sobre" />
+              <MenuItem mnemonicParsing="false" onAction="#itemSobre" text="%menuSobre" />
             </items>
           </Menu>
         </menus>

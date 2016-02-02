@@ -14,7 +14,7 @@ public class PerguntasSource {
 	
 	private PerguntasSource(Idioma idiomaEscolhido, Certificacao nomeExame) {
 		local = verificaIdioma(idiomaEscolhido);
-		bundle = ResourceBundle.getBundle("br.com.oca.i18n.perguntas/perguntas" + nomeExame, local);
+		bundle = ResourceBundle.getBundle("br.com.oca.model.i18n.perguntas/perguntas" + nomeExame, local);
 	}
 	
 	public static PerguntasSource getInstance(Idioma idiomaEscolhido, Certificacao nomeExame) {
