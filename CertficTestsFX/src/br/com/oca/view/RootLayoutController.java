@@ -31,7 +31,8 @@ public class RootLayoutController {
 	
 	@FXML
 	private void itemNovo() {
-		mainApp.showQuiz();
+		
+		//mainApp.showQuiz(nomeExameResult, tipoTesteResult);
 	}
 	
 	public void setMainApp(MainApp mainApp) {

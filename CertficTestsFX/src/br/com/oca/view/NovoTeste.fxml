@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<DialogPane headerText="Novo Teste" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="217.0" prefWidth="362.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1">
+    <header>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="454.0">
+         <children>
+            <ChoiceBox layoutX="149.0" layoutY="100.0" prefHeight="25.0" prefWidth="192.0" />
+            <ChoiceBox layoutX="149.0" layoutY="141.0" prefHeight="25.0" prefWidth="192.0" />
+            <ImageView fitHeight="53.0" fitWidth="51.0" layoutX="280.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../img/confirm48.png" />
+               </image>
+            </ImageView>
+            <Separator layoutY="76.0" prefHeight="4.0" prefWidth="362.0" />
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="246.0" text="Selecione o Nome do Exame e o ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="40.0" prefHeight="25.0" prefWidth="182.0" text="Tipo de Teste Desejado.">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="22.0" layoutY="103.0" text="Nome do Exame: ">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="144.0" text="Tipo de Teste: ">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+    </header>
+    <expandableContent>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" />
+    </expandableContent>
+   <buttonTypes>
+      <ButtonType fx:constant="CANCEL" />
+      <ButtonType fx:constant="APPLY" />
+   </buttonTypes>
+</DialogPane>

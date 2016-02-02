@@ -51,7 +51,8 @@ public class HomeController {
 
 	@FXML
 	public void handleQuiz() {
-		mainApp.showQuiz();
+		if (comboExame.getValue() != null && comboTipoTeste.getValue() != null)
+			mainApp.showQuiz(comboExame.getValue(), comboTipoTeste.getValue());
 	}
 
 	public void setMainApp(MainApp mainApp) {

@@ -6,6 +6,7 @@ import br.com.oca.model.OCA;
 import br.com.oca.model.Questao;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
+import br.com.oca.model.enums.TipoTeste;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -65,8 +66,8 @@ public class QuizController {
 	private Integer numeroAtualQuestao;
 	private Conteudo conteudo;
 	
-	public QuizController() {
-		
+	public QuizController(Certificacao certificacao, TipoTeste tipoTeste) {
+		conteudo = OCA.getInstance(certificacao, Idioma.Ingles);
 	}
 	
 	/**
@@ -75,7 +76,6 @@ public class QuizController {
      */
     @FXML
     private void initialize() {
-    	conteudo = OCA.getInstance(Certificacao.OCA, Idioma.Ingles);
     	numeroAtualQuestao = 0;
     	setQuestao(conteudo.getQuestao(numeroAtualQuestao));
     }

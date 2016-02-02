@@ -12,7 +12,9 @@ import org.controlsfx.dialog.Dialogs;
 
 import br.com.oca.model.Tentativa;
 import br.com.oca.model.TentativaWrapper;
+import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
+import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.view.HomeController;
 import br.com.oca.view.QuizController;
@@ -99,7 +101,7 @@ public class MainApp extends Application {
         }
     }
     
-    public void showQuiz() {
+    public void showQuiz(Certificacao certificacao, TipoTeste tipoTeste) {
     	
     	Window window = new Stage();
     	PauseTransition pause = new PauseTransition(Duration.seconds(30));
