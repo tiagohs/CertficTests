@@ -1,20 +1,23 @@
 package br.com.oca.view;
 
+import java.util.ArrayList;
+
+import br.com.oca.controller.MainApp;
 import br.com.oca.model.Questao;
+import br.com.oca.model.Resposta;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.conteudo.OCA;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.util.Observer;
+import br.com.oca.util.Subject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -68,14 +71,16 @@ public class QuizController implements Observer {
 	private Button sair;
 	
 	private Stage dialogStage;
+	private Stage dialogHome;
 	
 	private Integer contQuestao;
 	private Integer numeroAtualQuestao;
 	private Certificacao nomeExame;
 	private Idioma idioma;
 	private TipoTeste tipoTeste;
-	
+	private ArrayList<Resposta> listaRespostas;
 	private Conteudo conteudo;
+	private MainApp mainApp;
 	
 	public QuizController() {
 	}
@@ -162,17 +167,18 @@ public class QuizController implements Observer {
     }
     
     @FXML
-	private void opcaoSair() {
-		dialogStage.close();
-	}
-    
-    @FXML
     private void handleProximo() {
     	
     	contQuestao++;
-    	setNumeroQuestao();
-    	verificaQuestao(conteudo.getQuestao(contQuestao));
-    	setQuestao(conteudo.getQuestao(contQuestao));
+    	
+    	if (contQuestao <= (conteudo.getTotalQuestoes() - 1)) {
+    		setNumeroQuestao();
+        	verificaQuestao(conteudo.getQuestao(contQuestao));
+        	setQuestao(conteudo.getQuestao(contQuestao));
+    	} else {
+    		mainApp.showResultadoController(listaRespostas);
+    	}
+    	
     }
     
     @FXML
@@ -192,6 +198,7 @@ public class QuizController implements Observer {
     
     @FXML
     private void handleSair() {
+    	dialogHome.show();
     	dialogStage.close();
     }
     
@@ -206,7 +213,19 @@ public class QuizController implements Observer {
     public void setIdioma(Idioma idioma) {
 		this.idioma = idioma;
 	}
-
+    
+    public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+	}
+    
+    public void setListaRespostas(ArrayList<Resposta> listaRespostas) {
+		this.listaRespostas = listaRespostas;
+	}
+    
+    public void setDialogHome(Stage dialogHome) {
+		this.dialogHome = dialogHome;
+	}
+    
 	@Override
 	public void update(Idioma idioma) {
 		setIdioma(idioma);

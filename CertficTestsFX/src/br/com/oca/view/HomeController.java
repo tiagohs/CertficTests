@@ -1,6 +1,6 @@
 package br.com.oca.view;
 
-import br.com.oca.controllers.MainApp;
+import br.com.oca.controller.MainApp;
 import br.com.oca.model.Tentativa;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
@@ -12,10 +12,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 
 public class HomeController implements Observer {
 	@FXML
@@ -38,7 +39,8 @@ public class HomeController implements Observer {
 	private ObservableList<Certificacao> optionsExame;
 	private ObservableList<TipoTeste> optionsTipoTeste;
 	private Idioma idioma;
-
+	
+	private Stage homeStage;
 	private MainApp mainApp;
 
 	public HomeController() {
@@ -61,9 +63,10 @@ public class HomeController implements Observer {
 
 	@FXML
 	public void handleBotaoNovo() {
-		if (comboExame.getValue() != null && comboTipoTeste.getValue() != null)
+		if (comboExame.getValue() != null && comboTipoTeste.getValue() != null) {
 			mainApp.showQuiz(comboExame.getValue(), comboTipoTeste.getValue());
-		else {
+			homeStage.hide();
+		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Atenção!");
 			alert.setHeaderText("Erro na criação de um Novo Teste");
@@ -88,6 +91,10 @@ public class HomeController implements Observer {
 		this.loader = loader;
 	}
 	
+	public void setHomeStage(Stage homeStage) {
+		this.homeStage = homeStage;
+	}
+	
 	@FXML
 	private void handleSair() {
 		System.exit(0);
@@ -95,7 +102,8 @@ public class HomeController implements Observer {
 	
 	@Override
 	public void update(Idioma idioma) {
-		setIdioma(idioma);
+		label.setNovoIdioma(idioma);
+		loader.setResources(label.getBundle());
 	}
 
 }

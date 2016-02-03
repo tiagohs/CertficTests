@@ -1,7 +1,8 @@
-package br.com.oca.controllers;
+package br.com.oca.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
 import javax.xml.bind.JAXBContext;
@@ -10,6 +11,7 @@ import javax.xml.bind.Unmarshaller;
 
 import org.controlsfx.dialog.Dialogs;
 
+import br.com.oca.model.Resposta;
 import br.com.oca.model.Tentativa;
 import br.com.oca.model.TentativaWrapper;
 import br.com.oca.model.enums.Certificacao;
@@ -20,6 +22,7 @@ import br.com.oca.view.HomeController;
 import br.com.oca.view.NovoTesteController;
 import br.com.oca.view.PropriedadesController;
 import br.com.oca.view.QuizController;
+import br.com.oca.view.ResultadoController;
 import br.com.oca.view.RootLayoutController;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
@@ -29,13 +32,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
 
 public class MainApp extends Application {
 	private ObservableList<Tentativa> listaTentativas;
-	private Stage stagePrimario;
+	private Stage homeStage;
     private BorderPane rootLayout;
     private JanelasSource label;
     private Idioma idioma;
@@ -53,11 +57,11 @@ public class MainApp extends Application {
     @Override
     public void start(Stage _stagePrimario) {
     	
-    	stagePrimario = _stagePrimario;
-        stagePrimario.setTitle("CertficTests");
+    	homeStage = _stagePrimario;
+        homeStage.setTitle("CertficTests");
         idioma = Idioma.Portugues; 
         label = JanelasSource.getInstance(idioma); 
-       
+        
         initRootLayout();
 
         showHome();
@@ -68,37 +72,18 @@ public class MainApp extends Application {
      */
     public void initRootLayout() {
         try {
-        	// Carrega o root layout do arquivo fxml.
         	FXMLLoader loader = new FXMLLoader();
         	loader.setResources(label.getBundle());
             rootLayout = (BorderPane) loader.load(this.getClass().getResource("../view/RootLayout.fxml").openStream());
 
-            // Mostra a scene (cena) contendo o root layout.
             Scene scene = new Scene(rootLayout);
-            stagePrimario.setScene(scene);
+            homeStage.setScene(scene);
             
             RootLayoutController controller = loader.getController();
             controller.setMainApp(this);
-
-            stagePrimario.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Mostra o person overview dentro do root layout.
-     */
-    public void showHome() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setResources(label.getBundle());
-            AnchorPane personOverview = (AnchorPane) loader.load(this.getClass().getResource("../view/Home.fxml").openStream());
-            rootLayout.setCenter(personOverview);
+            controller.setDialogHome(homeStage);
             
-            HomeController controller = loader.getController();
-            controller.setMainApp(this);
-            controller.setLoader(loader);
+            homeStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,13 +101,29 @@ public class MainApp extends Application {
             AnchorPane page = (AnchorPane) loader.load(this.getClass().getResource("../view/Propriedades.fxml").openStream());
             
             Stage propriedadesStage = new Stage();
+            propriedadesStage.initModality(Modality.WINDOW_MODAL);
             propriedadesStage.setTitle(label.getString("propriedadesTitulo"));
             propriedadesStage.setScene(new Scene(page));
             propriedadesStage.show();
+          
+            PropriedadesController propriedadesController = loader.getController();
+            propriedadesController.setDialogStage(propriedadesStage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showHome() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setResources(label.getBundle());
+            AnchorPane personOverview = (AnchorPane) loader.load(this.getClass().getResource("../view/Home.fxml").openStream());
+            rootLayout.setCenter(personOverview);
             
-            PropriedadesController controller = loader.getController();
-            controller.setDialogStage(propriedadesStage);
-            
+            HomeController homeController = loader.getController();
+            homeController.setHomeStage(homeStage);
+            homeController.setMainApp(this);
+            homeController.setLoader(loader);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -140,14 +141,14 @@ public class MainApp extends Application {
             AnchorPane page = (AnchorPane) loader.load(this.getClass().getResource("../view/NovoTeste.fxml").openStream());
             
             Stage novoTesteStage = new Stage();
+            novoTesteStage.initModality(Modality.WINDOW_MODAL);
             novoTesteStage.setTitle("Novo Teste");
             novoTesteStage.setScene(new Scene(page));
             novoTesteStage.show();
             
-            NovoTesteController controller = loader.getController();
-            controller.setDialogStage(novoTesteStage);
-            controller.setMainApp(this);
-            
+            NovoTesteController novoTesteController = loader.getController();
+            novoTesteController.setDialogStage(novoTesteStage);
+            novoTesteController.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -166,18 +167,48 @@ public class MainApp extends Application {
             AnchorPane page = (AnchorPane) loader.load(this.getClass().getResource("../view/Quiz.fxml").openStream());
             
             Stage quizStage = new Stage();
+            quizStage.initModality(Modality.WINDOW_MODAL);
             quizStage.setTitle("Quiz - CertificTests");
             quizStage.setScene(new Scene(page));
             quizStage.show();
             
-            QuizController controller = loader.getController();
-            controller.setDialogStage(quizStage);
-            controller.setIdioma(idioma);
-            controller.iniciarQuiz(nomeExame, tipoTeste);
+            QuizController quizController = loader.getController();
+            quizController.setDialogStage(quizStage);
+            quizController.setDialogHome(homeStage);
+            quizController.setIdioma(idioma);
+            quizController.setMainApp(this);
+            quizController.iniciarQuiz(nomeExame, tipoTeste);
         } catch (IOException e) {
             e.printStackTrace();
         }
     	
+    }
+    
+    public void showResultadoController(ArrayList<Resposta> listaRespostas) {
+    	
+    	Window window = new Stage();
+    	PauseTransition pause = new PauseTransition(Duration.seconds(30));
+    	pause.setOnFinished(e -> window.hide());
+    	pause.play();
+    	
+    	try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setResources(label.getBundle());
+            AnchorPane page = (AnchorPane) loader.load(this.getClass().getResource("../view/Resultado.fxml").openStream());
+            
+            Stage resultadoStage = new Stage();
+            resultadoStage.initModality(Modality.WINDOW_MODAL);
+            resultadoStage.setTitle("Resultados - CertificTests");
+            resultadoStage.setScene(new Scene(page));
+            resultadoStage.show();
+            
+            ResultadoController resultadoController = loader.getController();
+            resultadoController.setDialogStage(resultadoStage);
+            resultadoController.setListaRespostas(listaRespostas);
+            resultadoController.setIdioma(idioma);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     public void loadPersonDataFromFile(File file) {
@@ -202,11 +233,6 @@ public class MainApp extends Application {
         }
     }
 
-    /**
-     * Salva os dados da pessoa atual no arquivo especificado.
-     * 
-     * @param file
-     */
     public void savePersonDataToFile(File file) {
         try {
             JAXBContext context = JAXBContext
@@ -240,29 +266,23 @@ public class MainApp extends Application {
         }
     }
 
-    /**
-     * Define o caminho do arquivo do arquivo carregado atual. O caminho é persistido no
-     * registro específico do SO (Sistema Operacional).
-     * 
-     * @param file O arquivo ou null para remover o caminho
-     */
     public void setPersonFilePath(File file) {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
         if (file != null) {
             prefs.put("filePath", file.getPath());
 
             // Update the stage title.
-            stagePrimario.setTitle("CertficTests - " + file.getName());
+            homeStage.setTitle("CertficTests - " + file.getName());
         } else {
             prefs.remove("filePath");
 
             // Update the stage title.
-            stagePrimario.setTitle("CertficTests");
+            homeStage.setTitle("CertficTests");
         }
     }
     
     public Stage getPrimaryStage() {
-        return stagePrimario;
+        return homeStage;
     }
     
     public ObservableList<Tentativa> getListaTentativas() {
