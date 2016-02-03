@@ -7,11 +7,13 @@ import br.com.oca.model.enums.Idioma;
 import br.com.oca.util.Observer;
 import br.com.oca.util.Subject;
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
 
 public class PropriedadesController implements Subject {
 	@FXML
 	private Idioma idioma;
 	
+	private Stage dialogStage;
 	private List<Observer> listaObservers;
 	
 	public PropriedadesController() {
@@ -36,7 +38,11 @@ public class PropriedadesController implements Subject {
 		}
 		
 	}
-
+	
+	public void setDialogStage(Stage dialogStage) {
+		this.dialogStage = dialogStage;
+	}
+	
 	@Override
 	public void addObserver(Observer novoObserver) {
 		listaObservers.add(novoObserver);

@@ -17,6 +17,7 @@ import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.view.HomeController;
+import br.com.oca.view.PropriedadesController;
 import br.com.oca.view.QuizController;
 import br.com.oca.view.RootLayoutController;
 import javafx.animation.PauseTransition;
@@ -111,16 +112,16 @@ public class MainApp extends Application {
     	try {
             FXMLLoader loader = new FXMLLoader();
             loader.setResources(label.getBundle());
-            AnchorPane page = (AnchorPane) loader.load(this.getClass().getResource("../view/Quiz.fxml").openStream());
+            AnchorPane page = (AnchorPane) loader.load(this.getClass().getResource("../view/Propriedades.fxml").openStream());
             
-            Stage quizStage = new Stage();
-            quizStage.setTitle(label.getString("propriedadesTitulo"));
-            quizStage.setScene(new Scene(page));
-            quizStage.show();
+            Stage propriedadesStage = new Stage();
+            propriedadesStage.setTitle(label.getString("propriedadesTitulo"));
+            propriedadesStage.setScene(new Scene(page));
+            propriedadesStage.show();
             
-            QuizController controller = loader.getController();
-            controller.setDialogStage(quizStage);
-            controller.setIdioma(idioma);
+            PropriedadesController controller = loader.getController();
+            controller.setDialogStage(propriedadesStage);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
