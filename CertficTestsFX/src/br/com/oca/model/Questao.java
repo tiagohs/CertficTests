@@ -8,34 +8,36 @@ import br.com.oca.model.enums.TipoQuestao;
 public class Questao {
 	private TipoQuestao tipoQuestao;
 	private String enunciado;
+	private String enunciadoExtras;
 	private String referencia;
 	private HashMap<Character, String> listaAlternativas;
 	private Character alternativaCorreta;
 	private ArrayList<Character> alternativasCorretas;
 	
-	public Questao(String _enunciado, HashMap<Character, String> _alternativas, Character _alternativaCorreta, ArrayList<Character> _alternativasCorretas, TipoQuestao _tipoQuestao, String _referencia) {
+	public Questao(String _enunciado, HashMap<Character, String> _alternativas, Character _alternativaCorreta, ArrayList<Character> _alternativasCorretas, TipoQuestao _tipoQuestao, String _referencia, String _enunciadoExtras) {
 		enunciado = _enunciado;
 		listaAlternativas = _alternativas;
 		alternativaCorreta = _alternativaCorreta;
 		alternativasCorretas = _alternativasCorretas;
 		tipoQuestao = _tipoQuestao;
 		referencia = _referencia;
+		enunciadoExtras = _enunciadoExtras;
 	}
 	
-	public Questao(String _enunciado, TipoQuestao _tipoQuestao, String _referencia) {
-		this(_enunciado, new HashMap<Character, String>(), ' ', new ArrayList<Character>(), _tipoQuestao, _referencia);
+	public Questao(String _enunciado, TipoQuestao _tipoQuestao, String _referencia, String _enunciadoExtras) {
+		this(_enunciado, new HashMap<Character, String>(), ' ', new ArrayList<Character>(), _tipoQuestao, _referencia, _enunciadoExtras);
 	}
 	
-	public Questao(String _enunciado, ArrayList<Character> _alternativasCorretas, String _referencia) {
-		this(_enunciado, new HashMap<Character, String>(), null, _alternativasCorretas, TipoQuestao.MULTIPLA,_referencia);
+	public Questao(String _enunciado, ArrayList<Character> _alternativasCorretas, String _referencia, String _enunciadoExtras) {
+		this(_enunciado, new HashMap<Character, String>(), null, _alternativasCorretas, TipoQuestao.MULTIPLA,_referencia, _enunciadoExtras);
 	}
 	
-	public Questao(String _enunciado, Character _alternativaCorreta, String _referencia) {
-		this(_enunciado, new HashMap<Character, String>(), _alternativaCorreta, null, TipoQuestao.UNICA, _referencia);
+	public Questao(String _enunciado, Character _alternativaCorreta, String _referencia, String _enunciadoExtras) {
+		this(_enunciado, new HashMap<Character, String>(), _alternativaCorreta, null, TipoQuestao.UNICA, _referencia, _enunciadoExtras);
 	}
 	
 	public Questao() {
-		this("", new HashMap<Character, String>(), ' ', new ArrayList<Character>(), TipoQuestao.UNICA, "");
+		this("", new HashMap<Character, String>(), ' ', new ArrayList<Character>(), TipoQuestao.UNICA, "", null);
 	}
 	
 	public void addAlternativa(Character letra, String enunciado) {
@@ -118,7 +120,15 @@ public class Questao {
 	public void setReferencia(String referencia) {
 		this.referencia = referencia;
 	}
-
+	
+	public String getEnunciadoExtras() {
+		return enunciadoExtras;
+	}
+	
+	public void setEnunciadoExtras(String enunciadoExtras) {
+		this.enunciadoExtras = enunciadoExtras;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		

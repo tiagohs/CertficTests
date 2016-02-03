@@ -17,6 +17,7 @@ import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.view.HomeController;
+import br.com.oca.view.NovoTesteController;
 import br.com.oca.view.PropriedadesController;
 import br.com.oca.view.QuizController;
 import br.com.oca.view.RootLayoutController;
@@ -121,6 +122,30 @@ public class MainApp extends Application {
             
             PropriedadesController controller = loader.getController();
             controller.setDialogStage(propriedadesStage);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showNovoTesteDialog() {
+    	Window window = new Stage();
+    	PauseTransition pause = new PauseTransition(Duration.seconds(30));
+    	pause.setOnFinished(e -> window.hide());
+    	pause.play();
+    	
+    	try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setResources(label.getBundle());
+            AnchorPane page = (AnchorPane) loader.load(this.getClass().getResource("../view/NovoTeste.fxml").openStream());
+            
+            Stage novoTesteStage = new Stage();
+            novoTesteStage.setTitle("Novo Teste");
+            novoTesteStage.setScene(new Scene(page));
+            novoTesteStage.show();
+            
+            NovoTesteController controller = loader.getController();
+            controller.setDialogStage(novoTesteStage);
             
         } catch (IOException e) {
             e.printStackTrace();

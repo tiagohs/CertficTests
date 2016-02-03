@@ -1,7 +1,8 @@
-package br.com.oca.model;
+package br.com.oca.model.conteudo;
 
 import java.util.ArrayList;
 
+import br.com.oca.model.Questao;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.i18n.perguntas.PerguntasSource;

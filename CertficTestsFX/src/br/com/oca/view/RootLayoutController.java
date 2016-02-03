@@ -38,7 +38,7 @@ public class RootLayoutController implements Observer {
 	
 	@FXML
 	private void itemNovo() {
-		mainApp.showQuiz(Certificacao.OCA, TipoTeste.TESTE_1);
+		mainApp.showNovoTesteDialog();
 	}
 	
 	@FXML

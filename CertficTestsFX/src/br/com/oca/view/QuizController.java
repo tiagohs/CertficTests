@@ -1,8 +1,8 @@
 package br.com.oca.view;
 
-import br.com.oca.model.Conteudo;
-import br.com.oca.model.OCA;
 import br.com.oca.model.Questao;
+import br.com.oca.model.conteudo.Conteudo;
+import br.com.oca.model.conteudo.OCA;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
@@ -124,7 +124,7 @@ public class QuizController implements Observer {
     }
     
     private void setQuestao(Questao questao) {
-    	labelEnunciadoQuestao.setText(questao.getEnunciado());
+    	labelEnunciadoQuestao.setText(questao.getEnunciado() + questao.getEnunciadoExtras());
     	labelEnunciadoQuestao.setWrapText(true);
     	labelReferencia.setText(questao.getReferencia());
     }

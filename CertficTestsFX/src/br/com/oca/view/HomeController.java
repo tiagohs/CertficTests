@@ -11,9 +11,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 
 public class HomeController implements Observer {
 	@FXML
@@ -58,9 +60,17 @@ public class HomeController implements Observer {
 	}
 
 	@FXML
-	public void handleQuiz() {
+	public void handleBotaoNovo() {
 		if (comboExame.getValue() != null && comboTipoTeste.getValue() != null)
 			mainApp.showQuiz(comboExame.getValue(), comboTipoTeste.getValue());
+		else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Atenção!");
+			alert.setHeaderText("Erro na criação de um Novo Teste");
+			alert.setContentText("A Escolha de um Exame e de Um tipo de Teste é obrigatória.");
+
+			alert.showAndWait();
+		}
 	}
 
 	public void setMainApp(MainApp mainApp) {
