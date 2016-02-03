@@ -33,7 +33,8 @@ public class NovoTesteController {
 	
 	@FXML
 	private void handleOk() {
-		//mainApp.showQuiz(nomeExame, tipoTeste);
+		mainApp.showQuiz(comboExame.getValue(), comboTipoTeste.getValue());
+		dialogStage.close();
 	}
 	
 	@FXML

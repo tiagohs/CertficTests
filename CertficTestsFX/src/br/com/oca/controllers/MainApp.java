@@ -146,6 +146,7 @@ public class MainApp extends Application {
             
             NovoTesteController controller = loader.getController();
             controller.setDialogStage(novoTesteStage);
+            controller.setMainApp(this);
             
         } catch (IOException e) {
             e.printStackTrace();
