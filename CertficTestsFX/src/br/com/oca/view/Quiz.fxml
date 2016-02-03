@@ -7,8 +7,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.QuizController">
-   <children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.QuizController">
+   <children> 
       <TextField fx:id="enunciadoQuestao" disable="true" layoutX="13.0" layoutY="87.0" prefHeight="155.0" prefWidth="725.0">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" /> 
@@ -18,8 +18,8 @@
       <Separator layoutX="22.0" layoutY="35.0" prefHeight="7.0" prefWidth="397.0" />
       <Label fx:id="nomeExame" layoutX="22.0" layoutY="42.0" prefHeight="26.0" prefWidth="354.0" text="Oracle Certified Associate, Java SE 7 Programmer" />
       <Button fx:id="ajuda" layoutX="544.0" layoutY="453.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="93.0" text="%botaoAjuda" />
-      <Button fx:id="proximaQuestao" layoutX="242.0" layoutY="453.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="156.0" text="%botaoProximo" />
-      <Button fx:id="anteriorQuestao" layoutX="67.0" layoutY="453.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="156.0" text="%botaoAnterior" />
+      <Button fx:id="proximaQuestao" layoutX="242.0" layoutY="453.0" mnemonicParsing="false" onAction="#handleProximo" prefHeight="39.0" prefWidth="156.0" text="%botaoProximo" />
+      <Button fx:id="anteriorQuestao" layoutX="67.0" layoutY="453.0" mnemonicParsing="false" onAction="#handleAnterior" prefHeight="39.0" prefWidth="156.0" text="%botaoAnterior" />
       <Button fx:id="sair" layoutX="642.0" layoutY="453.0" mnemonicParsing="false" onAction="#opcaoSair" prefHeight="39.0" prefWidth="96.0" text="%botaoSair" />
       <Label fx:id="tempoDecorrido" layoutX="573.0" layoutY="29.0" prefHeight="26.0" prefWidth="156.0" text="Tempo Decorrido: 00:02:00" />
       <Pane fx:id="comboPainel" layoutX="28.0" layoutY="265.0" prefHeight="181.0" prefWidth="695.0">
@@ -29,15 +29,15 @@
             <RadioButton fx:id="radioAlternativaC" layoutX="14.0" layoutY="82.0" mnemonicParsing="false" text="C " />
             <RadioButton fx:id="radioAlternativaD" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" text="D" />
             <RadioButton fx:id="radioAlternativaE" layoutX="14.0" layoutY="150.0" mnemonicParsing="false" text="E" />
-            <Pane fx:id="checkPainel" layoutY="-1.0" prefHeight="189.0" prefWidth="695.0">
-               <children>
-                  <CheckBox fx:id="checkAlternativaA" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" text="--- A" />
-                  <CheckBox fx:id="checkAlternativaB" layoutX="14.0" layoutY="49.0" mnemonicParsing="false" text="--- B" />
-                  <CheckBox fx:id="checkAlternativaC" layoutX="14.0" layoutY="83.0" mnemonicParsing="false" text="--- C" />
-                  <CheckBox fx:id="checkAlternativaD" layoutX="14.0" layoutY="116.0" mnemonicParsing="false" text="--- D" />
-                  <CheckBox fx:id="checkAlternativaE" layoutX="14.0" layoutY="151.0" mnemonicParsing="false" text="--- E" />
-               </children>
-            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="checkPainel" layoutX="38.0" layoutY="275.0" prefHeight="181.0" prefWidth="695.0">
+         <children>
+            <CheckBox fx:id="checkAlternativaA" layoutX="1.0" layoutY="6.0" mnemonicParsing="false" text="--- A" />
+            <CheckBox fx:id="checkAlternativaB" layoutX="2.0" layoutY="37.0" mnemonicParsing="false" text="--- B" />
+            <CheckBox fx:id="checkAlternativaC" layoutX="1.0" layoutY="74.0" mnemonicParsing="false" text="--- C" />
+            <CheckBox fx:id="checkAlternativaD" layoutX="1.0" layoutY="105.0" mnemonicParsing="false" text="--- D" />
+            <CheckBox fx:id="checkAlternativaE" layoutX="1.0" layoutY="140.0" mnemonicParsing="false" text="--- E" />
          </children>
       </Pane>
    </children>

@@ -48,4 +48,13 @@ public class JanelasSource {
 	public ResourceBundle getBundle() {
 		return bundle;
 	}
+	
+	public void setBundle(ResourceBundle bundle) {
+		this.bundle = bundle;
+	}
+	
+	public void setNovoIdioma(Idioma novoIdioma) {
+		local = verificaIdioma(novoIdioma);
+		bundle = ResourceBundle.getBundle("br.com.oca.model.i18n.janelas/janelas", local);
+	}
 }

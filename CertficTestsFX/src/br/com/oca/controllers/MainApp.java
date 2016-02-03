@@ -53,7 +53,7 @@ public class MainApp extends Application {
     	
     	stagePrimario = _stagePrimario;
         stagePrimario.setTitle("CertficTests");
-        idioma = Idioma.Portugues; //Idioma Padrão
+        idioma = Idioma.Portugues; 
         label = JanelasSource.getInstance(idioma); 
        
         initRootLayout();
@@ -96,12 +96,37 @@ public class MainApp extends Application {
             
             HomeController controller = loader.getController();
             controller.setMainApp(this);
+            controller.setLoader(loader);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
-    public void showQuiz(Certificacao certificacao, TipoTeste tipoTeste) {
+    public void showPropriedades() {
+    	Window window = new Stage();
+    	PauseTransition pause = new PauseTransition(Duration.seconds(30));
+    	pause.setOnFinished(e -> window.hide());
+    	pause.play();
+    	
+    	try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setResources(label.getBundle());
+            AnchorPane page = (AnchorPane) loader.load(this.getClass().getResource("../view/Quiz.fxml").openStream());
+            
+            Stage quizStage = new Stage();
+            quizStage.setTitle(label.getString("propriedadesTitulo"));
+            quizStage.setScene(new Scene(page));
+            quizStage.show();
+            
+            QuizController controller = loader.getController();
+            controller.setDialogStage(quizStage);
+            controller.setIdioma(idioma);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showQuiz(Certificacao nomeExame, TipoTeste tipoTeste) {
     	
     	Window window = new Stage();
     	PauseTransition pause = new PauseTransition(Duration.seconds(30));
@@ -120,7 +145,8 @@ public class MainApp extends Application {
             
             QuizController controller = loader.getController();
             controller.setDialogStage(quizStage);
-            controller.setMainApp(this);
+            controller.setIdioma(idioma);
+            controller.iniciarQuiz(nomeExame, tipoTeste);
         } catch (IOException e) {
             e.printStackTrace();
         }

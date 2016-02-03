@@ -3,15 +3,19 @@ package br.com.oca.view;
 import br.com.oca.controllers.MainApp;
 import br.com.oca.model.Tentativa;
 import br.com.oca.model.enums.Certificacao;
+import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
+import br.com.oca.model.i18n.janelas.JanelasSource;
+import br.com.oca.util.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class HomeController {
+public class HomeController implements Observer {
 	@FXML
 	private TableView<Tentativa> tabelaTentativas;
 	@FXML
@@ -26,9 +30,12 @@ public class HomeController {
 	private ComboBox<Certificacao> comboExame; 
 	@FXML
 	private ComboBox<TipoTeste> comboTipoTeste;
-
+	
+	private FXMLLoader loader;
+	private JanelasSource label;
 	private ObservableList<Certificacao> optionsExame;
 	private ObservableList<TipoTeste> optionsTipoTeste;
+	private Idioma idioma;
 
 	private MainApp mainApp;
 
@@ -47,6 +54,7 @@ public class HomeController {
 		colunaAcertos.setCellValueFactory(cellData -> cellData.getValue().getNumeroAcertosStringProperty());
 		comboExame.setItems(optionsExame);
 		comboTipoTeste.setItems(optionsTipoTeste);
+		label = JanelasSource.getInstance(idioma); 
 	}
 
 	@FXML
@@ -58,6 +66,26 @@ public class HomeController {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		tabelaTentativas.setItems(mainApp.getListaTentativas());
+	}
+	
+	public void setIdioma(Idioma idioma) {
+		label.setNovoIdioma(idioma);
+		loader.setResources(label.getBundle());
+		this.idioma = idioma;
+	}
+	
+	public void setLoader(FXMLLoader loader) {
+		this.loader = loader;
+	}
+	
+	@FXML
+	private void handleSair() {
+		System.exit(0);
+	}
+	
+	@Override
+	public void update(Idioma idioma) {
+		setIdioma(idioma);
 	}
 
 }
