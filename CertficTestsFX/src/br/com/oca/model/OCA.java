@@ -23,11 +23,11 @@ public class OCA extends Conteudo {
 
 		return instance;
 	}
-
+	
 	@Override
 	protected void preenxerQuestoes() {
 		
-		Questao questao = new Questao(perguntasSource.getString("teste30.exercicio1.questao"), 'B');
+		Questao questao = new Questao(perguntasSource.getString("teste30.exercicio1.questao"), 'B', perguntasSource.getString("teste30.exercicio1.referencia"));
 		questao.addAlternativa('A', perguntasSource.getString("teste30.exercicio1.opcao_a"));
 		questao.addAlternativa('B', perguntasSource.getString("teste30.exercicio1.opcao_b"));
 		questao.addAlternativa('C', perguntasSource.getString("teste30.exercicio1.opcao_c"));
@@ -36,7 +36,7 @@ public class OCA extends Conteudo {
 		
 		listaQuestoes.add(questao);
 		
-		questao = new Questao(perguntasSource.getString("teste30.exercicio2.questao"), 'D');
+		questao = new Questao(perguntasSource.getString("teste30.exercicio2.questao"), 'D', perguntasSource.getString("teste30.exercicio2.referencia"));
 		questao.addAlternativa('A', perguntasSource.getString("teste30.exercicio2.opcao_a"));
 		questao.addAlternativa('B', perguntasSource.getString("teste30.exercicio2.opcao_b"));
 		questao.addAlternativa('C', perguntasSource.getString("teste30.exercicio2.opcao_c"));
@@ -46,7 +46,7 @@ public class OCA extends Conteudo {
 		
 		listaQuestoes.add(questao);
 		
-		questao = new Questao(perguntasSource.getString("teste30.exercicio3.questao"), TipoQuestao.MULTIPLA);
+		questao = new Questao(perguntasSource.getString("teste30.exercicio3.questao"), TipoQuestao.MULTIPLA, perguntasSource.getString("teste30.exercicio3.referencia"));
 		questao.addAlternativa('A', perguntasSource.getString("teste30.exercicio3.opcao_a"));
 		questao.addAlternativa('B', perguntasSource.getString("teste30.exercicio3.opcao_b"));
 		questao.addAlternativa('C', perguntasSource.getString("teste30.exercicio3.opcao_c"));

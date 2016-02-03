@@ -1,8 +1,5 @@
 package br.com.oca.view;
 
-import javax.swing.ButtonGroup;
-
-import br.com.oca.controllers.MainApp;
 import br.com.oca.model.Conteudo;
 import br.com.oca.model.OCA;
 import br.com.oca.model.Questao;
@@ -28,7 +25,9 @@ public class QuizController implements Observer {
 	@FXML
 	private Label labelTempoDecorrido;
 	@FXML
-	private TextField enunciadoQuestao;
+	private Label labelReferencia;
+	@FXML
+	private TextField labelEnunciadoQuestao;
 	@FXML
 	private Pane comboPainel;
 	@FXML
@@ -66,6 +65,7 @@ public class QuizController implements Observer {
 	
 	private Stage dialogStage;
 	
+	private Integer contQuestao;
 	private Integer numeroAtualQuestao;
 	private Certificacao nomeExame;
 	private Idioma idioma;
@@ -82,15 +82,24 @@ public class QuizController implements Observer {
      */
     @FXML
     private void initialize() {
-    	numeroAtualQuestao = 0;
+    	contQuestao = 0;
+    	numeroAtualQuestao = 1;
     }
     
-    public void iniciarQuiz(Certificacao nomeExame, TipoTeste tipoTeste) {
-    	setNomeExame(nomeExame);
-    	setTipoTeste(tipoTeste);
+    public void iniciarQuiz(Certificacao _nomeExame, TipoTeste _tipoTeste) {
+    	nomeExame = _nomeExame;
+    	tipoTeste = _tipoTeste;
     	conteudo = OCA.getInstance(nomeExame, idioma);
-    	verificaQuestao(conteudo.getQuestao(numeroAtualQuestao));
-    	setQuestao(conteudo.getQuestao(numeroAtualQuestao));
+    	
+    	labelNomeExame.setText(nomeExame.getNome());
+    	setNumeroQuestao();
+    	verificaQuestao(conteudo.getQuestao(contQuestao));
+    	setQuestao(conteudo.getQuestao(contQuestao));
+    }
+    
+    private void setNumeroQuestao() {
+    	labelNumeroQuestao.setText("Questão " + numeroAtualQuestao + " de " + conteudo.getTotalQuestoes());
+    	numeroAtualQuestao++;
     }
     
     private void verificaQuestao(Questao questao) {
@@ -111,7 +120,8 @@ public class QuizController implements Observer {
     }
     
     private void setQuestao(Questao questao) {
-    	enunciadoQuestao.setText(questao.getEnunciado());
+    	labelEnunciadoQuestao.setText(questao.getEnunciado());
+    	labelReferencia.setText(questao.getReferencia());
     }
     
     private void setMultiplasEscolhas(Questao questao) {
@@ -144,18 +154,19 @@ public class QuizController implements Observer {
     @FXML
     private void handleProximo() {
     	
-    	numeroAtualQuestao++;
-    	verificaQuestao(conteudo.getQuestao(numeroAtualQuestao));
-    	setQuestao(conteudo.getQuestao(numeroAtualQuestao));
+    	contQuestao++;
+    	setNumeroQuestao();
+    	verificaQuestao(conteudo.getQuestao(contQuestao));
+    	setQuestao(conteudo.getQuestao(contQuestao));
     }
     
     @FXML
     private void handleAnterior() {
     	
-    	if (numeroAtualQuestao > 0) {
-    		numeroAtualQuestao--;
-        	verificaQuestao(conteudo.getQuestao(numeroAtualQuestao));
-        	setQuestao(conteudo.getQuestao(numeroAtualQuestao));
+    	if (contQuestao > 0) {
+    		contQuestao--;
+        	verificaQuestao(conteudo.getQuestao(contQuestao));
+        	setQuestao(conteudo.getQuestao(contQuestao));
     	}
     }
     
