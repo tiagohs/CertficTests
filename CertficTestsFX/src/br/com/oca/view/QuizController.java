@@ -12,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
@@ -27,7 +29,9 @@ public class QuizController implements Observer {
 	@FXML
 	private Label labelReferencia;
 	@FXML
-	private TextField labelEnunciadoQuestao;
+	private Label labelEnunciadoQuestao;
+	@FXML
+	private ScrollPane scrollEnunciado;
 	@FXML
 	private Pane comboPainel;
 	@FXML
@@ -121,25 +125,36 @@ public class QuizController implements Observer {
     
     private void setQuestao(Questao questao) {
     	labelEnunciadoQuestao.setText(questao.getEnunciado());
+    	labelEnunciadoQuestao.setWrapText(true);
     	labelReferencia.setText(questao.getReferencia());
     }
     
     private void setMultiplasEscolhas(Questao questao) {
     	
     	checkAlternativaA.setText(questao.getAlternativa('A'));
+    	checkAlternativaA.setWrapText(true);
     	checkAlternativaB.setText(questao.getAlternativa('B'));
+    	checkAlternativaB.setWrapText(true);
     	checkAlternativaC.setText(questao.getAlternativa('C'));
+    	checkAlternativaC.setWrapText(true);
     	checkAlternativaD.setText(questao.getAlternativa('D'));
+    	checkAlternativaD.setWrapText(true);
     	checkAlternativaE.setText(questao.getAlternativa('E'));
+    	checkAlternativaE.setWrapText(true);
     }
     
     private void setUnicaEscolha(Questao questao) {
     	
     	radioAlternativaA.setText(questao.getAlternativa('A'));
+    	radioAlternativaA.setWrapText(true);
     	radioAlternativaB.setText(questao.getAlternativa('B'));
+    	radioAlternativaB.setWrapText(true);
     	radioAlternativaC.setText(questao.getAlternativa('C'));
+    	radioAlternativaC.setWrapText(true);
     	radioAlternativaD.setText(questao.getAlternativa('D'));
+    	radioAlternativaD.setWrapText(true);
     	radioAlternativaE.setText(questao.getAlternativa('E'));
+    	radioAlternativaE.setWrapText(true);
     }
     
     public void setDialogStage(Stage dialogStage) {
