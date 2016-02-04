@@ -18,15 +18,15 @@
 			</children>
 		</Pane>
 
-		<ScrollPane layoutX="13.0" layoutY="83.0" prefHeight="425.0" prefWidth="655.0">
-			<content>
-				<Label fx:id="resultados" maxHeight="713.0" prefHeight="27.0" prefWidth="653.0" text="Resultados.">
-					<padding>
-						<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-					</padding>
-				</Label>
-			</content>
-		</ScrollPane>
+		<ScrollPane fx:id="scrollEnunciado" layoutX="8.0" layoutY="74.0" prefHeight="440.0" prefWidth="665.0">
+               <content>
+               <Label fx:id="resultados" maxHeight="713.0" prefWidth="670.0" text="Enunciado">
+                  <padding>
+                     <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                  </padding>
+               </Label>
+               </content>
+            </ScrollPane>
       <Button layoutX="282.0" layoutY="527.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="32.0" prefWidth="117.0" text="Ok" />
 	</children>
 </AnchorPane>

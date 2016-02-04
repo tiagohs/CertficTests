@@ -14,6 +14,7 @@ import org.controlsfx.dialog.Dialogs;
 import br.com.oca.model.Resposta;
 import br.com.oca.model.Tentativa;
 import br.com.oca.model.TentativaWrapper;
+import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
@@ -184,7 +185,7 @@ public class MainApp extends Application {
     	
     }
     
-    public void showResultadoController(ArrayList<Resposta> listaRespostas) {
+    public void showResultadoController(ArrayList<Resposta> listaRespostas, Conteudo conteudo) {
     	
     	Window window = new Stage();
     	PauseTransition pause = new PauseTransition(Duration.seconds(30));
@@ -205,7 +206,10 @@ public class MainApp extends Application {
             ResultadoController resultadoController = loader.getController();
             resultadoController.setDialogStage(resultadoStage);
             resultadoController.setListaRespostas(listaRespostas);
+            resultadoController.setDialogHome(homeStage);
+            resultadoController.setConteudo(conteudo);
             resultadoController.setIdioma(idioma);
+            resultadoController.calcularResultados();
         } catch (IOException e) {
             e.printStackTrace();
         }

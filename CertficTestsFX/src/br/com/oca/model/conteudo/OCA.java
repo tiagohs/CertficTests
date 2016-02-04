@@ -46,7 +46,6 @@ public class OCA extends Conteudo {
 		questao.addAlternativa('C', perguntasSource.getString("teste30.exercicio2.opcao_c"));
 		questao.addAlternativa('D', perguntasSource.getString("teste30.exercicio2.opcao_d"));
 		questao.addAlternativa('E', perguntasSource.getString("teste30.exercicio2.opcao_e"));
-		questao.addAlternativa('F', perguntasSource.getString("teste30.exercicio2.opcao_f"));
 		
 		listaQuestoes.add(questao);
 		
@@ -56,10 +55,10 @@ public class OCA extends Conteudo {
 		questao.addAlternativa('C', perguntasSource.getString("teste30.exercicio3.opcao_c"));
 		questao.addAlternativa('D', perguntasSource.getString("teste30.exercicio3.opcao_d"));
 		questao.addAlternativa('E', perguntasSource.getString("teste30.exercicio3.opcao_e"));
-		questao.addAlternativaCorreta('A');
-		questao.addAlternativaCorreta('B');
-		questao.addAlternativaCorreta('C');
-		questao.addAlternativaCorreta('D');
+		questao.addAlternativaCorreta(perguntasSource.getString("teste30.exercicio3.opcao_a"));
+		questao.addAlternativaCorreta(perguntasSource.getString("teste30.exercicio3.opcao_b"));
+		questao.addAlternativaCorreta(perguntasSource.getString("teste30.exercicio3.opcao_c"));
+		questao.addAlternativaCorreta(perguntasSource.getString("teste30.exercicio3.opcao_d"));
 		
 		listaQuestoes.add(questao);
 	}

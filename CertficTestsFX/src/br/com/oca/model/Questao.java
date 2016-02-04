@@ -12,9 +12,9 @@ public class Questao {
 	private String referencia;
 	private HashMap<Character, String> listaAlternativas;
 	private Character alternativaCorreta;
-	private ArrayList<Character> alternativasCorretas;
+	private ArrayList<String> alternativasCorretas;
 	
-	public Questao(String _enunciado, HashMap<Character, String> _alternativas, Character _alternativaCorreta, ArrayList<Character> _alternativasCorretas, TipoQuestao _tipoQuestao, String _referencia, String _enunciadoExtras) {
+	public Questao(String _enunciado, HashMap<Character, String> _alternativas, Character _alternativaCorreta, ArrayList<String> _alternativasCorretas, TipoQuestao _tipoQuestao, String _referencia, String _enunciadoExtras) {
 		enunciado = _enunciado;
 		listaAlternativas = _alternativas;
 		alternativaCorreta = _alternativaCorreta;
@@ -25,10 +25,10 @@ public class Questao {
 	}
 	
 	public Questao(String _enunciado, TipoQuestao _tipoQuestao, String _referencia, String _enunciadoExtras) {
-		this(_enunciado, new HashMap<Character, String>(), ' ', new ArrayList<Character>(), _tipoQuestao, _referencia, _enunciadoExtras);
+		this(_enunciado, new HashMap<Character, String>(), ' ', new ArrayList<String>(), _tipoQuestao, _referencia, _enunciadoExtras);
 	}
 	
-	public Questao(String _enunciado, ArrayList<Character> _alternativasCorretas, String _referencia, String _enunciadoExtras) {
+	public Questao(String _enunciado, ArrayList<String> _alternativasCorretas, String _referencia, String _enunciadoExtras) {
 		this(_enunciado, new HashMap<Character, String>(), null, _alternativasCorretas, TipoQuestao.MULTIPLA,_referencia, _enunciadoExtras);
 	}
 	
@@ -37,7 +37,7 @@ public class Questao {
 	}
 	
 	public Questao() {
-		this("", new HashMap<Character, String>(), ' ', new ArrayList<Character>(), TipoQuestao.UNICA, "", null);
+		this("", new HashMap<Character, String>(), ' ', new ArrayList<String>(), TipoQuestao.UNICA, "", null);
 	}
 	
 	public void addAlternativa(Character letra, String enunciado) {
@@ -101,16 +101,16 @@ public class Questao {
 		this.tipoQuestao = tipoQuestao;
 	}
 	
-	public ArrayList<Character> getAlternativasCorretas() {
+	public ArrayList<String> getAlternativasCorretas() {
 		return alternativasCorretas;
 	}
 	
-	public void setAlternativasCorretas(ArrayList<Character> alternativasCorretas) {
+	public void setAlternativasCorretas(ArrayList<String> alternativasCorretas) {
 		this.alternativasCorretas = alternativasCorretas;
 	}
 	
-	public void addAlternativaCorreta(Character letra) {
-		alternativasCorretas.add(letra);
+	public void addAlternativaCorreta(String alternativa) {
+		alternativasCorretas.add(alternativa);
 	}
 	
 	public String getReferencia() {
