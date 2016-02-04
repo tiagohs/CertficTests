@@ -21,7 +21,10 @@ public class NovoTesteController implements Observer {
 	
 	private ObservableList<Certificacao> optionsExame;
 	private ObservableList<TipoTeste> optionsTipoTeste;
+	
 	private Stage dialogStage;
+	private Stage dialogHome;
+	
 	private Subject controller;
 	private Idioma idioma;
 	private MainApp mainApp;
@@ -46,6 +49,7 @@ public class NovoTesteController implements Observer {
 	@FXML
 	private void handleCancel() {
 		dialogStage.close();
+		dialogHome.show();
 	}
 	
 	public void setController(Subject controller) {
@@ -63,6 +67,10 @@ public class NovoTesteController implements Observer {
 	
 	public void setIdioma(Idioma idioma) {
 		this.idioma = idioma;
+	}
+	
+	public void setDialogHome(Stage dialogHome) {
+		this.dialogHome = dialogHome;
 	}
 	
 	@Override

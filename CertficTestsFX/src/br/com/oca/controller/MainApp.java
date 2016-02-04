@@ -1,15 +1,11 @@
 package br.com.oca.controller;
 
-import java.io.File;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.prefs.Preferences;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
-import org.controlsfx.dialog.Dialogs;
 
 import br.com.oca.model.Calculos;
 import br.com.oca.model.Resposta;
@@ -19,7 +15,6 @@ import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.model.i18n.janelas.JanelasSource;
-import br.com.oca.util.TentativaWrapper;
 import br.com.oca.view.HomeController;
 import br.com.oca.view.NovoTesteController;
 import br.com.oca.view.PropriedadesController;
@@ -47,9 +42,6 @@ public class MainApp extends Application {
 	private Idioma idioma;
 
 	public MainApp() {
-		listaTentativas = listaTentativas = FXCollections.observableArrayList();
-		listaTentativas.add(new Tentativas(Certificacao.OCA, TipoTeste.TESTE_1, 100.0, 5.0));
-		listaTentativas.add(new Tentativas(Certificacao.OCA, TipoTeste.TESTE_2, 100.0, 5.0));
 	}
 
 	@Override
@@ -59,7 +51,8 @@ public class MainApp extends Application {
 		homeStage.setTitle("CertficTests");
 		idioma = Idioma.Portugues;
 		label = JanelasSource.getInstance(idioma);
-
+		
+		atualizaTabelaTentativas();
 		initRootLayout();
 
 		showHome();
@@ -158,6 +151,7 @@ public class MainApp extends Application {
 		NovoTesteController novoTesteController = loader.getController();
 		novoTesteController.setIdioma(idioma);
 		novoTesteController.setDialogStage(novoTesteStage);
+		novoTesteController.setDialogHome(homeStage);
 		novoTesteController.setMainApp(this);
 	}
 
@@ -184,7 +178,6 @@ public class MainApp extends Application {
 		AnchorPane page = getNovoAnchorPane(loader, "../view/Resultado.fxml");
 		Stage resultadoStage = getNovoStage(loader, page, "Resultados - CertificTests");
 		
-		
 		Calculos calculos = new Calculos(conteudo, listaRespostas);
 		ResultadoController resultadoController = loader.getController();
 		resultadoController.setDialogStage(resultadoStage);
@@ -193,71 +186,34 @@ public class MainApp extends Application {
 		resultadoController.setCalculos(calculos);
 		resultadoController.setDialogHome(homeStage);
 		resultadoController.setIdioma(idioma);
+		resultadoController.setMainApp(this);
 		resultadoController.calcularResultados();
 
 	}
-
-	public void loadPersonDataFromFile(File file) {
+	
+	public void atualizaTabelaTentativas() {
+		listaTentativas = listaTentativas = FXCollections.observableArrayList();
+		
 		try {
-			JAXBContext context = JAXBContext.newInstance(TentativaWrapper.class);
-			Unmarshaller um = context.createUnmarshaller();
-
-			TentativaWrapper wrapper = (TentativaWrapper) um.unmarshal(file);
-
-			listaTentativas.clear();
-			listaTentativas.addAll(wrapper.getPersons());
-
-			setPersonFilePath(file);
-
-		} catch (Exception e) { // catches ANY exception
-			Dialogs.create().title("Erro").masthead("Não foi possível carregar dados do arquivo:\n" + file.getPath())
-					.showException(e);
-		}
-	}
-
-	public void savePersonDataToFile(File file) {
-		try {
-			JAXBContext context = JAXBContext.newInstance(TentativaWrapper.class);
-			Marshaller m = context.createMarshaller();
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-			// Envolvendo nossos dados da pessoa.
-			TentativaWrapper wrapper = new TentativaWrapper();
-			wrapper.setPersons(listaTentativas);
-
-			// Enpacotando e salvando XML no arquivo.
-			m.marshal(wrapper, file);
-
-			// Saalva o caminho do arquivo no registro.
-			setPersonFilePath(file);
-		} catch (Exception e) { // catches ANY exception
-			Dialogs.create().title("Erro").masthead("Não foi possível salvar os dados do arquivo:\n" + file.getPath())
-					.showException(e);
-		}
-	}
-
-	public File getPersonFilePath() {
-		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-		String filePath = prefs.get("filePath", null);
-		if (filePath != null) {
-			return new File(filePath);
-		} else {
-			return null;
-		}
-	}
-
-	public void setPersonFilePath(File file) {
-		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-		if (file != null) {
-			prefs.put("filePath", file.getPath());
-
-			// Update the stage title.
-			homeStage.setTitle("CertficTests - " + file.getName());
-		} else {
-			prefs.remove("filePath");
-
-			// Update the stage title.
-			homeStage.setTitle("CertficTests");
+			FileInputStream fileInputStream = new FileInputStream(Tentativas.filename);
+			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+			while (true) {
+				try {
+					Tentativas tentativas = (Tentativas) objectInputStream.readObject();
+					listaTentativas.add(tentativas);
+				} catch (EOFException e) {
+					break;
+				} catch (FileNotFoundException e) {
+					break;
+				}
+			}
+			objectInputStream.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Arquivo ainda não Criado.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 

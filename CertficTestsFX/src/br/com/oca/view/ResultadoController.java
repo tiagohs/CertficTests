@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import br.com.oca.controller.MainApp;
 import br.com.oca.model.Calculos;
 import br.com.oca.model.Questao;
 import br.com.oca.model.Resposta;
@@ -29,6 +30,7 @@ public class ResultadoController {
 	
 	private Stage dialogHome;
 	private Stage dialogStage;
+	private MainApp mainApp;
 	
 	private ArrayList<Resposta> listaRespostas;
 	private Idioma idioma;
@@ -122,7 +124,10 @@ public class ResultadoController {
 	
 	@FXML
 	private void handleOk() {
-		dialogHome.show();
+		dialogHome.close();
+		mainApp.atualizaTabelaTentativas();
+		mainApp.initRootLayout();
+		mainApp.showHome();
 		dialogStage.close();
 	}
 	
@@ -156,5 +161,9 @@ public class ResultadoController {
 	
 	public void setIdioma(Idioma idioma) {
 		this.idioma = idioma;
+	}
+	
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
 	}
 }

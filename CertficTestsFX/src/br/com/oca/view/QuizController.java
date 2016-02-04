@@ -183,7 +183,10 @@ public class QuizController implements Observer {
 		RadioButton radioResposta = (RadioButton) radioGroup.getSelectedToggle();
 		
 		if (radioResposta != null) {
-			listaRespostas.add(new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), radioResposta.getText()));
+			if (!isQuestaoJaRespondida())
+				listaRespostas.add(contQuestao, new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), radioResposta.getText()));
+			else
+				listaRespostas.set(contQuestao, new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), radioResposta.getText()));
 			setProximaQuestao();
 		} else {
 			exibirMensagemErro("É Necessário escolher uma Alternativa.");
@@ -213,11 +216,18 @@ public class QuizController implements Observer {
 		verificaAlternativa(checkAlternativaE, respostas);
 		
 		if (respostas.size() > 0) {
-			listaRespostas.add(new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), respostas));
+			if (!isQuestaoJaRespondida())
+				listaRespostas.add(contQuestao, new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), respostas));
+			else
+				listaRespostas.set(contQuestao, new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), respostas));
 			setProximaQuestao();
 		} else {
 			exibirMensagemErro("É Necessário Escolher pelo Menos uma Alternativa.");
 		}
+	}
+	
+	private boolean isQuestaoJaRespondida() {
+		return listaRespostas.contains(new Resposta(conteudo.getQuestao(contQuestao).getEnunciado()));
 	}
 	
 	private void exibirMensagemErro(String mensagem) {

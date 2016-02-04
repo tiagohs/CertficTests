@@ -17,6 +17,10 @@ public class Resposta {
 		this(enunciado, resposta, null, TipoQuestao.UNICA);
 	}
 	
+	public Resposta(String enunciado) {
+		this(enunciado, null, null, null);
+	}
+	
 	public Resposta(String _enunciado, String _resposta, ArrayList<String> _respostas, TipoQuestao _tipoQuestao) {
 		enunciado = _enunciado;
 		resposta = _resposta;
@@ -47,5 +51,15 @@ public class Resposta {
 	}
 	public void setTipoQuestao(TipoQuestao tipoQuestao) {
 		this.tipoQuestao = tipoQuestao;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+		if (obj instanceof Resposta) {
+			Resposta resposta = (Resposta) obj;
+			return this.getEnunciado().equals(resposta.getEnunciado());
+		}
+		return false;
 	}
 }
