@@ -10,9 +10,8 @@
    <children>
       <TableView fx:id="tabelaTentativas" layoutX="3.0" layoutY="5.0" prefHeight="445.0" prefWidth="667.0">
         <columns>
-          <TableColumn fx:id="colunaTentativas" prefWidth="66.0" text="%tabelaTentativas" />
-          <TableColumn fx:id="colunaTesteEscolhido" prefWidth="473.0" text="%tabelaTesteEscolhido" />
-            <TableColumn fx:id="colunaNota" minWidth="0.0" prefWidth="57.0" text="%tabelaNota" />
+          <TableColumn fx:id="colunaTesteEscolhido" prefWidth="503.0" text="%tabelaTesteEscolhido" />
+            <TableColumn fx:id="colunaNota" minWidth="0.0" text="%tabelaNota" />
             <TableColumn fx:id="colunaAcertos" prefWidth="83.0" text="%tabelaAcertos" />
         </columns>
       </TableView>

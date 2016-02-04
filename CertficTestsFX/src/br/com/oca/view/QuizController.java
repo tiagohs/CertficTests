@@ -76,9 +76,7 @@ public class QuizController implements Observer {
 	
 	private Integer contQuestao;
 	private Integer numeroAtualQuestao;
-	private Certificacao nomeExame;
 	private Idioma idioma;
-	private TipoTeste tipoTeste;
 	private ArrayList<Resposta> listaRespostas;
 	private Conteudo conteudo;
 	
@@ -94,12 +92,9 @@ public class QuizController implements Observer {
 		numeroAtualQuestao = 1;
 	}
 
-	public void iniciarQuiz(Certificacao _nomeExame, TipoTeste _tipoTeste) {
-		nomeExame = _nomeExame;
-		tipoTeste = _tipoTeste;
-		conteudo = OCA.getInstance(nomeExame, idioma);
-
-		labelNomeExame.setText(nomeExame.getNome());
+	public void iniciarQuiz() {
+		
+		labelNomeExame.setText(conteudo.getNomeTeste().getNome());
 		setNumeroQuestao();
 		verificaQuestao(conteudo.getQuestao(contQuestao));
 		setQuestao(conteudo.getQuestao(contQuestao));
@@ -261,14 +256,6 @@ public class QuizController implements Observer {
 		dialogStage.close();
 	}
 
-	public void setNomeExame(Certificacao nomeExame) {
-		this.nomeExame = nomeExame;
-	}
-
-	public void setTipoTeste(TipoTeste tipoTeste) {
-		this.tipoTeste = tipoTeste;
-	}
-
 	public void setIdioma(Idioma idioma) {
 		this.idioma = idioma;
 	}
@@ -284,7 +271,11 @@ public class QuizController implements Observer {
 	public void setDialogHome(Stage dialogHome) {
 		this.dialogHome = dialogHome;
 	}
-
+	
+	public void setConteudo(Conteudo conteudo) {
+		this.conteudo = conteudo;
+	}
+	
 	@Override
 	public void update(Idioma idioma) {
 		setIdioma(idioma);

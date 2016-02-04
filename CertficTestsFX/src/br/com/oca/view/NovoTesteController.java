@@ -1,6 +1,7 @@
 package br.com.oca.view;
 
 import br.com.oca.controller.MainApp;
+import br.com.oca.model.conteudo.OCA;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
@@ -38,7 +39,7 @@ public class NovoTesteController implements Observer {
 	
 	@FXML
 	private void handleOk() {
-		mainApp.showQuiz(comboExame.getValue(), comboTipoTeste.getValue());
+		mainApp.showQuiz(OCA.getInstance(comboExame.getValue(), idioma, comboTipoTeste.getValue()));
 		dialogStage.close();
 	}
 	

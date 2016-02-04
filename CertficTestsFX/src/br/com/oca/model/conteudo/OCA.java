@@ -4,20 +4,21 @@ import br.com.oca.model.Questao;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoQuestao;
+import br.com.oca.model.enums.TipoTeste;
 
 public class OCA extends Conteudo {
 	private volatile static OCA instance;
 
-	private OCA(Certificacao nomeTeste, Idioma idiomaTeste) {
-		super(nomeTeste, idiomaTeste);
+	private OCA(Certificacao nomeTeste, Idioma idiomaTeste, TipoTeste tipoTeste) {
+		super(nomeTeste, idiomaTeste, tipoTeste);
 	}
 
-	public static OCA getInstance(Certificacao nomeTeste, Idioma idiomaTeste) {
+	public static OCA getInstance(Certificacao nomeTeste, Idioma idiomaTeste, TipoTeste tipoTeste) {
 
 		if (instance == null) {
 			synchronized (OCA.class) {
 				if (instance == null) {
-					instance = new OCA(nomeTeste, idiomaTeste);
+					instance = new OCA(nomeTeste, idiomaTeste, tipoTeste);
 				}
 			}
 		}

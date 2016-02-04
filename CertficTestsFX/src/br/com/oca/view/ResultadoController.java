@@ -1,11 +1,17 @@
 package br.com.oca.view;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import br.com.oca.model.Calculos;
 import br.com.oca.model.Questao;
 import br.com.oca.model.Resposta;
+import br.com.oca.model.Tentativas;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
+import br.com.oca.util.AppendingObjectOutputStream;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -29,9 +35,8 @@ public class ResultadoController {
 	private Conteudo conteudo;
 	private String stringResultados;
 	private Integer numeroQuestao;
-	
-	private Double nota;
-	private Double numQuestoesCorretas;
+	private Calculos calculos;
+	private Tentativas tentativa;
 	
 	public ResultadoController() {
 		stringResultados = "";
@@ -44,15 +49,13 @@ public class ResultadoController {
 	}
 	
 	public void calcularResultados() {
-		numQuestoesCorretas = calcularNumeroQuestoesCorretas();
-		nota = calcularNota();
-		
 		showResultados();
+		registrarTentativa();
 	}
 	
 	private void showResultados() {
-		suaNota.setText(nota + " de 100.00");
-		questoesCorretas.setText(numQuestoesCorretas + " de " + conteudo.getTotalQuestoes());
+		suaNota.setText(calculos.getNota() + " de 100.00");
+		questoesCorretas.setText(calculos.getNumeroQuestoesCorretas() + " de " + conteudo.getTotalQuestoes());
 		
 		for (int cont = 0; cont < conteudo.getTotalQuestoes(); cont++) 
 			setTextoRespostas(cont);
@@ -68,7 +71,7 @@ public class ResultadoController {
 		switch (listaRespostas.get(count).getTipoQuestao()) {
 			case UNICA:
 				stringResultados += "Resposta Correta: " + conteudo.getQuestao(count).getEnunciadoAlternativaCorreta() + "\n";
-				if (isRespostaCorreta(count)) 
+				if (calculos.isRespostaCorreta(count)) 
 					stringResultados += "Sua Resposta: " + listaRespostas.get(count).getResposta() + "\n\n";
 				else 
 					stringResultados += "Sua Resposta: " + listaRespostas.get(count).getResposta() + "\n\n";
@@ -99,44 +102,22 @@ public class ResultadoController {
 		stringResultados += "\n";
 	}
 	
-	private Double calcularNumeroQuestoesCorretas() {
-		Double numeroQuestoesCorretas = 0.0;
-
-		for (int count = 0; count < conteudo.getTotalQuestoes(); count++) {
-			
-			switch (listaRespostas.get(count).getTipoQuestao()) {
-				case UNICA:
-					if (isRespostaCorreta(count))
-						numeroQuestoesCorretas++;
-					break;
-				case MULTIPLA:
-					numeroQuestoesCorretas += totalAcertoQuestao(count);
-			}
-			
-		}
-
-		return numeroQuestoesCorretas;
-	}
-	
-	private boolean isRespostaCorreta(int count) {
-		return conteudo.getQuestao(count).getEnunciadoAlternativaCorreta().equals(listaRespostas.get(count).getResposta());
-	}
-	
-	private Double totalAcertoQuestao(int count) {
-		Double soma = 0.0;
+	private void registrarTentativa() {
 		
-		for (String resp : listaRespostas.get(count).getRespostas()) {
-			if (conteudo.getQuestao(count).getListaAlternativas().containsValue(resp)) 
-				soma++;
-		}
-		
-		Double temp = (Double) soma / conteudo.getQuestao(count).getListaAlternativas().size();
-		return temp;
-	}
-	
-	private Double calcularNota() {
-		double media = (double) numQuestoesCorretas / conteudo.getTotalQuestoes();
-		return media * 100;
+		File file = new File (Tentativas.filename);
+        ObjectOutputStream out = null;
+
+        try {
+            if (!file.exists ()) 
+            	out = new ObjectOutputStream (new FileOutputStream(Tentativas.filename));
+            else 
+            	out = new AppendingObjectOutputStream (new FileOutputStream(Tentativas.filename, true));
+            out.writeObject(new Tentativas(conteudo.getNomeTeste(), conteudo.getTipoTeste(), calculos.getNota(), calculos.getNumeroQuestoesCorretas()));
+            out.flush();
+            out.close();
+        } catch (Exception e){
+            e.printStackTrace ();
+        } 
 	}
 	
 	@FXML
@@ -163,6 +144,14 @@ public class ResultadoController {
 	
 	public void setConteudo(Conteudo conteudo) {
 		this.conteudo = conteudo;
+	}
+	
+	public void setCalculos(Calculos calculos) {
+		this.calculos = calculos;
+	}
+	
+	public void setTentativa(Tentativas tentativa) {
+		this.tentativa = tentativa;
 	}
 	
 	public void setIdioma(Idioma idioma) {
