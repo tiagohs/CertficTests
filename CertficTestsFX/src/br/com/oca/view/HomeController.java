@@ -1,15 +1,13 @@
 package br.com.oca.view;
 
 import br.com.oca.controller.MainApp;
-import br.com.oca.model.Tentativas;
+import br.com.oca.model.Tentativa;
 import br.com.oca.model.conteudo.OCA;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.util.Observer;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,23 +16,23 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class HomeController implements Observer {
 	@FXML
-	private TableView<Tentativas> tabelaTentativas;
+	private TableView<Tentativa> tabelaTentativas;
 	@FXML
-	private TableColumn<Tentativas, String> colunaTentativas;
+	private TableColumn<Tentativa, String> colunaTentativas;
 	@FXML
-	private TableColumn<Tentativas, String> colunaTesteEscolhido;
+	private TableColumn<Tentativa, String> colunaTesteEscolhido;
 	@FXML
-	private TableColumn<Tentativas, String> colunaNota;
+	private TableColumn<Tentativa, String> colunaNota;
 	@FXML
-	private TableColumn<Tentativas, String> colunaAcertos;
+	private TableColumn<Tentativa, String> colunaAcertos;
+	@FXML
+	private TableColumn<Tentativa, String> colunaTempo;
 	@FXML
 	private ComboBox<Certificacao> comboExame; 
 	@FXML
@@ -42,7 +40,7 @@ public class HomeController implements Observer {
 	
 	private FXMLLoader loader;
 	private JanelasSource label;
-	private ObservableList<Tentativas> listaTentativas;
+	private ObservableList<Tentativa> listaTentativas;
 	private ObservableList<Certificacao> optionsExame;
 	private ObservableList<TipoTeste> optionsTipoTeste;
 	private Idioma idioma;
@@ -70,7 +68,8 @@ public class HomeController implements Observer {
 		colunaTesteEscolhido.setCellValueFactory(new PropertyValueFactory<>("testeEscolhido"));
 		colunaNota.setCellValueFactory(new PropertyValueFactory<>("nota"));
 		colunaAcertos.setCellValueFactory(new PropertyValueFactory<>("numeroAcertos"));
-        
+		colunaTempo.setCellValueFactory(new PropertyValueFactory<>("tempoRegistrado"));
+		
         tabelaTentativas.setItems(listaTentativas);
         
 	}
@@ -113,7 +112,7 @@ public class HomeController implements Observer {
 		System.exit(0);
 	}
 	
-	public void setListaTentativas(ObservableList<Tentativas> listaTentativas) {
+	public void setListaTentativas(ObservableList<Tentativa> listaTentativas) {
 		this.listaTentativas = listaTentativas;
 	}
 	

@@ -9,7 +9,7 @@ import br.com.oca.controller.MainApp;
 import br.com.oca.model.Calculos;
 import br.com.oca.model.Questao;
 import br.com.oca.model.Resposta;
-import br.com.oca.model.Tentativas;
+import br.com.oca.model.Tentativa;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.util.AppendingObjectOutputStream;
@@ -20,9 +20,11 @@ import javafx.stage.Stage;
 
 public class ResultadoController {
 	@FXML
-	private Label suaNota;
+	private Label labelSuaNota;
 	@FXML
-	private Label questoesCorretas;
+	private Label labelQuestoesCorretas;
+	@FXML
+	private Label labelTempoDecorrido;
 	@FXML
 	private ScrollPane scrollEnunciado;
 	@FXML
@@ -38,7 +40,7 @@ public class ResultadoController {
 	private String stringResultados;
 	private Integer numeroQuestao;
 	private Calculos calculos;
-	private Tentativas tentativa;
+	private Tentativa tentativa;
 	
 	public ResultadoController() {
 		stringResultados = "";
@@ -56,8 +58,9 @@ public class ResultadoController {
 	}
 	
 	private void showResultados() {
-		suaNota.setText(calculos.getNota() + " de 100.00");
-		questoesCorretas.setText(calculos.getNumeroQuestoesCorretas() + " de " + conteudo.getTotalQuestoes());
+		labelSuaNota.setText(calculos.getNota() + " de 100.00");
+		labelQuestoesCorretas.setText(calculos.getNumeroQuestoesCorretas() + " de " + conteudo.getTotalQuestoes());
+		labelTempoDecorrido.setText(calculos.getTempoDecorrido());
 		
 		for (int cont = 0; cont < conteudo.getTotalQuestoes(); cont++) 
 			setTextoRespostas(cont);
@@ -106,15 +109,15 @@ public class ResultadoController {
 	
 	private void registrarTentativa() {
 		
-		File file = new File (Tentativas.filename);
+		File file = new File (Tentativa.filename);
         ObjectOutputStream out = null;
 
         try {
             if (!file.exists ()) 
-            	out = new ObjectOutputStream (new FileOutputStream(Tentativas.filename));
+            	out = new ObjectOutputStream (new FileOutputStream(Tentativa.filename));
             else 
-            	out = new AppendingObjectOutputStream (new FileOutputStream(Tentativas.filename, true));
-            out.writeObject(new Tentativas(conteudo.getNomeTeste(), conteudo.getTipoTeste(), calculos.getNota(), calculos.getNumeroQuestoesCorretas()));
+            	out = new AppendingObjectOutputStream (new FileOutputStream(Tentativa.filename, true));
+            out.writeObject(new Tentativa(conteudo.getNomeTeste(), conteudo.getTipoTeste(), calculos.getNota(), calculos.getNumeroQuestoesCorretas(), calculos.getTempoDecorrido()));
             out.flush();
             out.close();
         } catch (Exception e){
@@ -155,7 +158,7 @@ public class ResultadoController {
 		this.calculos = calculos;
 	}
 	
-	public void setTentativa(Tentativas tentativa) {
+	public void setTentativa(Tentativa tentativa) {
 		this.tentativa = tentativa;
 	}
 	

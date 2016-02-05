@@ -21,7 +21,7 @@
       <Button fx:id="proximaQuestao" layoutX="221.0" layoutY="492.0" mnemonicParsing="false" onAction="#handleProximo" prefHeight="39.0" prefWidth="156.0" text="%botaoProximo" />
       <Button fx:id="anteriorQuestao" layoutX="46.0" layoutY="492.0" mnemonicParsing="false" onAction="#handleAnterior" prefHeight="39.0" prefWidth="156.0" text="%botaoAnterior" />
       <Button fx:id="sair" layoutX="640.0" layoutY="492.0" mnemonicParsing="false" onAction="#handleSair" prefHeight="39.0" prefWidth="96.0" text="%botaoSair" />
-      <Label fx:id="tempoDecorrido" layoutX="573.0" layoutY="29.0" prefHeight="26.0" prefWidth="156.0" text="Tempo Decorrido: 00:02:00" />
+      <Label fx:id="labelTempoDecorrido" alignment="CENTER_RIGHT" layoutX="531.0" layoutY="29.0" prefHeight="26.0" prefWidth="198.0" text="Tempo Decorrido: 00:02:00" />
       <Pane fx:id="comboPainel" layoutX="25.0" layoutY="289.0" prefHeight="181.0" prefWidth="695.0">
          <children>
             <RadioButton fx:id="radioAlternativaA" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="462.0" text="A " />

@@ -1,29 +1,32 @@
 package br.com.oca.view;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import br.com.oca.controller.MainApp;
 import br.com.oca.model.Questao;
 import br.com.oca.model.Resposta;
 import br.com.oca.model.conteudo.Conteudo;
-import br.com.oca.model.conteudo.OCA;
-import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
-import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.util.Observer;
+import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class QuizController implements Observer {
+	private static int cont = 0;
+	
 	@FXML
 	private Label labelNumeroQuestao;
 	@FXML
@@ -82,6 +85,14 @@ public class QuizController implements Observer {
 	private ArrayList<Resposta> listaRespostas;
 	private Conteudo conteudo;
 	
+	private Timer timer;  
+    private int currentSegundos = 0;
+    private int currentMinutos = 0;
+    private int currentHora = 0;
+    private int velocidade = 1000;
+    private boolean pararCronometro;
+    private String tempoRegistrado;
+	
 	private MainApp mainApp;
 
 	public QuizController() {
@@ -100,6 +111,40 @@ public class QuizController implements Observer {
 		setNumeroQuestao();
 		verificaQuestao(conteudo.getQuestao(contQuestao));
 		setQuestao(conteudo.getQuestao(contQuestao));
+		iniciaTimer();
+	}
+	
+	private void iniciaTimer() {
+		
+		Timer timer = new Timer();
+
+		timer.schedule(new TimerTask() {
+		    public void run() {
+		         Platform.runLater(new Runnable() {
+		            public void run() {
+		            	currentSegundos++;
+		                
+		                if(currentSegundos == 60) {
+		                    currentMinutos++;
+		                    currentSegundos = 0;
+		                }
+		                
+		                if(currentMinutos == 60){
+		                    currentHora++;
+		                    currentMinutos = 0;
+		                }
+		                
+		                String hr = currentHora <= 9? "0" + currentHora : currentHora + "";
+		                String min = currentMinutos <= 9? "0" + currentMinutos : currentMinutos + "";
+		                String seg = currentSegundos <= 9? "0" + currentSegundos : currentSegundos + "";
+		                tempoRegistrado = hr + ":" + min + ":" + seg;
+		                
+		                labelTempoDecorrido.setText("Tempo Decorrido: " + tempoRegistrado);
+		            }
+		        });
+		    }
+		}, 0, 1000);
+		   
 	}
 
 	private void setNumeroQuestao() {
@@ -204,7 +249,8 @@ public class QuizController implements Observer {
 			verificaQuestao(conteudo.getQuestao(contQuestao));
 			setQuestao(conteudo.getQuestao(contQuestao));
 		} else {
-			mainApp.showResultadoController(listaRespostas, conteudo);
+			pararCronometro = true;
+			mainApp.showResultadoController(listaRespostas, conteudo, tempoRegistrado);
 			dialogStage.close();
 		}
 	}

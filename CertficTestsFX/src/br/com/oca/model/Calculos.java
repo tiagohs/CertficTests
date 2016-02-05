@@ -9,12 +9,14 @@ public class Calculos {
 	private ArrayList<Resposta> listaRespostas;
 	private Double nota;
 	private Double numeroQuestoesCorretas;
+	private String tempoRegistrado;
 	
-	public Calculos(Conteudo _conteudo, ArrayList<Resposta> _listaRespostas) {
+	public Calculos(Conteudo _conteudo, ArrayList<Resposta> _listaRespostas, String _tempoRegistrado) {
 		nota = 0.0;
 		numeroQuestoesCorretas = 0.0;
 		conteudo =  _conteudo;
 		listaRespostas = _listaRespostas;
+		tempoRegistrado = _tempoRegistrado;
 		
 		calcularNumeroQuestoesCorretas();
 		calcularNota();
@@ -73,6 +75,13 @@ public class Calculos {
 	public void setNumeroQuestoesCorretas(Double numeroQuestoesCorretas) {
 		this.numeroQuestoesCorretas = numeroQuestoesCorretas;
 	}
-	
-	
+
+	public String getTempoDecorrido() {
+		return tempoRegistrado;
+	}
+
+	public void setTempoDecorrido(String tempoDecorrido) {
+		this.tempoRegistrado = tempoDecorrido;
+	}
+
 }

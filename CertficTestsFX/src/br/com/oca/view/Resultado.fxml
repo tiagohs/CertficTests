@@ -6,19 +6,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="573.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.ResultadoController">
+<AnchorPane prefHeight="624.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.ResultadoController">
 	<children>
 		<Pane layoutX="166.0" layoutY="14.0" prefHeight="65.0" prefWidth="349.0" AnchorPane.bottomAnchor="494.0" AnchorPane.leftAnchor="166.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="14.0">
 			<children>
 				<Label layoutX="111.0" layoutY="9.0" text="Sua Nota:" />
 				<Label layoutX="61.0" layoutY="36.0" text="Questões Corretas:" />
-				<Label fx:id="suaNota" layoutX="189.0" layoutY="9.0" prefHeight="17.0" prefWidth="100.0" text="NOTA" />
-				<Label fx:id="questoesCorretas" layoutX="189.0" layoutY="36.0" prefHeight="17.0" prefWidth="100.0" text="QUESTOES" />
+				<Label fx:id="labelSuaNota" layoutX="189.0" layoutY="9.0" prefHeight="17.0" prefWidth="100.0" text="NOTA" />
+				<Label fx:id="labelQuestoesCorretas" layoutX="189.0" layoutY="36.0" prefHeight="17.0" prefWidth="100.0" text="QUESTOES" />
             <Separator layoutX="13.0" layoutY="29.0" prefHeight="4.0" prefWidth="308.0" />
+            <Separator layoutX="13.0" layoutY="58.0" prefHeight="4.0" prefWidth="308.0" />
+            <Label layoutX="64.0" layoutY="70.0" text="Tempo Decorrido:" />
+            <Label fx:id="labelTempoDecorrido" layoutX="189.0" layoutY="70.0" prefHeight="17.0" prefWidth="100.0" text="TEMPO" />
 			</children>
 		</Pane>
 
-		<ScrollPane fx:id="scrollEnunciado" layoutX="8.0" layoutY="74.0" prefHeight="440.0" prefWidth="665.0">
+		<ScrollPane fx:id="scrollEnunciado" layoutX="8.0" layoutY="130.0" prefHeight="440.0" prefWidth="665.0">
                <content>
                <Label fx:id="resultados" maxHeight="713.0" prefWidth="670.0" text="Enunciado">
                   <padding>
@@ -27,6 +30,6 @@
                </Label>
                </content>
             </ScrollPane>
-      <Button layoutX="282.0" layoutY="527.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="32.0" prefWidth="117.0" text="Ok" />
+      <Button layoutX="282.0" layoutY="578.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="32.0" prefWidth="117.0" text="Ok" />
 	</children>
 </AnchorPane>

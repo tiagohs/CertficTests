@@ -10,7 +10,9 @@ import br.com.oca.util.Subject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class NovoTesteController implements Observer {
@@ -42,8 +44,17 @@ public class NovoTesteController implements Observer {
 	
 	@FXML
 	private void handleOk() {
-		mainApp.showQuiz(OCA.getInstance(comboExame.getValue(), idioma, comboTipoTeste.getValue()));
-		dialogStage.close();
+		if (comboExame.getValue() != null && comboTipoTeste.getValue() != null) {
+			mainApp.showQuiz(OCA.getInstance(comboExame.getValue(), idioma, comboTipoTeste.getValue()));
+			dialogStage.close();
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Atenção!");
+			alert.setHeaderText("Erro na criação de um Novo Teste");
+			alert.setContentText("A Escolha de um Exame e de Um tipo de Teste é obrigatória.");
+
+			alert.showAndWait();
+		}
 	}
 	
 	@FXML

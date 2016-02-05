@@ -10,7 +10,7 @@ import java.util.Optional;
 
 import br.com.oca.model.Calculos;
 import br.com.oca.model.Resposta;
-import br.com.oca.model.Tentativas;
+import br.com.oca.model.Tentativa;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.i18n.janelas.JanelasSource;
@@ -34,7 +34,7 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 
 public class MainApp extends Application {
-	private ObservableList<Tentativas> listaTentativas;
+	private ObservableList<Tentativa> listaTentativas;
 	private Stage homeStage;
 	private BorderPane rootLayout;
 	private JanelasSource label;
@@ -174,14 +174,14 @@ public class MainApp extends Application {
 		quizController.iniciarQuiz();
 	}
 
-	public void showResultadoController(ArrayList<Resposta> listaRespostas, Conteudo conteudo) {
+	public void showResultadoController(ArrayList<Resposta> listaRespostas, Conteudo conteudo, String tempoRegistrado) {
 
 		abrirNovaJanela();
 		FXMLLoader loader = getNovoLoader();
 		AnchorPane page = getNovoAnchorPane(loader, "../view/Resultado.fxml");
 		Stage resultadoStage = getNovoStage(loader, page, "Resultados - CertificTests");
 		
-		Calculos calculos = new Calculos(conteudo, listaRespostas);
+		Calculos calculos = new Calculos(conteudo, listaRespostas, tempoRegistrado);
 		ResultadoController resultadoController = loader.getController();
 		resultadoController.setDialogStage(resultadoStage);
 		resultadoController.setListaRespostas(listaRespostas);
@@ -198,11 +198,11 @@ public class MainApp extends Application {
 		listaTentativas = listaTentativas = FXCollections.observableArrayList();
 		
 		try {
-			FileInputStream fileInputStream = new FileInputStream(Tentativas.filename);
+			FileInputStream fileInputStream = new FileInputStream(Tentativa.filename);
 			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 			while (true) {
 				try {
-					Tentativas tentativas = (Tentativas) objectInputStream.readObject();
+					Tentativa tentativas = (Tentativa) objectInputStream.readObject();
 					listaTentativas.add(tentativas);
 				} catch (EOFException e) {
 					break;
@@ -224,7 +224,7 @@ public class MainApp extends Application {
 		return homeStage;
 	}
 
-	public ObservableList<Tentativas> getListaTentativas() {
+	public ObservableList<Tentativa> getListaTentativas() {
 		return listaTentativas;
 	}
 
