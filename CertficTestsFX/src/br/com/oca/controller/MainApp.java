@@ -45,9 +45,9 @@ public class MainApp extends Application {
 	}
 
 	@Override
-	public void start(Stage _stagePrimario) {
+	public void start(Stage _homeStage) {
 
-		homeStage = _stagePrimario;
+		homeStage = _homeStage;
 		homeStage.setTitle("CertficTests");
 		idioma = Idioma.Portugues;
 		label = JanelasSource.getInstance(idioma);
@@ -78,6 +78,7 @@ public class MainApp extends Application {
 
 		Stage stage = new Stage();
 		stage.initModality(Modality.WINDOW_MODAL);
+		stage.setResizable(false);
 		stage.setTitle(tituloJanela);
 		stage.setScene(new Scene(page));
 		stage.show();
@@ -101,7 +102,8 @@ public class MainApp extends Application {
 
 			Scene scene = new Scene(rootLayout);
 			homeStage.setScene(scene);
-
+			homeStage.setResizable(false);
+			
 			RootLayoutController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setDialogHome(homeStage);
@@ -134,10 +136,10 @@ public class MainApp extends Application {
 
 		HomeController homeController = loader.getController();
 		homeController.setHomeStage(homeStage);
+		homeController.setIdioma(idioma);
 		homeController.setMainApp(this);
 		homeController.setListaTentativas(listaTentativas);
 		homeController.setLoader(loader);
-
 	}
 
 	public void showNovoTesteDialog() {

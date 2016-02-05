@@ -97,8 +97,6 @@ public class HomeController implements Observer {
 	}
 	
 	public void setIdioma(Idioma idioma) {
-		label.setNovoIdioma(idioma);
-		loader.setResources(label.getBundle());
 		this.idioma = idioma;
 	}
 	
