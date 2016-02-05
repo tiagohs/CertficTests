@@ -1,6 +1,7 @@
 package br.com.oca.view;
 
 import br.com.oca.controller.MainApp;
+import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.conteudo.OCA;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
@@ -45,7 +46,7 @@ public class NovoTesteController implements Observer {
 	@FXML
 	private void handleOk() {
 		if (comboExame.getValue() != null && comboTipoTeste.getValue() != null) {
-			mainApp.showQuiz(OCA.getInstance(comboExame.getValue(), idioma, comboTipoTeste.getValue()));
+			mainApp.showQuiz(getExameEscolhido());
 			dialogStage.close();
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -54,6 +55,18 @@ public class NovoTesteController implements Observer {
 			alert.setContentText("A Escolha de um Exame e de Um tipo de Teste é obrigatória.");
 
 			alert.showAndWait();
+		}
+	}
+	
+	private Conteudo getExameEscolhido() {
+		
+		switch (comboExame.getValue()) {
+			case OCA_JAVA7:
+				return OCA.getInstance(comboExame.getValue(), idioma, comboTipoTeste.getValue());
+			case OCP_JAVA7:
+			
+			default:
+				return null;
 		}
 	}
 	

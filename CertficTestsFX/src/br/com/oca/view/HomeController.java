@@ -2,6 +2,7 @@ package br.com.oca.view;
 
 import br.com.oca.controller.MainApp;
 import br.com.oca.model.Tentativa;
+import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.conteudo.OCA;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
@@ -78,7 +79,7 @@ public class HomeController implements Observer {
 	public void handleBotaoNovo() {
 		
 		if (comboExame.getValue() != null && comboTipoTeste.getValue() != null) {
-			mainApp.showQuiz(OCA.getInstance(comboExame.getValue(), idioma, comboTipoTeste.getValue()));
+			mainApp.showQuiz(getExameEscolhido());
 			homeStage.hide();
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -90,6 +91,18 @@ public class HomeController implements Observer {
 		}
 	}
 
+	private Conteudo getExameEscolhido() {
+		
+		switch (comboExame.getValue()) {
+			case OCA_JAVA7:
+				return OCA.getInstance(comboExame.getValue(), idioma, comboTipoTeste.getValue());
+			case OCP_JAVA7:
+			
+			default:
+				return null;
+		}
+	}
+	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		tabelaTentativas.setItems(mainApp.getListaTentativas());
