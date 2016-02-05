@@ -12,8 +12,7 @@ public class JanelasSource {
 	private Locale local;
 	
 	private JanelasSource(Idioma idiomaEscolhido) {
-		local = verificaIdioma(idiomaEscolhido);
-		bundle = ResourceBundle.getBundle("br.com.oca.model.i18n.janelas/janelas", local);
+		bundle = ResourceBundle.getBundle("br.com.oca.model.i18n.janelas/janelas", idiomaEscolhido.getLocale());
 	}
 	
 	public static JanelasSource getInstance(Idioma idiomaEscolhido) {
@@ -29,18 +28,6 @@ public class JanelasSource {
 		return instance;
 	}
 
-	private Locale verificaIdioma(Idioma idiomaEscolhido) {
-
-		switch (idiomaEscolhido) {
-			case Ingles:
-				return new Locale("en", "US");
-			case Portugues:
-				return new Locale("pt", "BR");
-			default:
-				return new Locale("pt", "BR");
-		}
-	}
-	
 	public String getString(String key) {
 		return bundle.getString(key);
 	}
@@ -54,7 +41,6 @@ public class JanelasSource {
 	}
 	
 	public void setNovoIdioma(Idioma novoIdioma) {
-		local = verificaIdioma(novoIdioma);
-		bundle = ResourceBundle.getBundle("br.com.oca.model.i18n.janelas/janelas", local);
+		bundle = ResourceBundle.getBundle("br.com.oca.model.i18n.janelas/janelas", novoIdioma.getLocale());
 	}
 }

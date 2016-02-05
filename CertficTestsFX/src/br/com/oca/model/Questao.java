@@ -9,12 +9,13 @@ public class Questao {
 	private TipoQuestao tipoQuestao;
 	private String enunciado;
 	private String enunciadoExtras;
+	private String numOpcoesCorretas;
 	private String referencia;
 	private HashMap<Character, String> listaAlternativas;
 	private Character alternativaCorreta;
 	private ArrayList<String> alternativasCorretas;
 	
-	public Questao(String _enunciado, HashMap<Character, String> _alternativas, Character _alternativaCorreta, ArrayList<String> _alternativasCorretas, TipoQuestao _tipoQuestao, String _referencia, String _enunciadoExtras) {
+	public Questao(String _enunciado, HashMap<Character, String> _alternativas, Character _alternativaCorreta, ArrayList<String> _alternativasCorretas, TipoQuestao _tipoQuestao, String _referencia, String _enunciadoExtras, String _numOpcoesCorretas) {
 		enunciado = _enunciado;
 		listaAlternativas = _alternativas;
 		alternativaCorreta = _alternativaCorreta;
@@ -22,22 +23,23 @@ public class Questao {
 		tipoQuestao = _tipoQuestao;
 		referencia = _referencia;
 		enunciadoExtras = _enunciadoExtras;
+		numOpcoesCorretas = _numOpcoesCorretas;
 	}
 	
-	public Questao(String _enunciado, TipoQuestao _tipoQuestao, String _referencia, String _enunciadoExtras) {
-		this(_enunciado, new HashMap<Character, String>(), ' ', new ArrayList<String>(), _tipoQuestao, _referencia, _enunciadoExtras);
+	public Questao(String _enunciado, TipoQuestao _tipoQuestao, String _referencia, String _enunciadoExtras, String _numOpcoesCorretas) {
+		this(_enunciado, new HashMap<Character, String>(), ' ', new ArrayList<String>(), _tipoQuestao, _referencia, _enunciadoExtras, _numOpcoesCorretas);
 	}
 	
-	public Questao(String _enunciado, ArrayList<String> _alternativasCorretas, String _referencia, String _enunciadoExtras) {
-		this(_enunciado, new HashMap<Character, String>(), null, _alternativasCorretas, TipoQuestao.MULTIPLA,_referencia, _enunciadoExtras);
+	public Questao(String _enunciado, ArrayList<String> _alternativasCorretas, String _referencia, String _enunciadoExtras, String _numOpcoesCorretas) {
+		this(_enunciado, new HashMap<Character, String>(), null, _alternativasCorretas, TipoQuestao.MULTIPLA,_referencia, _enunciadoExtras, _numOpcoesCorretas);
 	}
 	
-	public Questao(String _enunciado, Character _alternativaCorreta, String _referencia, String _enunciadoExtras) {
-		this(_enunciado, new HashMap<Character, String>(), _alternativaCorreta, null, TipoQuestao.UNICA, _referencia, _enunciadoExtras);
+	public Questao(String _enunciado, Character _alternativaCorreta, String _referencia, String _enunciadoExtras, String _numOpcoesCorretas) {
+		this(_enunciado, new HashMap<Character, String>(), _alternativaCorreta, null, TipoQuestao.UNICA, _referencia, _enunciadoExtras, _numOpcoesCorretas);
 	}
 	
 	public Questao() {
-		this("", new HashMap<Character, String>(), ' ', new ArrayList<String>(), TipoQuestao.UNICA, "", null);
+		this("", new HashMap<Character, String>(), ' ', new ArrayList<String>(), TipoQuestao.UNICA, "", "", "");
 	}
 	
 	public void addAlternativa(Character letra, String enunciado) {
@@ -129,6 +131,14 @@ public class Questao {
 		this.enunciadoExtras = enunciadoExtras;
 	}
 	
+	public String getNumOpcoesCorretas() {
+		return numOpcoesCorretas;
+	}
+
+	public void setNumOpcoesCorretas(String numOpcoesCorretas) {
+		this.numOpcoesCorretas = numOpcoesCorretas;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		

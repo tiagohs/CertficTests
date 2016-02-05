@@ -18,7 +18,7 @@ public class Tentativas implements Serializable {
 	public Tentativas(Certificacao _exame, TipoTeste _testeEscolhido, Double _nota, Double _numeroAcertos) {
 		exame = _exame;
 		tipoTeste = _testeEscolhido;
-		testeEscolhido = exame.getNome() + " - " + tipoTeste .getNome();
+		testeEscolhido = exame.getNomeExtenso() + " - " + tipoTeste .getNome();
 		nota = _nota;
 		numeroAcertos = _numeroAcertos;
 	}

@@ -42,11 +42,6 @@ public class RootLayoutController implements Observer {
 		dialogHome.hide();
 	}
 	
-	@FXML
-	private void itemPreferencias() {
-		mainApp.showPropriedades();
-	}
-	
 	public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }

@@ -6,18 +6,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import br.com.oca.model.Calculos;
 import br.com.oca.model.Resposta;
 import br.com.oca.model.Tentativas;
 import br.com.oca.model.conteudo.Conteudo;
-import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
-import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.view.HomeController;
 import br.com.oca.view.NovoTesteController;
-import br.com.oca.view.PropriedadesController;
 import br.com.oca.view.QuizController;
 import br.com.oca.view.ResultadoController;
 import br.com.oca.view.RootLayoutController;
@@ -27,6 +25,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -46,16 +45,31 @@ public class MainApp extends Application {
 
 	@Override
 	public void start(Stage _homeStage) {
-
+		
+		idioma = showEscolherIdioma();
+		label = JanelasSource.getInstance(idioma);
 		homeStage = _homeStage;
 		homeStage.setTitle("CertficTests");
-		idioma = Idioma.Portugues;
-		label = JanelasSource.getInstance(idioma);
 		
 		atualizaTabelaTentativas();
+		
 		initRootLayout();
-
 		showHome();
+	}
+	
+	private Idioma showEscolherIdioma() {
+		ChoiceDialog<Idioma> dialog = new ChoiceDialog<Idioma>(Idioma.Ingles, Idioma.values());
+		dialog.setTitle("Escolha de Idioma");
+		dialog.setHeaderText("Escolher o Idioma Padrão da Aplicação.");
+		dialog.setContentText("Escolha o Idioma Desejado: ");
+
+		// Traditional way to get the response value.
+		Optional<Idioma> idiomaEscolhido = dialog.showAndWait();
+		if (idiomaEscolhido.isPresent()){
+		   return idiomaEscolhido.get();
+		}
+		
+		return null;
 	}
 	
 	private FXMLLoader getNovoLoader() {
@@ -112,19 +126,6 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void showPropriedades() {
-		
-		abrirNovaJanela();
-		FXMLLoader loader = getNovoLoader();
-		AnchorPane page = getNovoAnchorPane(loader, "../view/Propriedades.fxml");
-
-		Stage propriedadesStage = getNovoStage(loader, page, label.getString("propriedadesTitulo"));
-
-		PropriedadesController propriedadesController = loader.getController();
-		propriedadesController.setDialogStage(propriedadesStage);
-
 	}
 
 	public void showHome() {

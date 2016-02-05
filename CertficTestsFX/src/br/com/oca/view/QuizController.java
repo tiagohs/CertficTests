@@ -33,6 +33,8 @@ public class QuizController implements Observer {
 	@FXML
 	private Label labelReferencia;
 	@FXML
+	private Label labelNumOpcoesCorretas;
+	@FXML
 	private Label labelEnunciadoQuestao;
 	@FXML
 	private ScrollPane scrollEnunciado;
@@ -94,7 +96,7 @@ public class QuizController implements Observer {
 
 	public void iniciarQuiz() {
 		
-		labelNomeExame.setText(conteudo.getNomeTeste().getNome());
+		labelNomeExame.setText(conteudo.getNomeTeste().getNomeExtenso());
 		setNumeroQuestao();
 		verificaQuestao(conteudo.getQuestao(contQuestao));
 		setQuestao(conteudo.getQuestao(contQuestao));
@@ -126,6 +128,7 @@ public class QuizController implements Observer {
 	private void setQuestao(Questao questao) {
 		labelEnunciadoQuestao.setText(questao.getEnunciado() + questao.getEnunciadoExtras());
 		labelEnunciadoQuestao.setWrapText(true);
+		labelNumOpcoesCorretas.setText(questao.getNumOpcoesCorretas());
 		labelReferencia.setText(questao.getReferencia());
 	}
 

@@ -10,11 +10,12 @@ public class PerguntasSource {
 	private volatile static PerguntasSource instance;
 	
 	private ResourceBundle bundle;
+	private Certificacao nomeExame;
 	private Locale local;
 	
-	private PerguntasSource(Idioma idiomaEscolhido, Certificacao nomeExame) {
-		local = verificaIdioma(idiomaEscolhido);
-		bundle = ResourceBundle.getBundle("br.com.oca.model.i18n.perguntas/perguntas" + nomeExame, local);
+	private PerguntasSource(Idioma idiomaEscolhido, Certificacao _nomeExame) {
+		nomeExame = _nomeExame;
+		bundle = ResourceBundle.getBundle("br.com.oca.model.i18n.perguntas/perguntas" + nomeExame.getNomeCurto(), idiomaEscolhido.getLocale());
 	}
 	
 	public static PerguntasSource getInstance(Idioma idiomaEscolhido, Certificacao nomeExame) {
@@ -30,26 +31,24 @@ public class PerguntasSource {
 		return instance;
 	}
 	
-	
-
-	private Locale verificaIdioma(Idioma idiomaEscolhido) {
-
-		switch (idiomaEscolhido) {
-			case Ingles:
-				return new Locale("en", "US");
-			case Portugues:
-				return new Locale("pt", "BR");
-			default:
-				return new Locale("en", "en");
-		}
-	}
-	
 	public String getString(String key) {
 		return bundle.getString(key);
 	}
 	
 	public ResourceBundle getBundle() {
 		return bundle;
+	}
+	
+	public Locale getLocal() {
+		return local;
+	}
+	
+	public Certificacao getNomeExame() {
+		return nomeExame;
+	}
+	
+	public void setNovoIdioma(Idioma novoIdioma) {
+		bundle = ResourceBundle.getBundle("br.com.oca.model.i18n.perguntas/perguntas" + nomeExame.getNomeCurto(), novoIdioma.getLocale());
 	}
 	
 }

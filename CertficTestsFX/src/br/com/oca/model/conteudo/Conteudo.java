@@ -5,10 +5,15 @@ import java.util.ArrayList;
 import br.com.oca.model.Questao;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
+import br.com.oca.model.enums.TipoQuestao;
 import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.model.i18n.perguntas.PerguntasSource;
 
 public abstract class Conteudo {
+	public static final int TESTE_30_QUESTOES = 30;
+	public static final int TESTE_60_QUESTOES = 60;
+	public static final int TESTE_90_QUESTOES = 90;
+	
 	protected ArrayList<Questao> listaQuestoes;
 	protected PerguntasSource perguntasSource;
 	protected Certificacao nomeTeste;
@@ -23,6 +28,37 @@ public abstract class Conteudo {
 		perguntasSource = PerguntasSource.getInstance(idiomaTeste, nomeTeste);
 		
 		preenxerQuestoes();
+	}
+	
+	protected abstract void preenxerQuestoes();
+	
+	protected void addQuestao(int quantidadeQuestao, int numQuestao, String enunciadoExtras, Character alternativaCorreta) {
+		
+		Questao questao = new Questao(perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".questao"), alternativaCorreta,
+				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".referencia"), enunciadoExtras,
+				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".numOpcao"));
+		questao.addAlternativa('A', perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_0"));
+		questao.addAlternativa('B', perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_1"));
+		questao.addAlternativa('C', perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_2"));
+		questao.addAlternativa('D', perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_3"));
+		questao.addAlternativa('E', perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_4"));
+
+		listaQuestoes.add(questao);
+	}
+	
+	protected void addQuestao(int quantidadeQuestao, int numQuestao, String enunciadoExtras, ArrayList<String> alternativasCorretas) {
+		
+		Questao questao = new Questao(perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".questao"), TipoQuestao.MULTIPLA,
+				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".referencia"), enunciadoExtras,
+				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".numOpcao"));
+		questao.addAlternativa('A', perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_0"));
+		questao.addAlternativa('B', perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_1"));
+		questao.addAlternativa('C', perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_2"));
+		questao.addAlternativa('D', perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_3"));
+		questao.addAlternativa('E', perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_4"));
+		questao.setAlternativasCorretas(alternativasCorretas);
+
+		listaQuestoes.add(questao);
 	}
 	
 	public ArrayList<Questao> getListaQuestoes() {
@@ -69,5 +105,4 @@ public abstract class Conteudo {
 		this.tipoTeste = tipoTeste;
 	}
 
-	protected abstract void preenxerQuestoes();
 }
