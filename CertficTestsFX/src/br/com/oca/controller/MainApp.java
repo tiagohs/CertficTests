@@ -46,7 +46,6 @@ public class MainApp extends Application {
 
 	@Override
 	public void start(Stage _homeStage) {
-		
 		idioma = showEscolherIdioma();
 		label = JanelasSource.getInstance(idioma);
 		homeStage = _homeStage;
@@ -64,10 +63,11 @@ public class MainApp extends Application {
 		dialog.setHeaderText("Escolher o Idioma Padrão da Aplicação.");
 		dialog.setContentText("Escolha o Idioma Desejado: ");
 
-		// Traditional way to get the response value.
 		Optional<Idioma> idiomaEscolhido = dialog.showAndWait();
 		if (idiomaEscolhido.isPresent()){
 		   return idiomaEscolhido.get();
+		} else {
+		   System.exit(0);
 		}
 		
 		return null;

@@ -3,25 +3,27 @@ package br.com.oca.view;
 import br.com.oca.controller.MainApp;
 import br.com.oca.model.Tentativa;
 import br.com.oca.model.conteudo.Conteudo;
+import br.com.oca.model.conteudo.ConteudoFactory;
 import br.com.oca.model.conteudo.OCA;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.model.i18n.janelas.JanelasSource;
-import br.com.oca.util.Observer;
+import br.com.oca.util.AlertDialogsFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class HomeController implements Observer {
+public class HomeController {
 	@FXML
 	private TableView<Tentativa> tabelaTentativas;
 	@FXML
@@ -34,6 +36,8 @@ public class HomeController implements Observer {
 	private TableColumn<Tentativa, String> colunaAcertos;
 	@FXML
 	private TableColumn<Tentativa, String> colunaTempo;
+	@FXML
+	private Button botaoNovo;
 	@FXML
 	private ComboBox<Certificacao> comboExame; 
 	@FXML
@@ -57,6 +61,7 @@ public class HomeController implements Observer {
 
 	@FXML
 	private void initialize() {
+		botaoNovo.setDisable(true);
 		comboExame.setItems(optionsExame);
 		comboTipoTeste.setItems(optionsTipoTeste);
 		label = JanelasSource.getInstance(idioma); 
@@ -76,33 +81,31 @@ public class HomeController implements Observer {
 	}
 	
 	@FXML
+	private void handleComboExame() {
+		
+		if (comboTipoTeste.getValue() != null)
+			botaoNovo.setDisable(false);
+	}
+	
+	@FXML
+	private void handleComboTipoTeste() {
+		
+		if (comboExame.getValue() != null)
+			botaoNovo.setDisable(false);
+	}
+	
+	@FXML
 	public void handleBotaoNovo() {
 		
 		if (comboExame.getValue() != null && comboTipoTeste.getValue() != null) {
-			mainApp.showQuiz(getExameEscolhido());
+			mainApp.showQuiz(ConteudoFactory.getConteudo(comboExame.getValue(), idioma, comboTipoTeste.getValue()));
 			homeStage.hide();
 		} else {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Atenção!");
-			alert.setHeaderText("Erro na criação de um Novo Teste");
-			alert.setContentText("A Escolha de um Exame e de Um tipo de Teste é obrigatória.");
-
+			Alert alert = AlertDialogsFactory.getAlertDialog(AlertType.ERROR, "Atenção!", "Erro na criação de um Novo Teste", "A Escolha de um Exame e de Um tipo de Teste é obrigatória.");
 			alert.showAndWait();
 		}
 	}
 
-	private Conteudo getExameEscolhido() {
-		
-		switch (comboExame.getValue()) {
-			case OCA_JAVA7:
-				return OCA.getInstance(comboExame.getValue(), idioma, comboTipoTeste.getValue());
-			case OCP_JAVA7:
-			
-			default:
-				return null;
-		}
-	}
-	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		tabelaTentativas.setItems(mainApp.getListaTentativas());
@@ -129,10 +132,4 @@ public class HomeController implements Observer {
 		this.listaTentativas = listaTentativas;
 	}
 	
-	@Override
-	public void update(Idioma idioma) {
-		label.setNovoIdioma(idioma);
-		loader.setResources(label.getBundle());
-	}
-
 }

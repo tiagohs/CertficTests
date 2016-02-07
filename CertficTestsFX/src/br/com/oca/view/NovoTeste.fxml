@@ -30,8 +30,8 @@
          </font>
       </Label>
       <Button layoutX="264.0" layoutY="182.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="77.0" text="Cancelar" />
-      <Button layoutX="175.0" layoutY="182.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="25.0" prefWidth="77.0" text="Ok" />
-      <ComboBox fx:id="comboExame" layoutX="159.0" layoutY="101.0" prefHeight="25.0" prefWidth="182.0" promptText="%comboSelecioneExame" />
-      <ComboBox fx:id="comboTipoTeste" layoutX="159.0" layoutY="142.0" prefHeight="25.0" prefWidth="182.0" promptText="%comboSelecioneTipoTeste" />
+      <Button fx:id="botaoNovo" layoutX="175.0" layoutY="182.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="25.0" prefWidth="77.0" text="Ok" />
+      <ComboBox fx:id="comboExame" layoutX="159.0" layoutY="101.0" onHidden="#handleComboExame" prefHeight="25.0" prefWidth="182.0" promptText="%comboSelecioneExame" />
+      <ComboBox fx:id="comboTipoTeste" layoutX="159.0" layoutY="142.0" onHidden="#handleComboTipoTeste" prefHeight="25.0" prefWidth="182.0" promptText="%comboSelecioneTipoTeste" />
    </children>
 </AnchorPane>

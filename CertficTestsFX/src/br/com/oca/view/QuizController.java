@@ -12,7 +12,7 @@ import br.com.oca.model.Questao;
 import br.com.oca.model.Resposta;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
-import br.com.oca.util.Observer;
+import br.com.oca.util.AlertDialogsFactory;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -27,8 +27,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class QuizController implements Observer {
+public class QuizController {
 	private static int cont = 0;
+	public static final int VELOCIDADE_CRONOMETRO = 1000;
 	
 	@FXML
 	private Label labelNumeroQuestao;
@@ -143,7 +144,7 @@ public class QuizController implements Observer {
 		            }
 		        });
 		    }
-		}, 0, 1000);
+		}, 0, VELOCIDADE_CRONOMETRO);
 	}
 
 	private void setNumeroQuestao() {
@@ -236,7 +237,8 @@ public class QuizController implements Observer {
 				listaRespostas.set(contQuestao, new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), radioResposta.getText()));
 			setProximaQuestao();
 		} else {
-			exibirMensagemErro("É Necessário escolher uma Alternativa.");
+			Alert alert = AlertDialogsFactory.getAlertDialog(AlertType.ERROR, "Erro", "Erro na Validação da Questão.", "É Necessário escolher uma Alternativa.");
+			alert.showAndWait();
 		}
 	}
 	
@@ -269,21 +271,13 @@ public class QuizController implements Observer {
 				listaRespostas.set(contQuestao, new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), respostas));
 			setProximaQuestao();
 		} else {
-			exibirMensagemErro("É Necessário Escolher pelo Menos uma Alternativa.");
+			Alert alert = AlertDialogsFactory.getAlertDialog(AlertType.ERROR, "Erro", "Erro na Validação da Questão.", "É Necessário Escolher pelo Menos uma Alternativa.");
+			alert.showAndWait();
 		}
 	}
 	
 	private boolean isQuestaoJaRespondida() {
 		return listaRespostas.contains(new Resposta(conteudo.getQuestao(contQuestao).getEnunciado()));
-	}
-	
-	private void exibirMensagemErro(String mensagem) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Erro");
-		alert.setHeaderText("Erro na Validação da Questão.");
-		alert.setContentText(mensagem);
-
-		alert.showAndWait();
 	}
 	
 	private void verificaAlternativa(CheckBox alternativa, ArrayList<String> respostas) {
@@ -333,8 +327,4 @@ public class QuizController implements Observer {
 		this.conteudo = conteudo;
 	}
 	
-	@Override
-	public void update(Idioma idioma) {
-		setIdioma(idioma);
-	}
 }

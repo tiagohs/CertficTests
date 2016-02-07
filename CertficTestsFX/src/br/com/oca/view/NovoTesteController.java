@@ -2,25 +2,28 @@ package br.com.oca.view;
 
 import br.com.oca.controller.MainApp;
 import br.com.oca.model.conteudo.Conteudo;
+import br.com.oca.model.conteudo.ConteudoFactory;
 import br.com.oca.model.conteudo.OCA;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
-import br.com.oca.util.Observer;
-import br.com.oca.util.Subject;
+import br.com.oca.util.AlertDialogsFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-public class NovoTesteController implements Observer {
+public class NovoTesteController {
 	@FXML
 	private ComboBox<Certificacao> comboExame;
 	@FXML
 	private ComboBox<TipoTeste> comboTipoTeste;
+	@FXML
+	private Button botaoNovo;
 	
 	private ObservableList<Certificacao> optionsExame;
 	private ObservableList<TipoTeste> optionsTipoTeste;
@@ -28,7 +31,6 @@ public class NovoTesteController implements Observer {
 	private Stage dialogStage;
 	private Stage dialogHome;
 	
-	private Subject controller;
 	private Idioma idioma;
 	private MainApp mainApp;
 	
@@ -39,34 +41,33 @@ public class NovoTesteController implements Observer {
 	
 	@FXML
     private void initialize() {
+		botaoNovo.setDisable(true);
 		comboExame.setItems(optionsExame);
 		comboTipoTeste.setItems(optionsTipoTeste);
     }
 	
 	@FXML
-	private void handleOk() {
-		if (comboExame.getValue() != null && comboTipoTeste.getValue() != null) {
-			mainApp.showQuiz(getExameEscolhido());
-			dialogStage.close();
-		} else {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Atenção!");
-			alert.setHeaderText("Erro na criação de um Novo Teste");
-			alert.setContentText("A Escolha de um Exame e de Um tipo de Teste é obrigatória.");
-
-			alert.showAndWait();
-		}
+	private void handleComboExame() {
+		
+		if (comboTipoTeste.getValue() != null)
+			botaoNovo.setDisable(false);
 	}
 	
-	private Conteudo getExameEscolhido() {
+	@FXML
+	private void handleComboTipoTeste() {
 		
-		switch (comboExame.getValue()) {
-			case OCA_JAVA7:
-				return OCA.getInstance(comboExame.getValue(), idioma, comboTipoTeste.getValue());
-			case OCP_JAVA7:
-			
-			default:
-				return null;
+		if (comboExame.getValue() != null)
+			botaoNovo.setDisable(false);
+	}
+	
+	@FXML
+	private void handleOk() {
+		if (comboExame.getValue() != null && comboTipoTeste.getValue() != null) {
+			mainApp.showQuiz(ConteudoFactory.getConteudo(comboExame.getValue(), idioma, comboTipoTeste.getValue()));
+			dialogStage.close();
+		} else {
+			Alert alert = AlertDialogsFactory.getAlertDialog(AlertType.ERROR, "Atenção!", "Erro na criação de um Novo Teste", "A Escolha de um Exame e de Um tipo de Teste é obrigatória.");
+			alert.showAndWait();
 		}
 	}
 	
@@ -74,11 +75,6 @@ public class NovoTesteController implements Observer {
 	private void handleCancel() {
 		dialogStage.close();
 		dialogHome.show();
-	}
-	
-	public void setController(Subject controller) {
-		this.controller = controller;
-		controller.addObserver(this);
 	}
 	
 	public void setDialogStage(Stage dialogStage) {
@@ -97,8 +93,4 @@ public class NovoTesteController implements Observer {
 		this.dialogHome = dialogHome;
 	}
 	
-	@Override
-	public void update(Idioma idioma) {
-		setIdioma(idioma);
-	}
 }

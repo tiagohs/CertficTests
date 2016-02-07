@@ -3,14 +3,12 @@ package br.com.oca.view;
 import br.com.oca.controller.MainApp;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.i18n.janelas.JanelasSource;
-import br.com.oca.util.Observer;
-import br.com.oca.util.Subject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-public class RootLayoutController implements Observer {
+public class RootLayoutController {
 	private MainApp mainApp;
 	private Idioma idioma;
 	private JanelasSource label;
@@ -52,11 +50,6 @@ public class RootLayoutController implements Observer {
 	
 	public void setDialogHome(Stage dialogHome) {
 		this.dialogHome = dialogHome;
-	}
-	
-	@Override
-	public void update(Idioma idioma) {
-		setIdioma(idioma);
 	}
 
 }

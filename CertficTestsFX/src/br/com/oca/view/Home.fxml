@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?scenebuilder-preview-i18n-resource DE_de.properties?>
 
-<AnchorPane prefHeight="520.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.HomeController">
+<AnchorPane prefHeight="520.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.HomeController">
    <children>
       <TableView fx:id="tabelaTentativas" layoutX="3.0" layoutY="5.0" prefHeight="445.0" prefWidth="667.0">
         <columns>
@@ -16,9 +16,9 @@
             <TableColumn fx:id="colunaTempo" prefWidth="94.0" text="%tabelaTempo" />
         </columns>
       </TableView>
-      <Button layoutX="400.0" layoutY="471.0" mnemonicParsing="false" onAction="#handleBotaoNovo" prefHeight="35.0" prefWidth="107.0" text="%botaoNovo" />
+      <Button fx:id="botaoNovo" layoutX="400.0" layoutY="471.0" mnemonicParsing="false" onAction="#handleBotaoNovo" prefHeight="35.0" prefWidth="107.0" text="%botaoNovo" />
       <Button layoutX="537.0" layoutY="471.0" mnemonicParsing="false" onAction="#handleSair" prefHeight="35.0" prefWidth="107.0" text="%botaoSair" />
-      <ComboBox fx:id="comboExame" layoutX="24.0" layoutY="476.0" prefWidth="150.0" promptText="%comboSelecioneExame" />
-      <ComboBox fx:id="comboTipoTeste" layoutX="202.0" layoutY="476.0" prefHeight="25.0" prefWidth="180.0" promptText="%comboSelecioneTipoTeste" />
+      <ComboBox fx:id="comboExame" layoutX="24.0" layoutY="476.0" onHidden="#handleComboExame" prefWidth="150.0" promptText="%comboSelecioneExame" />
+      <ComboBox fx:id="comboTipoTeste" layoutX="202.0" layoutY="476.0" onHidden="#handleComboTipoTeste" prefHeight="25.0" prefWidth="180.0" promptText="%comboSelecioneTipoTeste" />
    </children>
 </AnchorPane>
