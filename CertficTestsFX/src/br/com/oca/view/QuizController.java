@@ -1,6 +1,9 @@
 package br.com.oca.view;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -85,18 +88,16 @@ public class QuizController implements Observer {
 	private ArrayList<Resposta> listaRespostas;
 	private Conteudo conteudo;
 	
-	private Timer timer;  
     private int currentSegundos = 0;
     private int currentMinutos = 0;
     private int currentHora = 0;
-    private int velocidade = 1000;
-    private boolean pararCronometro;
-    private String tempoRegistrado;
+    private Calendar tempoRegistrado;
 	
 	private MainApp mainApp;
 
 	public QuizController() {
 		listaRespostas = new ArrayList<Resposta>();
+		tempoRegistrado = Calendar.getInstance();
 	}
 
 	@FXML
@@ -115,9 +116,9 @@ public class QuizController implements Observer {
 	}
 	
 	private void iniciaTimer() {
-		
 		Timer timer = new Timer();
-
+		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		
 		timer.schedule(new TimerTask() {
 		    public void run() {
 		         Platform.runLater(new Runnable() {
@@ -134,17 +135,15 @@ public class QuizController implements Observer {
 		                    currentMinutos = 0;
 		                }
 		                
-		                String hr = currentHora <= 9? "0" + currentHora : currentHora + "";
-		                String min = currentMinutos <= 9? "0" + currentMinutos : currentMinutos + "";
-		                String seg = currentSegundos <= 9? "0" + currentSegundos : currentSegundos + "";
-		                tempoRegistrado = hr + ":" + min + ":" + seg;
+		                tempoRegistrado.set(Calendar.HOUR_OF_DAY, currentHora);
+		                tempoRegistrado.set(Calendar.MINUTE, currentMinutos);
+		                tempoRegistrado.set(Calendar.SECOND, currentSegundos);
 		                
-		                labelTempoDecorrido.setText("Tempo Decorrido: " + tempoRegistrado);
+		                labelTempoDecorrido.setText("Tempo Decorrido: " + dateFormat.format(tempoRegistrado.getTime()));
 		            }
 		        });
 		    }
 		}, 0, 1000);
-		   
 	}
 
 	private void setNumeroQuestao() {
@@ -249,7 +248,6 @@ public class QuizController implements Observer {
 			verificaQuestao(conteudo.getQuestao(contQuestao));
 			setQuestao(conteudo.getQuestao(contQuestao));
 		} else {
-			pararCronometro = true;
 			mainApp.showResultadoController(listaRespostas, conteudo, tempoRegistrado);
 			dialogStage.close();
 		}

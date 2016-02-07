@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Optional;
 
 import br.com.oca.model.Calculos;
@@ -174,7 +175,7 @@ public class MainApp extends Application {
 		quizController.iniciarQuiz();
 	}
 
-	public void showResultadoController(ArrayList<Resposta> listaRespostas, Conteudo conteudo, String tempoRegistrado) {
+	public void showResultadoController(ArrayList<Resposta> listaRespostas, Conteudo conteudo, Calendar tempoRegistrado) {
 
 		abrirNovaJanela();
 		FXMLLoader loader = getNovoLoader();

@@ -60,7 +60,7 @@ public class ResultadoController {
 	private void showResultados() {
 		labelSuaNota.setText(calculos.getNota() + " de 100.00");
 		labelQuestoesCorretas.setText(calculos.getNumeroQuestoesCorretas() + " de " + conteudo.getTotalQuestoes());
-		labelTempoDecorrido.setText(calculos.getTempoDecorrido());
+		labelTempoDecorrido.setText(calculos.getTempoDecorridoFormatado());
 		
 		for (int cont = 0; cont < conteudo.getTotalQuestoes(); cont++) 
 			setTextoRespostas(cont);
@@ -117,7 +117,7 @@ public class ResultadoController {
             	out = new ObjectOutputStream (new FileOutputStream(Tentativa.filename));
             else 
             	out = new AppendingObjectOutputStream (new FileOutputStream(Tentativa.filename, true));
-            out.writeObject(new Tentativa(conteudo.getNomeTeste(), conteudo.getTipoTeste(), calculos.getNota(), calculos.getNumeroQuestoesCorretas(), calculos.getTempoDecorrido()));
+            out.writeObject(new Tentativa(conteudo.getNomeTeste(), conteudo.getTipoTeste(), calculos.getNota(), calculos.getNumeroQuestoesCorretas(), calculos.getTempoDecorridoFormatado()));
             out.flush();
             out.close();
         } catch (Exception e){

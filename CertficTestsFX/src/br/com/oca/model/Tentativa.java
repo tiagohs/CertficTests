@@ -2,6 +2,7 @@ package br.com.oca.model;
 
 import java.io.Serializable;
 
+import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.TipoTeste;
 
