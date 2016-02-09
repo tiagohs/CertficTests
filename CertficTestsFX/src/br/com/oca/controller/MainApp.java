@@ -27,6 +27,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -62,7 +63,7 @@ public class MainApp extends Application {
 		dialog.setTitle("Escolha de Idioma");
 		dialog.setHeaderText("Escolher o Idioma Padrão da Aplicação.");
 		dialog.setContentText("Escolha o Idioma Desejado: ");
-
+		
 		Optional<Idioma> idiomaEscolhido = dialog.showAndWait();
 		if (idiomaEscolhido.isPresent()){
 		   return idiomaEscolhido.get();
