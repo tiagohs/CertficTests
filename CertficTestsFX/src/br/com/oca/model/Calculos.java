@@ -79,7 +79,7 @@ public class Calculos {
 	}
 
 	public String getTempoDecorridoFormatado() {
-		return new SimpleDateFormat("hh:mm:ss").format(tempoRegistrado.getTime());
+		return new SimpleDateFormat("HH:mm:ss").format(tempoRegistrado.getTime());
 	}
 	
 	public Calendar getTempoDecorrido() {

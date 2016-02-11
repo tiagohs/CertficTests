@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+#respostaCorreta {
+    -fx-fill: green;
+}
+
+#respostaIncorreta {
+    -fx-fill: red;
+}

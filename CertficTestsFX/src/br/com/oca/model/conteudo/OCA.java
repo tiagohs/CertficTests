@@ -33,26 +33,53 @@ public class OCA extends Conteudo {
 		preenxerTeste60Questoes();
 		preenxerTeste90Questoes();
 	}
-	
+
 	private void preenxerTeste30Questoes() {
-		
-		addQuestao(TESTE_30_QUESTOES, 1, "\n\nclass ABCD{\n" + "int x = 10;\n" + "static int y = 20;\n" + "}\n" + "class MNOP extends ABCD{\n"
-				+ "int x = 30;\n" + "static int y = 40;\n" + "}\n" + "public class TestClass {\n"
-				+ "public static void main(String[] args) {\n" + "System.out.println(new MNOP().x\n"
-				+ "new MNOP().y);\n" + "}\n" + "}\n", 'B');
-		addQuestao(TESTE_30_QUESTOES, 2, "", 'D');
-		addQuestao(TESTE_30_QUESTOES, 3, "", new ArrayList<String>(Arrays.asList(perguntasSource.getString("teste30.exercicio3.opcao_0"),
-				perguntasSource.getString("teste30.exercicio3.opcao_1"),
-				perguntasSource.getString("teste30.exercicio3.opcao_2"),
-				perguntasSource.getString("teste30.exercicio3.opcao_3"))));
+
+		addQuestao(TESTE_30_QUESTOES, 1, 'B');
+		addQuestao(TESTE_30_QUESTOES, 2, 'D');
+
+		addQuestao(TESTE_30_QUESTOES, 3,
+				new ArrayList<String>(Arrays.asList(perguntasSource.getString("teste30.exercicio3.opcao_0"),
+						perguntasSource.getString("teste30.exercicio3.opcao_1"),
+						perguntasSource.getString("teste30.exercicio3.opcao_2"),
+						perguntasSource.getString("teste30.exercicio3.opcao_3"))));
+
+		addQuestao(TESTE_30_QUESTOES, 4, 'B');
+
+		addQuestao(TESTE_30_QUESTOES, 5, 'D');
+
+		addQuestao(TESTE_30_QUESTOES, 6, 'E');
+
+		addQuestao(TESTE_30_QUESTOES, 7,
+				new ArrayList<String>(Arrays.asList(perguntasSource.getString("teste30.exercicio7.opcao_0"),
+						perguntasSource.getString("teste30.exercicio7.opcao_1"),
+						perguntasSource.getString("teste30.exercicio7.opcao_3"))));
+
+		addQuestao(TESTE_30_QUESTOES, 8,
+				new ArrayList<String>(Arrays.asList(perguntasSource.getString("teste30.exercicio8.opcao_0"),
+						perguntasSource.getString("teste30.exercicio8.opcao_4"))));
+
+		addQuestao(TESTE_30_QUESTOES, 9,
+				new ArrayList<String>(Arrays.asList(perguntasSource.getString("teste30.exercicio9.opcao_2"),
+						perguntasSource.getString("teste30.exercicio9.opcao_3"))));
+
+		addQuestao(TESTE_30_QUESTOES, 10, 'A');
+
+		addQuestao(TESTE_30_QUESTOES, 11,
+				new ArrayList<String>(Arrays.asList(perguntasSource.getString("teste30.exercicio11.opcao_1"),
+						perguntasSource.getString("teste30.exercicio11.opcao_2"))));
+
+		addQuestao(TESTE_30_QUESTOES, 12, 'A');
+
 	}
-	
+
 	private void preenxerTeste60Questoes() {
-		
+
 	}
-	
+
 	private void preenxerTeste90Questoes() {
-		
+
 	}
 
 }

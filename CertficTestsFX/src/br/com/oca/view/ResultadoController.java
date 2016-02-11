@@ -16,6 +16,8 @@ import br.com.oca.util.AppendingObjectOutputStream;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ResultadoController {
@@ -70,16 +72,25 @@ public class ResultadoController {
 	}
 	
 	private void setTextoRespostas(int count) {
+		Text resposta;
 		
 		stringResultados += numeroQuestao + " - " + conteudo.getQuestao(count).getEnunciado() + "\n\n";
 		
 		switch (listaRespostas.get(count).getTipoQuestao()) {
 			case UNICA:
 				stringResultados += "Resposta Correta: " + conteudo.getQuestao(count).getEnunciadoAlternativaCorreta() + "\n";
-				if (calculos.isRespostaCorreta(count)) 
-					stringResultados += "Sua Resposta: " + listaRespostas.get(count).getResposta() + "\n\n";
-				else 
-					stringResultados += "Sua Resposta: " + listaRespostas.get(count).getResposta() + "\n\n";
+				if (calculos.isRespostaCorreta(count)) {
+					resposta = new Text("Sua Resposta: " + listaRespostas.get(count).getResposta() + "\n\n");
+					resposta.setFill(Color.GREEN);
+					stringResultados += resposta;
+				}
+					
+				else {
+					resposta = new Text("Sua Resposta: " + listaRespostas.get(count).getResposta() + "\n\n");
+					resposta.setFill(Color.RED);
+					stringResultados += resposta;
+				}
+					
 				break;
 			case MULTIPLA:
 				exibirMultiplasRespostas(conteudo.getQuestao(count), listaRespostas.get(count));
