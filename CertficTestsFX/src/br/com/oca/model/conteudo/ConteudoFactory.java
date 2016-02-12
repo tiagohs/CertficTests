@@ -10,9 +10,9 @@ public class ConteudoFactory {
 
 		switch (nomeExame) {
 			case OCA_JAVA7:
-				return OCA.getInstance(nomeExame, idioma, tipoTeste);
+				return OCAJava7.getInstance(nomeExame, idioma, tipoTeste);
 			case OCP_JAVA7:
-				return OCP.getInstance(nomeExame, idioma, tipoTeste);
+				return OCPJava7.getInstance(nomeExame, idioma, tipoTeste);
 			default:
 				return null;
 		}

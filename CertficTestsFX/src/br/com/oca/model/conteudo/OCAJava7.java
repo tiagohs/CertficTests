@@ -7,19 +7,19 @@ import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
 
-public class OCA extends Conteudo {
-	private volatile static OCA instance;
+public class OCAJava7 extends Conteudo {
+	private volatile static OCAJava7 instance;
 
-	private OCA(Certificacao nomeTeste, Idioma idiomaTeste, TipoTeste tipoTeste) {
+	private OCAJava7(Certificacao nomeTeste, Idioma idiomaTeste, TipoTeste tipoTeste) {
 		super(nomeTeste, idiomaTeste, tipoTeste);
 	}
 
-	public static OCA getInstance(Certificacao nomeTeste, Idioma idiomaTeste, TipoTeste tipoTeste) {
+	public static OCAJava7 getInstance(Certificacao nomeTeste, Idioma idiomaTeste, TipoTeste tipoTeste) {
 
 		if (instance == null) {
-			synchronized (OCA.class) {
+			synchronized (OCAJava7.class) {
 				if (instance == null) {
-					instance = new OCA(nomeTeste, idiomaTeste, tipoTeste);
+					instance = new OCAJava7(nomeTeste, idiomaTeste, tipoTeste);
 				}
 			}
 		}
