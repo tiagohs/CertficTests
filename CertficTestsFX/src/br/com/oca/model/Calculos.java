@@ -31,30 +31,36 @@ public class Calculos {
 	
 	private void calcularNumeroQuestoesCorretas() {
 		
-		for (int count = 0; count < conteudo.getTotalQuestoes(); count++) {
-			
-			switch (listaRespostas.get(count).getTipoQuestao()) {
-				case UNICA:
-					if (isRespostaCorreta(count))
-						numeroQuestoesCorretas++;
-					break;
-				case MULTIPLA:
-					numeroQuestoesCorretas += totalAcertoQuestao(count);
+		if (listaRespostas.size() > 0) {
+			for (int count = 0; count < conteudo.getTotalQuestoes(); count++) {
+				
+				switch (listaRespostas.get(count).getTipoQuestao()) {
+					case UNICA:
+						if (isRespostaCorreta(count))
+							numeroQuestoesCorretas++;
+						break;
+					case MULTIPLA:
+						numeroQuestoesCorretas += totalAcertoQuestao(count);
+				}
+				
 			}
-			
 		}
 
 	}
 	
 	private Double totalAcertoQuestao(int count) {
 		Double soma = 0.0;
+		Double temp = 0.0;
 		
-		for (String resp : listaRespostas.get(count).getRespostas()) {
-			if (conteudo.getQuestao(count).getListaAlternativas().containsValue(resp)) 
-				soma++;
+		if (listaRespostas.size() > 0) {
+			for (String resp : listaRespostas.get(count).getRespostas()) {
+				if (conteudo.getQuestao(count).getListaAlternativas().containsValue(resp)) 
+					soma++;
+			}
+			
+			temp = (Double) soma / listaRespostas.get(count).getRespostas().size();
 		}
 		
-		Double temp = (Double) soma / listaRespostas.get(count).getRespostas().size();
 		return temp;
 	}
 	

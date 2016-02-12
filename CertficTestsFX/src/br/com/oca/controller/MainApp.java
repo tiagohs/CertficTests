@@ -27,7 +27,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceDialog;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -50,7 +49,7 @@ public class MainApp extends Application {
 		idioma = showEscolherIdioma();
 		label = JanelasSource.getInstance(idioma);
 		homeStage = _homeStage;
-		homeStage.setTitle("CertficTests");
+		homeStage.setTitle("CertificTests");
 		
 		atualizaTabelaTentativas();
 		
@@ -60,7 +59,7 @@ public class MainApp extends Application {
 	
 	private Idioma showEscolherIdioma() {
 		ChoiceDialog<Idioma> dialog = new ChoiceDialog<Idioma>(Idioma.Ingles, Idioma.values());
-		dialog.setTitle("Escolha de Idioma");
+		dialog.setTitle("Escolher Idioma");
 		dialog.setHeaderText("Escolher o Idioma Padrão da Aplicação.");
 		dialog.setContentText("Escolha o Idioma Desejado: ");
 		
@@ -151,7 +150,7 @@ public class MainApp extends Application {
 		FXMLLoader loader = getNovoLoader();
 		AnchorPane page = getNovoAnchorPane(loader, "../view/NovoTeste.fxml");
 
-		Stage novoTesteStage = getNovoStage(loader, page, "Novo Teste");
+		Stage novoTesteStage = getNovoStage(loader, page, label.getString("homeTituloNovoTeste"));
 
 		NovoTesteController novoTesteController = loader.getController();
 		novoTesteController.setIdioma(idioma);
@@ -165,7 +164,7 @@ public class MainApp extends Application {
 		abrirNovaJanela();
 		FXMLLoader loader = getNovoLoader();
 		AnchorPane page = getNovoAnchorPane(loader, "../view/Quiz.fxml");
-		Stage quizStage = getNovoStage(loader, page, "Quiz - CertificTests");
+		Stage quizStage = getNovoStage(loader, page, label.getString("homeTituloNovoQuiz"));
 
 		QuizController quizController = loader.getController();
 		quizController.setDialogStage(quizStage);
@@ -181,7 +180,7 @@ public class MainApp extends Application {
 		abrirNovaJanela();
 		FXMLLoader loader = getNovoLoader();
 		AnchorPane page = getNovoAnchorPane(loader, "../view/Resultado.fxml");
-		Stage resultadoStage = getNovoStage(loader, page, "Resultados - CertificTests");
+		Stage resultadoStage = getNovoStage(loader, page, label.getString("homeTituloResultados"));
 		
 		Calculos calculos = new Calculos(conteudo, listaRespostas, tempoRegistrado);
 		ResultadoController resultadoController = loader.getController();

@@ -12,11 +12,10 @@ import br.com.oca.model.Questao;
 import br.com.oca.model.Resposta;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
+import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.util.AlertDialogsFactory;
-import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -28,9 +27,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class QuizController {
-	private static int cont = 0;
 	public static final int VELOCIDADE_CRONOMETRO = 1000;
-	
+
 	@FXML
 	private Label labelNumeroQuestao;
 	@FXML
@@ -82,18 +80,19 @@ public class QuizController {
 
 	private Stage dialogStage;
 	private Stage dialogHome;
-	
+
 	private Integer contQuestao;
 	private Integer numeroAtualQuestao;
 	private Idioma idioma;
 	private ArrayList<Resposta> listaRespostas;
+	private JanelasSource label;
 	private Conteudo conteudo;
-	
-    private int currentSegundos = 0;
-    private int currentMinutos = 0;
-    private int currentHora = 0;
-    private Calendar tempoRegistrado;
-	
+
+	private int currentSegundos = 0;
+	private int currentMinutos = 0;
+	private int currentHora = 0;
+	private Calendar tempoRegistrado;
+
 	private MainApp mainApp;
 
 	public QuizController() {
@@ -105,69 +104,85 @@ public class QuizController {
 	private void initialize() {
 		contQuestao = 0;
 		numeroAtualQuestao = 1;
+		label = JanelasSource.getInstance(idioma);
 	}
 
 	public void iniciarQuiz() {
-		
+
 		labelNomeExame.setText(conteudo.getNomeTeste().getNomeExtenso());
-		setNumeroQuestao();
+		labelNumeroQuestao.setText(label.getString("quizLabelNumQuestao1") + numeroAtualQuestao
+				+ label.getString("quizLabelNumQuestao2") + conteudo.getTotalQuestoes());
 		verificaQuestao(conteudo.getQuestao(contQuestao));
 		setQuestao(conteudo.getQuestao(contQuestao));
 		iniciaTimer();
 	}
-	
+
 	private void iniciaTimer() {
 		Timer timer = new Timer();
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		
+
 		timer.schedule(new TimerTask() {
-		    public void run() {
-		         Platform.runLater(new Runnable() {
-		            public void run() {
-		            	currentSegundos++;
-		                
-		                if(currentSegundos == 60) {
-		                    currentMinutos++;
-		                    currentSegundos = 0;
-		                }
-		                
-		                if(currentMinutos == 60){
-		                    currentHora++;
-		                    currentMinutos = 0;
-		                }
-		                
-		                tempoRegistrado.set(Calendar.HOUR_OF_DAY, currentHora);
-		                tempoRegistrado.set(Calendar.MINUTE, currentMinutos);
-		                tempoRegistrado.set(Calendar.SECOND, currentSegundos);
-		                
-		                labelTempoDecorrido.setText("Tempo Decorrido: " + dateFormat.format(tempoRegistrado.getTime()));
-		            }
-		        });
-		    }
+			public void run() {
+				Platform.runLater(new Runnable() {
+					public void run() {
+						currentSegundos++;
+
+						if (currentSegundos == 60) {
+							currentMinutos++;
+							currentSegundos = 0;
+						}
+
+						if (currentMinutos == 60) {
+							currentHora++;
+							currentMinutos = 0;
+						}
+
+						tempoRegistrado.set(Calendar.HOUR_OF_DAY, currentHora);
+						tempoRegistrado.set(Calendar.MINUTE, currentMinutos);
+						tempoRegistrado.set(Calendar.SECOND, currentSegundos);
+
+						labelTempoDecorrido.setText(label.getString("quizLabelTempoDecorrido")
+								+ dateFormat.format(tempoRegistrado.getTime()));
+
+						if (currentHora == conteudo.getTipoTeste().getTempoMaximoDuracao()) {
+							timer.cancel();
+							AlertDialogsFactory.getAlertDialog(AlertType.INFORMATION,
+									label.getString("quizAlertTitulo"), label.getString("quizAlertCabecalho"),
+									label.getString("quizAlertConteudo"));
+							finalizarQuiz();
+						}
+					}
+				});
+			}
 		}, 0, VELOCIDADE_CRONOMETRO);
 	}
 
-	private void setNumeroQuestao() {
-		labelNumeroQuestao.setText("Questão " + numeroAtualQuestao + " de " + conteudo.getTotalQuestoes());
-		numeroAtualQuestao++;
+	private void setNumeroProximaQuestao() {
+		labelNumeroQuestao.setText(label.getString("quizLabelNumQuestao1") + ++numeroAtualQuestao
+				+ label.getString("quizLabelNumQuestao2") + conteudo.getTotalQuestoes());
+	}
+
+	private void setNumeroAnteriorQuestao() {
+		labelNumeroQuestao.setText(label.getString("quizLabelNumQuestao1") + --numeroAtualQuestao
+				+ label.getString("quizLabelNumQuestao2") + conteudo.getTotalQuestoes());
 	}
 
 	private void verificaQuestao(Questao questao) {
-		
+
 		radioGroup = new ToggleGroup();
 		switch (questao.getTipoQuestao()) {
-			case MULTIPLA:
-				comboPainel.setVisible(false);
-				checkPainel.setVisible(true);
-				setQuestao(questao);
-				setMultiplasEscolhas(questao);
-				break;
-			case UNICA:
-				checkPainel.setVisible(false);
-				comboPainel.setVisible(true);
-				setQuestao(questao);
-				setUnicaEscolha(questao);
-			}
+		case MULTIPLA:
+			comboPainel.setVisible(false);
+			checkPainel.setVisible(true);
+			setQuestao(questao);
+			setMultiplasEscolhas(questao);
+			break;
+		case UNICA:
+			checkPainel.setVisible(false);
+			comboPainel.setVisible(true);
+			setQuestao(questao);
+			setUnicaEscolha(questao);
+		}
 	}
 
 	private void setQuestao(Questao questao) {
@@ -215,84 +230,97 @@ public class QuizController {
 	}
 
 	@FXML
+	private void handleAnterior() {
+
+		if (contQuestao > 0) {
+			setNumeroAnteriorQuestao();
+			contQuestao--;
+			verificaQuestao(conteudo.getQuestao(contQuestao));
+			setQuestao(conteudo.getQuestao(contQuestao));
+		}
+	}
+
+	@FXML
 	private void handleProximo() {
-		
+
 		switch (conteudo.getQuestao(contQuestao).getTipoQuestao()) {
-			case MULTIPLA:
-				addAlternativasEscolhidas();
-				break;
-			case UNICA:
-				addAlternativaEscolhida();
+		case MULTIPLA:
+			addAlternativasEscolhidas();
+			break;
+		case UNICA:
+			addAlternativaEscolhida();
 		}
 	}
 
 	private void addAlternativaEscolhida() {
-		
+
 		RadioButton radioResposta = (RadioButton) radioGroup.getSelectedToggle();
-		
+
 		if (radioResposta != null) {
 			if (!isQuestaoJaRespondida())
-				listaRespostas.add(contQuestao, new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), radioResposta.getText()));
+				listaRespostas.add(contQuestao,
+						new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), radioResposta.getText()));
 			else
-				listaRespostas.set(contQuestao, new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), radioResposta.getText()));
+				listaRespostas.set(contQuestao,
+						new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), radioResposta.getText()));
 			setProximaQuestao();
 		} else {
-			Alert alert = AlertDialogsFactory.getAlertDialog(AlertType.ERROR, "Erro", "Erro na Validação da Questão.", "É Necessário escolher uma Alternativa.");
-			alert.showAndWait();
+			AlertDialogsFactory.getAlertDialog(AlertType.ERROR,
+					label.getString("quizAlertErroAleternativaTitulo"),
+					label.getString("quizAlertErroAleternativaCabecalho"),
+					label.getString("quizAlertErroAleternativaConteudo"));
 		}
 	}
-	
+
 	private void setProximaQuestao() {
-		
+
 		contQuestao++;
 		if (contQuestao <= (conteudo.getTotalQuestoes() - 1)) {
-			setNumeroQuestao();
+			setNumeroProximaQuestao();
 			verificaQuestao(conteudo.getQuestao(contQuestao));
 			setQuestao(conteudo.getQuestao(contQuestao));
 		} else {
-			mainApp.showResultadoController(listaRespostas, conteudo, tempoRegistrado);
-			dialogStage.close();
+			finalizarQuiz();
 		}
 	}
-	
+
+	private void finalizarQuiz() {
+		mainApp.showResultadoController(listaRespostas, conteudo, tempoRegistrado);
+		dialogStage.close();
+	}
+
 	private void addAlternativasEscolhidas() {
 		ArrayList<String> respostas = new ArrayList<String>();
-		
+
 		verificaAlternativa(checkAlternativaA, respostas);
 		verificaAlternativa(checkAlternativaB, respostas);
 		verificaAlternativa(checkAlternativaC, respostas);
 		verificaAlternativa(checkAlternativaD, respostas);
 		verificaAlternativa(checkAlternativaE, respostas);
-		
+
 		if (respostas.size() > 0) {
 			if (!isQuestaoJaRespondida())
-				listaRespostas.add(contQuestao, new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), respostas));
+				listaRespostas.add(contQuestao,
+						new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), respostas));
 			else
-				listaRespostas.set(contQuestao, new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), respostas));
+				listaRespostas.set(contQuestao,
+						new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), respostas));
 			setProximaQuestao();
 		} else {
-			Alert alert = AlertDialogsFactory.getAlertDialog(AlertType.ERROR, "Erro", "Erro na Validação da Questão.", "É Necessário Escolher pelo Menos uma Alternativa.");
-			alert.showAndWait();
+			AlertDialogsFactory.getAlertDialog(AlertType.ERROR,
+					label.getString("quizAlertErroAleternativaTitulo"),
+					label.getString("quizAlertErroAleternativaCabecalho"),
+					label.getString("quizAlertErroAleternativaConteudo"));
 		}
 	}
-	
+
 	private boolean isQuestaoJaRespondida() {
 		return listaRespostas.contains(new Resposta(conteudo.getQuestao(contQuestao).getEnunciado()));
 	}
-	
+
 	private void verificaAlternativa(CheckBox alternativa, ArrayList<String> respostas) {
 		if (alternativa.isSelected()) {
 			respostas.add(alternativa.getText());
-		}
-	}
-
-	@FXML
-	private void handleAnterior() {
-
-		if (contQuestao > 0) {
-			contQuestao--;
-			verificaQuestao(conteudo.getQuestao(contQuestao));
-			setQuestao(conteudo.getQuestao(contQuestao));
 		}
 	}
 
@@ -322,9 +350,9 @@ public class QuizController {
 	public void setDialogHome(Stage dialogHome) {
 		this.dialogHome = dialogHome;
 	}
-	
+
 	public void setConteudo(Conteudo conteudo) {
 		this.conteudo = conteudo;
 	}
-	
+
 }

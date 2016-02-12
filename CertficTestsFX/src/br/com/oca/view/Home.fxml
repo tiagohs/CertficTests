@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?scenebuilder-preview-i18n-resource DE_de.properties?>
 
-<AnchorPane prefHeight="541.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.HomeController">
+<AnchorPane prefHeight="541.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.HomeController">
    <children>
       <TableView fx:id="tabelaTentativas" layoutX="3.0" layoutY="5.0" prefHeight="445.0" prefWidth="667.0">
         <columns>
@@ -20,7 +20,7 @@
       <Button layoutX="534.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleSair" prefHeight="35.0" prefWidth="107.0" text="%botaoSair" />
       <ComboBox fx:id="comboExame" layoutX="27.0" layoutY="489.0" onHidden="#handleComboExame" prefWidth="150.0" promptText="%comboSelecioneExame" />
       <ComboBox fx:id="comboTipoTeste" layoutX="205.0" layoutY="489.0" onHidden="#handleComboTipoTeste" prefHeight="25.0" prefWidth="180.0" promptText="%comboSelecioneTipoTeste" />
-      <Label layoutX="27.0" layoutY="459.0" text="Novo Quiz:" />
+      <Label layoutX="27.0" layoutY="459.0" text="%homeLabelNovoTeste" />
       <Separator layoutX="96.0" layoutY="469.0" prefHeight="0.0" prefWidth="560.0" />
       <Separator layoutX="27.0" layoutY="526.0" prefHeight="3.0" prefWidth="629.0" />
    </children>

@@ -2,9 +2,7 @@ package br.com.oca.view;
 
 import br.com.oca.controller.MainApp;
 import br.com.oca.model.Tentativa;
-import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.conteudo.ConteudoFactory;
-import br.com.oca.model.conteudo.OCA;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
@@ -14,7 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -39,22 +36,22 @@ public class HomeController {
 	@FXML
 	private Button botaoNovo;
 	@FXML
-	private ComboBox<Certificacao> comboExame; 
+	private ComboBox<Certificacao> comboExame;
 	@FXML
 	private ComboBox<TipoTeste> comboTipoTeste;
-	
+
 	private FXMLLoader loader;
 	private JanelasSource label;
 	private ObservableList<Tentativa> listaTentativas;
 	private ObservableList<Certificacao> optionsExame;
 	private ObservableList<TipoTeste> optionsTipoTeste;
 	private Idioma idioma;
-	
+
 	private Stage homeStage;
 	private MainApp mainApp;
 
 	public HomeController() {
-		
+
 		optionsExame = FXCollections.observableArrayList(Certificacao.values());
 		optionsTipoTeste = FXCollections.observableArrayList(TipoTeste.values());
 	}
@@ -64,45 +61,45 @@ public class HomeController {
 		botaoNovo.setDisable(true);
 		comboExame.setItems(optionsExame);
 		comboTipoTeste.setItems(optionsTipoTeste);
-		label = JanelasSource.getInstance(idioma); 
-		
+		label = JanelasSource.getInstance(idioma);
+
 		inicializaTabela();
 	}
-	
+
 	private void inicializaTabela() {
-		
+
 		colunaTesteEscolhido.setCellValueFactory(new PropertyValueFactory<>("testeEscolhido"));
 		colunaNota.setCellValueFactory(new PropertyValueFactory<>("nota"));
 		colunaAcertos.setCellValueFactory(new PropertyValueFactory<>("numeroAcertos"));
 		colunaTempo.setCellValueFactory(new PropertyValueFactory<>("tempoRegistrado"));
-		
-        tabelaTentativas.setItems(listaTentativas);
-        
+
+		tabelaTentativas.setItems(listaTentativas);
+
 	}
-	
+
 	@FXML
 	private void handleComboExame() {
-		
+
 		if (comboTipoTeste.getValue() != null)
 			botaoNovo.setDisable(false);
 	}
-	
+
 	@FXML
 	private void handleComboTipoTeste() {
-		
+
 		if (comboExame.getValue() != null)
 			botaoNovo.setDisable(false);
 	}
-	
+
 	@FXML
 	public void handleBotaoNovo() {
-		
+
 		if (comboExame.getValue() != null && comboTipoTeste.getValue() != null) {
 			mainApp.showQuiz(ConteudoFactory.getConteudo(comboExame.getValue(), idioma, comboTipoTeste.getValue()));
 			homeStage.hide();
 		} else {
-			Alert alert = AlertDialogsFactory.getAlertDialog(AlertType.ERROR, "Atenção!", "Erro na criação de um Novo Teste", "A Escolha de um Exame e de Um tipo de Teste é obrigatória.");
-			alert.showAndWait();
+			AlertDialogsFactory.getAlertDialog(AlertType.ERROR, label.getString("novoTesteAlertTitulo"),
+					label.getString("novoTesteAlertCabecalho"), label.getString("novoTesteAlertConteudo"));
 		}
 	}
 
@@ -110,26 +107,26 @@ public class HomeController {
 		this.mainApp = mainApp;
 		tabelaTentativas.setItems(mainApp.getListaTentativas());
 	}
-	
+
 	public void setIdioma(Idioma idioma) {
 		this.idioma = idioma;
 	}
-	
+
 	public void setLoader(FXMLLoader loader) {
 		this.loader = loader;
 	}
-	
+
 	public void setHomeStage(Stage homeStage) {
 		this.homeStage = homeStage;
 	}
-	
+
 	@FXML
 	private void handleSair() {
 		System.exit(0);
 	}
-	
+
 	public void setListaTentativas(ObservableList<Tentativa> listaTentativas) {
 		this.listaTentativas = listaTentativas;
 	}
-	
+
 }

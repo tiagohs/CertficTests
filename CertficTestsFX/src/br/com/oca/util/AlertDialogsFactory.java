@@ -28,6 +28,8 @@ public class AlertDialogsFactory {
 		alert.setHeaderText(cabecalho);
 		alert.setContentText(descricao);
 		
+		alert.showAndWait();
+		
 		return alert;
 	}
 }

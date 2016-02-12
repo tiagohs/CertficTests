@@ -1,17 +1,15 @@
 package br.com.oca.view;
 
 import br.com.oca.controller.MainApp;
-import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.conteudo.ConteudoFactory;
-import br.com.oca.model.conteudo.OCA;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
+import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.util.AlertDialogsFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Alert.AlertType;
@@ -24,73 +22,75 @@ public class NovoTesteController {
 	private ComboBox<TipoTeste> comboTipoTeste;
 	@FXML
 	private Button botaoNovo;
-	
+
 	private ObservableList<Certificacao> optionsExame;
 	private ObservableList<TipoTeste> optionsTipoTeste;
-	
+
 	private Stage dialogStage;
 	private Stage dialogHome;
-	
+
 	private Idioma idioma;
+	private JanelasSource label;
 	private MainApp mainApp;
-	
+
 	public NovoTesteController() {
 		optionsExame = FXCollections.observableArrayList(Certificacao.values());
 		optionsTipoTeste = FXCollections.observableArrayList(TipoTeste.values());
 	}
-	
+
 	@FXML
-    private void initialize() {
+	private void initialize() {
+		label = JanelasSource.getInstance(idioma);
 		botaoNovo.setDisable(true);
 		comboExame.setItems(optionsExame);
 		comboTipoTeste.setItems(optionsTipoTeste);
-    }
-	
+	}
+
 	@FXML
 	private void handleComboExame() {
-		
+
 		if (comboTipoTeste.getValue() != null)
 			botaoNovo.setDisable(false);
 	}
-	
+
 	@FXML
 	private void handleComboTipoTeste() {
-		
+
 		if (comboExame.getValue() != null)
 			botaoNovo.setDisable(false);
 	}
-	
+
 	@FXML
 	private void handleOk() {
 		if (comboExame.getValue() != null && comboTipoTeste.getValue() != null) {
 			mainApp.showQuiz(ConteudoFactory.getConteudo(comboExame.getValue(), idioma, comboTipoTeste.getValue()));
 			dialogStage.close();
 		} else {
-			Alert alert = AlertDialogsFactory.getAlertDialog(AlertType.ERROR, "Atenção!", "Erro na criação de um Novo Teste", "A Escolha de um Exame e de Um tipo de Teste é obrigatória.");
-			alert.showAndWait();
+			AlertDialogsFactory.getAlertDialog(AlertType.ERROR, label.getString("novoTesteAlertTitulo"),
+					label.getString("novoTesteAlertCabecalho"), label.getString("novoTesteAlertConteudo"));
 		}
 	}
-	
+
 	@FXML
 	private void handleCancel() {
 		dialogStage.close();
 		dialogHome.show();
 	}
-	
+
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
-	
+
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
-	
+
 	public void setIdioma(Idioma idioma) {
 		this.idioma = idioma;
 	}
-	
+
 	public void setDialogHome(Stage dialogHome) {
 		this.dialogHome = dialogHome;
 	}
-	
+
 }

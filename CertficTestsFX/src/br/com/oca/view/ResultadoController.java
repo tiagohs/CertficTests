@@ -12,12 +12,11 @@ import br.com.oca.model.Resposta;
 import br.com.oca.model.Tentativa;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
+import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.util.AppendingObjectOutputStream;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ResultadoController {
@@ -37,6 +36,7 @@ public class ResultadoController {
 	private MainApp mainApp;
 	
 	private ArrayList<Resposta> listaRespostas;
+	private JanelasSource label;
 	private Idioma idioma;
 	private Conteudo conteudo;
 	private String stringResultados;
@@ -47,6 +47,7 @@ public class ResultadoController {
 	public ResultadoController() {
 		stringResultados = "";
 		numeroQuestao = 1;
+		label = JanelasSource.getInstance(idioma);
 	}
 
 	@FXML
@@ -60,35 +61,35 @@ public class ResultadoController {
 	}
 	
 	private void showResultados() {
-		labelSuaNota.setText(calculos.getNota() + " de 100.00");
-		labelQuestoesCorretas.setText(calculos.getNumeroQuestoesCorretas() + " de " + conteudo.getTotalQuestoes());
+		labelSuaNota.setText(calculos.getNota() + label.getString("resultadosLabelDe") + "100.00");
+		labelQuestoesCorretas.setText(calculos.getNumeroQuestoesCorretas() + label.getString("resultadosLabelDe") + conteudo.getTotalQuestoes());
 		labelTempoDecorrido.setText(calculos.getTempoDecorridoFormatado());
 		
-		for (int cont = 0; cont < conteudo.getTotalQuestoes(); cont++) 
-			setTextoRespostas(cont);
+		if (listaRespostas.size() > 0) {
+			for (int cont = 0; cont < conteudo.getTotalQuestoes(); cont++) 
+				setTextoRespostas(cont);
+		} else {
+			stringResultados = label.getString("resultadosLabelNenhumaQuestao");
+		}
 		
-		resultados.setWrapText(true);
+		
 		resultados.setText(stringResultados);
+		resultados.setWrapText(true);
 	}
 	
 	private void setTextoRespostas(int count) {
-		Text resposta;
 		
 		stringResultados += numeroQuestao + " - " + conteudo.getQuestao(count).getEnunciado() + "\n\n";
 		
 		switch (listaRespostas.get(count).getTipoQuestao()) {
 			case UNICA:
-				stringResultados += "Resposta Correta: " + conteudo.getQuestao(count).getEnunciadoAlternativaCorreta() + "\n";
+				stringResultados += label.getString("resultadosLabelRespostaCorreta") + conteudo.getQuestao(count).getEnunciadoAlternativaCorreta() + "\n";
 				if (calculos.isRespostaCorreta(count)) {
-					resposta = new Text("Sua Resposta: " + listaRespostas.get(count).getResposta() + "\n\n");
-					resposta.setFill(Color.GREEN);
-					stringResultados += resposta;
+					stringResultados += label.getString("resultadosLabelSuaResposta") + listaRespostas.get(count).getResposta() + "\n\n";
 				}
 					
 				else {
-					resposta = new Text("Sua Resposta: " + listaRespostas.get(count).getResposta() + "\n\n");
-					resposta.setFill(Color.RED);
-					stringResultados += resposta;
+					stringResultados += label.getString("resultadosLabelSuaResposta") + listaRespostas.get(count).getResposta() + "\n\n";
 				}
 					
 				break;
@@ -101,12 +102,12 @@ public class ResultadoController {
 	
 	private void exibirMultiplasRespostas(Questao questao, Resposta resposta) {
 		
-		stringResultados += "Respostas Corretas: \n\n";
+		stringResultados += label.getString("resultadosLabelRespostasCorretas") + "\n\n";
 		for (int cont = 0; cont < questao.getAlternativasCorretas().size(); cont++) {
 			stringResultados += questao.getAlternativasCorretas().get(cont) + "\n";
 		}
 		
-		stringResultados += "\nSuas Respostas: \n\n";
+		stringResultados += "\n" + label.getString("resultadosLabelSuasRespostas") + "\n\n";
 		for (int cont = 0; cont < resposta.getRespostas().size(); cont++) {
 			if (questao.getAlternativasCorretas().contains(resposta.getRespostas().get(cont))) {
 				stringResultados += resposta.getRespostas().get(cont) + "\n";
