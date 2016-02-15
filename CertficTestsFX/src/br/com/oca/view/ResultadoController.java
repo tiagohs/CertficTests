@@ -85,11 +85,11 @@ public class ResultadoController {
 			case UNICA:
 				stringResultados += label.getString("resultadosLabelRespostaCorreta") + conteudo.getQuestao(count).getEnunciadoAlternativaCorreta() + "\n";
 				if (calculos.isRespostaCorreta(count)) {
-					stringResultados += label.getString("resultadosLabelSuaResposta") + listaRespostas.get(count).getResposta() + "\n\n";
+					stringResultados += label.getString("resultadosLabelSuaResposta") + " " + listaRespostas.get(count).getResposta() + "\n\n";
 				}
 					
 				else {
-					stringResultados += label.getString("resultadosLabelSuaResposta") + listaRespostas.get(count).getResposta() + "\n\n";
+					stringResultados += label.getString("resultadosLabelSuaResposta") + " " + listaRespostas.get(count).getResposta() + "\n\n";
 				}
 					
 				break;
@@ -129,7 +129,7 @@ public class ResultadoController {
             	out = new ObjectOutputStream (new FileOutputStream(Tentativa.filename));
             else 
             	out = new AppendingObjectOutputStream (new FileOutputStream(Tentativa.filename, true));
-            out.writeObject(new Tentativa(conteudo.getNomeTeste(), conteudo.getTipoTeste(), calculos.getNota(), calculos.getNumeroQuestoesCorretas(), calculos.getTempoDecorridoFormatado()));
+            out.writeObject(new Tentativa(conteudo.getNomeTeste(), conteudo.getTipoTeste(), calculos.getNota(), calculos.getNumeroQuestoesCorretas(), calculos.getTempoDecorridoFormatado(), stringResultados));
             out.flush();
             out.close();
         } catch (Exception e){

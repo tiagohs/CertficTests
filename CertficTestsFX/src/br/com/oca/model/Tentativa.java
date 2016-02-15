@@ -2,7 +2,6 @@ package br.com.oca.model;
 
 import java.io.Serializable;
 
-import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.TipoTeste;
 
@@ -16,14 +15,16 @@ public class Tentativa implements Serializable {
 	private Double nota;
 	private Double numeroAcertos;
 	private String tempoRegistrado;
+	private String listaRespostas;
 	
-	public Tentativa(Certificacao _exame, TipoTeste _testeEscolhido, Double _nota, Double _numeroAcertos, String _tempoRegistrado) {
+	public Tentativa(Certificacao _exame, TipoTeste _testeEscolhido, Double _nota, Double _numeroAcertos, String _tempoRegistrado, String _listaRespostas) {
 		exame = _exame;
 		tipoTeste = _testeEscolhido;
 		testeEscolhido = exame.getNomeExtenso() + " - " + tipoTeste .getNome();
 		nota = _nota;
 		numeroAcertos = _numeroAcertos;
 		tempoRegistrado = _tempoRegistrado;
+		listaRespostas = _listaRespostas;
 	}
 	
 	public Certificacao getExame() {
@@ -72,6 +73,14 @@ public class Tentativa implements Serializable {
 	
 	public void setTempoRegistrado(String tempoRegistrado) {
 		this.tempoRegistrado = tempoRegistrado;
+	}
+	
+	public String getListaRespostas() {
+		return listaRespostas;
+	}
+	
+	public void setListaRespostas(String listaRespostas) {
+		this.listaRespostas = listaRespostas;
 	}
 
 }

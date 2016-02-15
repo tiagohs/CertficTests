@@ -74,6 +74,13 @@ public class HomeController {
 		colunaTempo.setCellValueFactory(new PropertyValueFactory<>("tempoRegistrado"));
 
 		tabelaTentativas.setItems(listaTentativas);
+		
+		tabelaTentativas.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (tabelaTentativas.getSelectionModel().getSelectedItem() != null) {
+            	homeStage.hide();
+            	mainApp.showDetalhesQuestoesRespondidas(newValue);
+            }
+        });
 
 	}
 
@@ -102,7 +109,12 @@ public class HomeController {
 					label.getString("novoTesteAlertCabecalho"), label.getString("novoTesteAlertConteudo"));
 		}
 	}
-
+	
+	@FXML
+	private void handleSair() {
+		System.exit(0);
+	}
+	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		tabelaTentativas.setItems(mainApp.getListaTentativas());
@@ -118,11 +130,6 @@ public class HomeController {
 
 	public void setHomeStage(Stage homeStage) {
 		this.homeStage = homeStage;
-	}
-
-	@FXML
-	private void handleSair() {
-		System.exit(0);
 	}
 
 	public void setListaTentativas(ObservableList<Tentativa> listaTentativas) {

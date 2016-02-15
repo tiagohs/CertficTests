@@ -1,11 +1,14 @@
 package br.com.oca.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import br.com.oca.model.enums.TipoQuestao;
 
-public class Questao {
+public class Questao implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private TipoQuestao tipoQuestao;
 	private String enunciado;
 	private String enunciadoExtras;

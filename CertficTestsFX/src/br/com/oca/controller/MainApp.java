@@ -15,6 +15,7 @@ import br.com.oca.model.Tentativa;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.i18n.janelas.JanelasSource;
+import br.com.oca.view.DetalhesQuestoesRespondidasController;
 import br.com.oca.view.HomeController;
 import br.com.oca.view.NovoTesteController;
 import br.com.oca.view.QuizController;
@@ -37,11 +38,14 @@ import javafx.util.Duration;
 public class MainApp extends Application {
 	private BorderPane rootLayout;
 	private FXMLLoader loader;
+	
+	private Stage detalhesQuestoesRespondidasStage;
 	private Stage homeStage;
 	private Stage novoTesteStage;
 	private Stage quizStage;
 	private Stage resultadoStage;
-
+	
+	private DetalhesQuestoesRespondidasController detalhesQuestoesRespondidasController;
 	private RootLayoutController rootLayoutController;
 	private HomeController homeController;
 	private NovoTesteController novoTesteController;
@@ -140,6 +144,19 @@ public class MainApp extends Application {
 		homeController.setMainApp(this);
 		homeController.setListaTentativas(listaTentativas);
 		homeController.setLoader(loader);
+	}
+	
+	public void showDetalhesQuestoesRespondidas(Tentativa tentativa) {
+		
+		loader = getNovoLoader();
+		detalhesQuestoesRespondidasStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "../view/DetalhesQuestoesRespondidas.fxml"),
+				label.getString("detalhesQuestoesTitulo"));
+		
+		detalhesQuestoesRespondidasController = loader.getController();
+		detalhesQuestoesRespondidasController.setDialogHome(homeStage);
+		detalhesQuestoesRespondidasController.setDialogStage(detalhesQuestoesRespondidasStage);
+		detalhesQuestoesRespondidasController.setTentativa(tentativa);
+		detalhesQuestoesRespondidasController.prenxerDados();
 	}
 
 	public void showNovoTesteDialog() {
