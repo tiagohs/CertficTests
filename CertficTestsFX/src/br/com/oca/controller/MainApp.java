@@ -25,19 +25,30 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Duration;
 
 public class MainApp extends Application {
-	private ObservableList<Tentativa> listaTentativas;
-	private Stage homeStage;
 	private BorderPane rootLayout;
+	private FXMLLoader loader;
+	private Stage homeStage;
+	private Stage novoTesteStage;
+	private Stage quizStage;
+	private Stage resultadoStage;
+
+	private RootLayoutController rootLayoutController;
+	private HomeController homeController;
+	private NovoTesteController novoTesteController;
+	private QuizController quizController;
+	private ResultadoController resultadoController;
+
+	private ObservableList<Tentativa> listaTentativas;
 	private JanelasSource label;
 	private Idioma idioma;
 
@@ -48,62 +59,59 @@ public class MainApp extends Application {
 	public void start(Stage _homeStage) {
 		idioma = showEscolherIdioma();
 		label = JanelasSource.getInstance(idioma);
-		homeStage = _homeStage;
-		homeStage.setTitle("CertificTests");
-		
+
 		atualizaTabelaTentativas();
-		
+
 		initRootLayout();
 		showHome();
 	}
-	
+
 	private Idioma showEscolherIdioma() {
 		ChoiceDialog<Idioma> dialog = new ChoiceDialog<Idioma>(Idioma.Ingles, Idioma.values());
 		dialog.setTitle("Escolher Idioma");
 		dialog.setHeaderText("Escolher o Idioma Padrão da Aplicação.");
 		dialog.setContentText("Escolha o Idioma Desejado: ");
-		
+
 		Optional<Idioma> idiomaEscolhido = dialog.showAndWait();
-		if (idiomaEscolhido.isPresent()){
-		   return idiomaEscolhido.get();
+		if (idiomaEscolhido.isPresent()) {
+			return idiomaEscolhido.get();
 		} else {
-		   System.exit(0);
+			System.exit(0);
 		}
-		
+
 		return null;
 	}
 	
 	private FXMLLoader getNovoLoader() {
+		
+		abrirNovaJanela();
+		FXMLLoader carregarFXML = new FXMLLoader();
+		carregarFXML.setResources(label.getBundle());
 
-		FXMLLoader loader = new FXMLLoader();
-		loader.setResources(label.getBundle());
-
-		return loader;
+		return carregarFXML;
 	}
 	
 	private void abrirNovaJanela() {
-		
-		Window window = new Stage();
 		PauseTransition pause = new PauseTransition(Duration.seconds(30));
-		pause.setOnFinished(e -> window.hide());
+		pause.setOnFinished(e -> new Stage().hide());
 		pause.play();
 	}
 	
-	private Stage getNovoStage(FXMLLoader loader, AnchorPane page, String tituloJanela) {
+	private Stage getNovoStage(FXMLLoader loader, Parent page, String tituloJanela) {
 
-		Stage stage = new Stage();
-		stage.initModality(Modality.WINDOW_MODAL);
-		stage.setResizable(false);
-		stage.setTitle(tituloJanela);
-		stage.setScene(new Scene(page));
-		stage.show();
+		Stage tempStage = new Stage();
+		tempStage.initModality(Modality.WINDOW_MODAL);
+		tempStage.setResizable(false);
+		tempStage.setTitle(tituloJanela);
+		tempStage.setScene(new Scene(page));
+		tempStage.show();
 
-		return stage;
+		return tempStage;
 	}
 
-	private AnchorPane getNovoAnchorPane(FXMLLoader loader, String caminhoFXML) {
+	private Parent getNovaCena(FXMLLoader loader, String caminhoFXML) {
 		try {
-			return (AnchorPane) loader.load(this.getClass().getResource(caminhoFXML).openStream());
+			return loader.load(this.getClass().getResource(caminhoFXML).openStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -111,32 +119,22 @@ public class MainApp extends Application {
 	}
 
 	public void initRootLayout() {
-		try {
-			FXMLLoader loader = getNovoLoader();
-			rootLayout = (BorderPane) loader.load(this.getClass().getResource("../view/RootLayout.fxml").openStream());
 
-			Scene scene = new Scene(rootLayout);
-			homeStage.setScene(scene);
-			homeStage.setResizable(false);
-			
-			RootLayoutController controller = loader.getController();
-			controller.setMainApp(this);
-			controller.setDialogHome(homeStage);
+		loader = getNovoLoader();
+		rootLayout = (BorderPane) getNovaCena(loader, "../view/RootLayout.fxml");
+		homeStage = getNovoStage(loader, rootLayout, "CertificTests");
 
-			homeStage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		rootLayoutController = loader.getController();
+		rootLayoutController.setMainApp(this);
+		rootLayoutController.setDialogHome(homeStage);
 	}
 
 	public void showHome() {
-		
-		FXMLLoader loader = getNovoLoader();
-		AnchorPane personOverview = getNovoAnchorPane(loader, "../view/Home.fxml");
 
-		rootLayout.setCenter(personOverview);
+		loader = getNovoLoader();
+		rootLayout.setCenter(getNovaCena(loader, "../view/Home.fxml"));
 
-		HomeController homeController = loader.getController();
+		homeController = loader.getController();
 		homeController.setHomeStage(homeStage);
 		homeController.setIdioma(idioma);
 		homeController.setMainApp(this);
@@ -145,14 +143,12 @@ public class MainApp extends Application {
 	}
 
 	public void showNovoTesteDialog() {
-		
-		abrirNovaJanela();
-		FXMLLoader loader = getNovoLoader();
-		AnchorPane page = getNovoAnchorPane(loader, "../view/NovoTeste.fxml");
 
-		Stage novoTesteStage = getNovoStage(loader, page, label.getString("homeTituloNovoTeste"));
+		loader = getNovoLoader();
+		novoTesteStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "../view/NovoTeste.fxml"),
+				label.getString("homeTituloNovoTeste"));
 
-		NovoTesteController novoTesteController = loader.getController();
+		novoTesteController = loader.getController();
 		novoTesteController.setIdioma(idioma);
 		novoTesteController.setDialogStage(novoTesteStage);
 		novoTesteController.setDialogHome(homeStage);
@@ -161,12 +157,11 @@ public class MainApp extends Application {
 
 	public void showQuiz(Conteudo conteudo) {
 
-		abrirNovaJanela();
-		FXMLLoader loader = getNovoLoader();
-		AnchorPane page = getNovoAnchorPane(loader, "../view/Quiz.fxml");
-		Stage quizStage = getNovoStage(loader, page, label.getString("homeTituloNovoQuiz"));
+		loader = getNovoLoader();
+		quizStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "../view/Quiz.fxml"),
+				label.getString("homeTituloNovoQuiz"));
 
-		QuizController quizController = loader.getController();
+		quizController = loader.getController();
 		quizController.setDialogStage(quizStage);
 		quizController.setDialogHome(homeStage);
 		quizController.setIdioma(idioma);
@@ -175,29 +170,28 @@ public class MainApp extends Application {
 		quizController.iniciarQuiz();
 	}
 
-	public void showResultadoController(ArrayList<Resposta> listaRespostas, Conteudo conteudo, Calendar tempoRegistrado) {
+	public void showResultadoController(ArrayList<Resposta> listaRespostas, Conteudo conteudo,
+			Calendar tempoRegistrado) {
 
-		abrirNovaJanela();
-		FXMLLoader loader = getNovoLoader();
-		AnchorPane page = getNovoAnchorPane(loader, "../view/Resultado.fxml");
-		Stage resultadoStage = getNovoStage(loader, page, label.getString("homeTituloResultados"));
-		
-		Calculos calculos = new Calculos(conteudo, listaRespostas, tempoRegistrado);
-		ResultadoController resultadoController = loader.getController();
+		loader = getNovoLoader();
+		resultadoStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "../view/Resultado.fxml"),
+				label.getString("homeTituloResultados"));
+
+		resultadoController = loader.getController();
 		resultadoController.setDialogStage(resultadoStage);
 		resultadoController.setListaRespostas(listaRespostas);
 		resultadoController.setConteudo(conteudo);
-		resultadoController.setCalculos(calculos);
+		resultadoController.setCalculos(new Calculos(conteudo, listaRespostas, tempoRegistrado));
 		resultadoController.setDialogHome(homeStage);
 		resultadoController.setIdioma(idioma);
 		resultadoController.setMainApp(this);
 		resultadoController.calcularResultados();
 
 	}
-	
+
 	public void atualizaTabelaTentativas() {
-		listaTentativas = listaTentativas = FXCollections.observableArrayList();
-		
+		listaTentativas = FXCollections.observableArrayList();
+
 		try {
 			FileInputStream fileInputStream = new FileInputStream(Tentativa.filename);
 			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
