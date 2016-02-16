@@ -9,11 +9,13 @@ import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.util.AlertDialogsFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class NovoTesteController {
 	@FXML
@@ -40,12 +42,22 @@ public class NovoTesteController {
 
 	@FXML
 	private void initialize() {
+		
+	}
+	
+	public void inicializaJanela() {
+		dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	          public void handle(WindowEvent we) {
+	        	  handleCancel();
+	          }
+	    });
+		
 		label = JanelasSource.getInstance(idioma);
 		botaoNovo.setDisable(true);
 		comboExame.setItems(optionsExame);
 		comboTipoTeste.setItems(optionsTipoTeste);
 	}
-
+	
 	@FXML
 	private void handleComboExame() {
 

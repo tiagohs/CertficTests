@@ -1,7 +1,8 @@
 package br.com.oca.model.enums;
 
 public enum Certificacao {
-	OCA_JAVA7("Oracle Certified Associate, Java SE 7 Programmer", "OCA_JAVA7"), OCP_JAVA7("Oracle Certified Professional, Java SE 7 Programmer", "OCP_JAVA7");
+	OCA_JAVA7("Oracle Certified Associate, Java SE 7 Programmer", "OCA_JAVA7"); 
+//	OCP_JAVA7("Oracle Certified Professional, Java SE 7 Programmer", "OCP_JAVA7");
 	
 	private String nomeExtenso;
 	private String nomeCurto;

@@ -9,15 +9,15 @@ public class AlertDialogsFactory {
 		
 		switch (tipoDialog) {
 			case CONFIRMATION:
-				return preenxer(new Alert(AlertType.ERROR), titulo, cabecalho, descricao);
+				return preenxer(new Alert(AlertType.CONFIRMATION), titulo, cabecalho, descricao);
 			case ERROR:
 				return preenxer(new Alert(AlertType.ERROR), titulo, cabecalho, descricao);
 			case INFORMATION:
-				return preenxer(new Alert(AlertType.ERROR), titulo, cabecalho, descricao);
+				return preenxer(new Alert(AlertType.INFORMATION), titulo, cabecalho, descricao);
 			case WARNING:
-				return preenxer(new Alert(AlertType.ERROR), titulo, cabecalho, descricao);
+				return preenxer(new Alert(AlertType.WARNING), titulo, cabecalho, descricao);
 			case NONE:
-				return preenxer(new Alert(AlertType.ERROR), titulo, cabecalho, descricao);
+				return preenxer(new Alert(AlertType.NONE), titulo, cabecalho, descricao);
 			default:
 				return null;
 		}

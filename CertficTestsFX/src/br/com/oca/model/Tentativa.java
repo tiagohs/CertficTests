@@ -15,9 +15,10 @@ public class Tentativa implements Serializable {
 	private Double nota;
 	private Double numeroAcertos;
 	private String tempoRegistrado;
+	private String dataRegistrada;
 	private String listaRespostas;
 	
-	public Tentativa(Certificacao _exame, TipoTeste _testeEscolhido, Double _nota, Double _numeroAcertos, String _tempoRegistrado, String _listaRespostas) {
+	public Tentativa(Certificacao _exame, TipoTeste _testeEscolhido, Double _nota, Double _numeroAcertos, String _tempoRegistrado, String _listaRespostas, String _dataRegistrada) {
 		exame = _exame;
 		tipoTeste = _testeEscolhido;
 		testeEscolhido = exame.getNomeExtenso() + " - " + tipoTeste .getNome();
@@ -25,6 +26,7 @@ public class Tentativa implements Serializable {
 		numeroAcertos = _numeroAcertos;
 		tempoRegistrado = _tempoRegistrado;
 		listaRespostas = _listaRespostas;
+		dataRegistrada = _dataRegistrada;
 	}
 	
 	public Certificacao getExame() {
@@ -81,6 +83,14 @@ public class Tentativa implements Serializable {
 	
 	public void setListaRespostas(String listaRespostas) {
 		this.listaRespostas = listaRespostas;
+	}
+	
+	public String getDataRegistrada() {
+		return dataRegistrada;
+	}
+	
+	public void setDataRegistrada(String dataRegistrada) {
+		this.dataRegistrada = dataRegistrada;
 	}
 
 }

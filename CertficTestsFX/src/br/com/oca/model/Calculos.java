@@ -3,6 +3,7 @@ package br.com.oca.model;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import br.com.oca.model.conteudo.Conteudo;
 
@@ -12,13 +13,15 @@ public class Calculos {
 	private Double nota;
 	private Double numeroQuestoesCorretas;
 	private Calendar tempoRegistrado;
+	private Date dataRegistrada;
 	
-	public Calculos(Conteudo _conteudo, ArrayList<Resposta> _listaRespostas, Calendar _tempoRegistrado) {
+	public Calculos(Conteudo _conteudo, ArrayList<Resposta> _listaRespostas, Calendar _tempoRegistrado, Date _dataRegistrada) {
 		nota = 0.0;
 		numeroQuestoesCorretas = 0.0;
 		conteudo =  _conteudo;
 		listaRespostas = _listaRespostas;
 		tempoRegistrado = _tempoRegistrado;
+		dataRegistrada = _dataRegistrada;
 		
 		calcularNumeroQuestoesCorretas();
 		calcularNota();
@@ -86,6 +89,14 @@ public class Calculos {
 
 	public String getTempoDecorridoFormatado() {
 		return new SimpleDateFormat("HH:mm:ss").format(tempoRegistrado.getTime());
+	}
+	
+	public String getDataRegistradaFormatado() {
+		return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dataRegistrada);
+	}
+	
+	public Date getDataRegistrada() {
+		return dataRegistrada;
 	}
 	
 	public Calendar getTempoDecorrido() {

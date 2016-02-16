@@ -19,7 +19,7 @@
          </content>
       </ScrollPane>
       <Button layoutX="292.0" layoutY="690.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="32.0" prefWidth="117.0" text="Ok" />
-      <Label fx:id="testeEscolhido" layoutX="18.0" layoutY="14.0" prefHeight="20.0" prefWidth="461.0" text="Teste Escolhido">
+      <Label fx:id="testeEscolhido" layoutX="18.0" layoutY="14.0" prefHeight="20.0" prefWidth="451.0" text="Teste Escolhido">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
@@ -29,7 +29,7 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="tempoDuracao" layoutX="585.0" layoutY="46.0" prefHeight="17.0" prefWidth="53.0" text="00:00:00">
+      <Label fx:id="tempoDuracao" layoutX="629.0" layoutY="46.0" prefHeight="17.0" prefWidth="53.0" text="00:00:00">
          <font>
             <Font size="13.0" />
          </font>
@@ -39,17 +39,27 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <Label fx:id="acertos" layoutX="353.0" layoutY="46.0" prefHeight="19.0" prefWidth="62.0" text="30 de 30">
+      <Label fx:id="acertos" layoutX="382.0" layoutY="46.0" prefHeight="19.0" prefWidth="62.0" text="30 de 30">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      <Label layoutX="226.0" layoutY="46.0" prefHeight="19.0" prefWidth="132.0" text="Número de Acertos: ">
+      <Label layoutX="255.0" layoutY="46.0" prefHeight="19.0" prefWidth="132.0" text="Número de Acertos: ">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="523.0" layoutY="46.0" prefHeight="19.0" prefWidth="62.0" text="Duração:">
+      <Label layoutX="567.0" layoutY="46.0" prefHeight="19.0" prefWidth="62.0" text="Duração:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="dataRegistrada" layoutX="559.0" layoutY="15.0" text="01/12/2013 00:00:00">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="522.0" layoutY="15.0" prefHeight="19.0" prefWidth="43.0" text="Data:">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

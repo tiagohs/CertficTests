@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 import br.com.oca.model.Calculos;
@@ -170,6 +171,7 @@ public class MainApp extends Application {
 		novoTesteController.setDialogStage(novoTesteStage);
 		novoTesteController.setDialogHome(homeStage);
 		novoTesteController.setMainApp(this);
+		novoTesteController.inicializaJanela();
 	}
 
 	public void showQuiz(Conteudo conteudo) {
@@ -188,7 +190,7 @@ public class MainApp extends Application {
 	}
 
 	public void showResultadoController(ArrayList<Resposta> listaRespostas, Conteudo conteudo,
-			Calendar tempoRegistrado) {
+			Calendar tempoRegistrado, Date dataRegistrada) {
 
 		loader = getNovoLoader();
 		resultadoStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "../view/Resultado.fxml"),
@@ -198,7 +200,7 @@ public class MainApp extends Application {
 		resultadoController.setDialogStage(resultadoStage);
 		resultadoController.setListaRespostas(listaRespostas);
 		resultadoController.setConteudo(conteudo);
-		resultadoController.setCalculos(new Calculos(conteudo, listaRespostas, tempoRegistrado));
+		resultadoController.setCalculos(new Calculos(conteudo, listaRespostas, tempoRegistrado, dataRegistrada));
 		resultadoController.setDialogHome(homeStage);
 		resultadoController.setIdioma(idioma);
 		resultadoController.setMainApp(this);

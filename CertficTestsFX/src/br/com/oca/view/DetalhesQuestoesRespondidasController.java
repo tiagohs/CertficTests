@@ -1,10 +1,12 @@
 package br.com.oca.view;
 
 import br.com.oca.model.Tentativa;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class DetalhesQuestoesRespondidasController {
 	@FXML
@@ -18,6 +20,8 @@ public class DetalhesQuestoesRespondidasController {
 	@FXML
 	private Label questoesRespondidas;
 	@FXML
+	private Label dataRegistrada;
+	@FXML
 	private Button botaoOk;
 	
 	private Stage dialogHome;
@@ -30,12 +34,18 @@ public class DetalhesQuestoesRespondidasController {
 	}
 	
 	public void prenxerDados() {
+		dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	          public void handle(WindowEvent we) {
+	              handleOk();
+	          }
+	    });
+		
 		testeEscolhido.setText(tentativa.getTesteEscolhido());
 		nota.setText(tentativa.getNota().toString() + " de 100.0");
 		acertos.setText(tentativa.getNumeroAcertos().toString() + " de " + tentativa.getTipoTeste().getTotalQuestoes());
 		tempoDuracao.setText(tentativa.getTempoRegistrado());
+		dataRegistrada.setText(tentativa.getDataRegistrada());
 		questoesRespondidas.setText("Questões Respondidas: \n\n" + tentativa.getListaRespostas());
-		
 		questoesRespondidas.setWrapText(true);
 	}
 	

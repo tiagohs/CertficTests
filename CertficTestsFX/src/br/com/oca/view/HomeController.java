@@ -24,8 +24,6 @@ public class HomeController {
 	@FXML
 	private TableView<Tentativa> tabelaTentativas;
 	@FXML
-	private TableColumn<Tentativa, String> colunaTentativas;
-	@FXML
 	private TableColumn<Tentativa, String> colunaTesteEscolhido;
 	@FXML
 	private TableColumn<Tentativa, String> colunaNota;
@@ -33,6 +31,8 @@ public class HomeController {
 	private TableColumn<Tentativa, String> colunaAcertos;
 	@FXML
 	private TableColumn<Tentativa, String> colunaTempo;
+	@FXML
+	private TableColumn<Tentativa, String> colunaData;
 	@FXML
 	private Button botaoNovo;
 	@FXML
@@ -72,7 +72,8 @@ public class HomeController {
 		colunaNota.setCellValueFactory(new PropertyValueFactory<>("nota"));
 		colunaAcertos.setCellValueFactory(new PropertyValueFactory<>("numeroAcertos"));
 		colunaTempo.setCellValueFactory(new PropertyValueFactory<>("tempoRegistrado"));
-
+		colunaData.setCellValueFactory(new PropertyValueFactory<>("dataRegistrada"));
+		
 		tabelaTentativas.setItems(listaTentativas);
 		
 		tabelaTentativas.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {

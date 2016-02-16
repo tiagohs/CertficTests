@@ -1,7 +1,9 @@
 package br.com.oca.model.enums;
 
 public enum TipoTeste {
-	TESTE_1("30 Questions", 50, 30), TESTE_2("60 Questions", 100, 60), TESTE_3("90 Questions", 150, 60);
+	TESTE_1("30 Questions", 50, 30);
+//	TESTE_2("60 Questions", 100, 60), 
+//	TESTE_3("90 Questions", 150, 60);
 	
 	private String nome;
 	private int tempoMaximoDuracao;
