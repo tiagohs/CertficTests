@@ -46,7 +46,6 @@ public class ResultadoController {
 	private String stringResultados;
 	private Integer numeroQuestao;
 	private Calculos calculos;
-	private Tentativa tentativa;
 
 	public ResultadoController() {
 		stringResultados = "";
@@ -184,10 +183,6 @@ public class ResultadoController {
 
 	public void setCalculos(Calculos calculos) {
 		this.calculos = calculos;
-	}
-
-	public void setTentativa(Tentativa tentativa) {
-		this.tentativa = tentativa;
 	}
 
 	public void setIdioma(Idioma idioma) {

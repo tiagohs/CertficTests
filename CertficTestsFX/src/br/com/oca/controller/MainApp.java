@@ -144,7 +144,6 @@ public class MainApp extends Application {
 		homeController.setIdioma(idioma);
 		homeController.setMainApp(this);
 		homeController.setListaTentativas(listaTentativas);
-		homeController.setLoader(loader);
 	}
 	
 	public void showDetalhesQuestoesRespondidas(Tentativa tentativa) {

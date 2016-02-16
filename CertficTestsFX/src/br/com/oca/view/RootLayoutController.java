@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 
 public class RootLayoutController {
 	private MainApp mainApp;
-	private Idioma idioma;
 	private JanelasSource label;
 	
 	private Stage dialogHome;
@@ -43,10 +42,6 @@ public class RootLayoutController {
 	public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
-	
-	public void setIdioma(Idioma idioma) {
-		this.idioma = idioma;
-	}
 	
 	public void setDialogHome(Stage dialogHome) {
 		this.dialogHome = dialogHome;
