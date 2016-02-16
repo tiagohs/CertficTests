@@ -30,6 +30,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -64,7 +65,7 @@ public class MainApp extends Application {
 	public void start(Stage _homeStage) {
 		idioma = showEscolherIdioma();
 		label = JanelasSource.getInstance(idioma);
-
+		
 		atualizaTabelaTentativas();
 
 		initRootLayout();
@@ -108,7 +109,9 @@ public class MainApp extends Application {
 		tempStage.initModality(Modality.WINDOW_MODAL);
 		tempStage.setResizable(false);
 		tempStage.setTitle(tituloJanela);
+		tempStage.getIcons().add(new Image("file:resources/images/CertificTests.png"));
 		tempStage.setScene(new Scene(page));
+		
 		tempStage.show();
 
 		return tempStage;

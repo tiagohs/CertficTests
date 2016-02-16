@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="CertficTestsFX.jnlp">
+  <information>
+    <title>CertficTestsFX</title>
+    <vendor>oca.com.br</vendor>
+    <description>CertificTests</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="CertficTestsFX.jar" size="132965" download="eager" />
+    <jar href="libs\controlsfx-8.0.6_20.jar" size="856539" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="0" height="0" main-class="br.com.oca.controller.MainApp"  name="CertificTests" />
+  <update check="background"/>
+</jnlp>

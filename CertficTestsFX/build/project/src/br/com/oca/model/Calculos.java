@@ -1,0 +1,110 @@
+package br.com.oca.model;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+import br.com.oca.model.conteudo.Conteudo;
+
+public class Calculos {
+	private Conteudo conteudo;
+	private ArrayList<Resposta> listaRespostas;
+	private Double nota;
+	private Double numeroQuestoesCorretas;
+	private Calendar tempoRegistrado;
+	private Date dataRegistrada;
+	
+	public Calculos(Conteudo _conteudo, ArrayList<Resposta> _listaRespostas, Calendar _tempoRegistrado, Date _dataRegistrada) {
+		nota = 0.0;
+		numeroQuestoesCorretas = 0.0;
+		conteudo =  _conteudo;
+		listaRespostas = _listaRespostas;
+		tempoRegistrado = _tempoRegistrado;
+		dataRegistrada = _dataRegistrada;
+		
+		calcularNumeroQuestoesCorretas();
+		calcularNota();
+	}
+	
+	private void calcularNota() {
+		double media = (double) numeroQuestoesCorretas / conteudo.getTotalQuestoes();
+		nota = media * 100;
+	}
+	
+	private void calcularNumeroQuestoesCorretas() {
+		
+		if (listaRespostas.size() > 0) {
+			for (int count = 0; count < conteudo.getTotalQuestoes(); count++) {
+				
+				switch (listaRespostas.get(count).getTipoQuestao()) {
+					case UNICA:
+						if (isRespostaCorreta(count))
+							numeroQuestoesCorretas++;
+						break;
+					case MULTIPLA:
+						numeroQuestoesCorretas += totalAcertoQuestao(count);
+				}
+				
+			}
+		}
+
+	}
+	
+	private Double totalAcertoQuestao(int count) {
+		Double soma = 0.0;
+		Double temp = 0.0;
+		
+		if (listaRespostas.size() > 0) {
+			for (String resp : listaRespostas.get(count).getRespostas()) {
+				if (conteudo.getQuestao(count).getListaAlternativas().containsValue(resp)) 
+					soma++;
+			}
+			
+			temp = (Double) soma / listaRespostas.get(count).getRespostas().size();
+		}
+		
+		return temp;
+	}
+	
+	public boolean isRespostaCorreta(int count) {
+		return conteudo.getQuestao(count).getEnunciadoAlternativaCorreta().equals(listaRespostas.get(count).getResposta());
+	}
+	
+	public Double getNota() {
+		return nota;
+	}
+
+	public void setNota(Double nota) {
+		this.nota = nota;
+	}
+
+	public Double getNumeroQuestoesCorretas() {
+		return numeroQuestoesCorretas;
+	}
+
+	public void setNumeroQuestoesCorretas(Double numeroQuestoesCorretas) {
+		this.numeroQuestoesCorretas = numeroQuestoesCorretas;
+	}
+
+	public String getTempoDecorridoFormatado() {
+		return new SimpleDateFormat("HH:mm:ss").format(tempoRegistrado.getTime());
+	}
+	
+	public String getDataRegistradaFormatado() {
+		return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dataRegistrada);
+	}
+	
+	public Date getDataRegistrada() {
+		return dataRegistrada;
+	}
+	
+	public Calendar getTempoDecorrido() {
+		return tempoRegistrado;
+	}
+
+	public void setTempoDecorrido(Calendar tempoDecorrido) {
+		this.tempoRegistrado = tempoDecorrido;
+	}
+
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="733.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.ResultadoController">
+	<children>
+		<Pane layoutX="166.0" layoutY="14.0" prefHeight="65.0" prefWidth="349.0" AnchorPane.bottomAnchor="494.0" AnchorPane.leftAnchor="166.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="14.0">
+			<children>
+				<Label layoutX="111.0" layoutY="9.0" text="Sua Nota:" />
+				<Label layoutX="61.0" layoutY="36.0" text="Questões Corretas:" />
+				<Label fx:id="labelSuaNota" layoutX="189.0" layoutY="9.0" prefHeight="17.0" prefWidth="100.0" text="NOTA" />
+				<Label fx:id="labelQuestoesCorretas" layoutX="189.0" layoutY="36.0" prefHeight="17.0" prefWidth="100.0" text="QUESTOES" />
+            <Separator layoutX="13.0" layoutY="29.0" prefHeight="4.0" prefWidth="308.0" />
+            <Separator layoutX="13.0" layoutY="58.0" prefHeight="4.0" prefWidth="308.0" />
+            <Label layoutX="64.0" layoutY="70.0" text="Tempo Decorrido:" />
+            <Label fx:id="labelTempoDecorrido" layoutX="189.0" layoutY="70.0" prefHeight="17.0" prefWidth="100.0" text="TEMPO" />
+            <Separator layoutX="13.0" layoutY="91.0" prefHeight="4.0" prefWidth="308.0" />
+            <Label layoutX="131.0" layoutY="102.0" text="Data:" />
+            <Label fx:id="labelDataRegistrada" layoutX="189.0" layoutY="102.0" prefHeight="17.0" prefWidth="134.0" text="DATA" />
+			</children>
+		</Pane>
+
+		<ScrollPane fx:id="scrollEnunciado" layoutX="8.0" layoutY="139.0" prefHeight="532.0" prefWidth="665.0">
+               <content>
+               <Label fx:id="resultados" maxHeight="1.7976931348623157E308" prefWidth="670.0" text="Enunciado">
+                  <padding>
+                     <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                  </padding>
+               </Label>
+               </content>
+            </ScrollPane>
+      <Button layoutX="282.0" layoutY="687.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="32.0" prefWidth="117.0" text="Ok" />
+	</children>
+</AnchorPane>
