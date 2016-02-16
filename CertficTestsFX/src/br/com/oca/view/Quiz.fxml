@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragExited="#handleSair" prefHeight="713.0" prefWidth="758.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.QuizController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="758.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.QuizController">
    <children>
       <Label fx:id="labelNumeroQuestao" layoutX="22.0" layoutY="14.0" prefHeight="26.0" prefWidth="129.0" text="Questão 1 de 30" />
       <Separator layoutX="22.0" layoutY="35.0" prefHeight="7.0" prefWidth="397.0" />
