@@ -1,14 +1,26 @@
 package br.com.oca.view;
 
-import br.com.oca.controller.MainApp;
+import br.com.oca.MainApp;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.i18n.janelas.JanelasSource;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 public class RootLayoutController {
+	@FXML
+	private MenuItem itemRecortar;
+	@FXML
+	private MenuItem itemCopiar;
+	@FXML
+	private MenuItem itemColar;
+	@FXML
+	private MenuItem itemSelecionarTudo;
+	@FXML
+	private MenuItem itemDeletar;
+	
 	private MainApp mainApp;
 	private JanelasSource label;
 	
@@ -16,6 +28,14 @@ public class RootLayoutController {
 	
 	public RootLayoutController() {
 		label = JanelasSource.getInstance(Idioma.Portugues);
+	}
+	
+	public void init() {
+		itemRecortar.setDisable(true);
+		itemCopiar.setDisable(true);
+		itemColar.setDisable(true);
+		itemSelecionarTudo.setDisable(true);
+		itemDeletar.setDisable(true);
 	}
 	
 	@FXML

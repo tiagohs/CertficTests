@@ -5,7 +5,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import br.com.oca.controller.MainApp;
+import br.com.oca.MainApp;
 import br.com.oca.model.Calculos;
 import br.com.oca.model.Questao;
 import br.com.oca.model.Resposta;

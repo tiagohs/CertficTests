@@ -1,4 +1,4 @@
-package br.com.oca.controller;
+package br.com.oca;
 
 import java.io.EOFException;
 import java.io.FileInputStream;
@@ -129,18 +129,19 @@ public class MainApp extends Application {
 	public void initRootLayout() {
 
 		loader = getNovoLoader();
-		rootLayout = (BorderPane) getNovaCena(loader, "../view/RootLayout.fxml");
+		rootLayout = (BorderPane) getNovaCena(loader, "view/RootLayout.fxml");
 		homeStage = getNovoStage(loader, rootLayout, "CertificTests");
 
 		rootLayoutController = loader.getController();
 		rootLayoutController.setMainApp(this);
 		rootLayoutController.setDialogHome(homeStage);
+		rootLayoutController.init();
 	}
 
 	public void showHome() {
 
 		loader = getNovoLoader();
-		rootLayout.setCenter(getNovaCena(loader, "../view/Home.fxml"));
+		rootLayout.setCenter(getNovaCena(loader, "view/Home.fxml"));
 
 		homeController = loader.getController();
 		homeController.setHomeStage(homeStage);
@@ -165,7 +166,7 @@ public class MainApp extends Application {
 	public void showNovoTesteDialog() {
 
 		loader = getNovoLoader();
-		novoTesteStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "../view/NovoTeste.fxml"),
+		novoTesteStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "view/NovoTeste.fxml"),
 				label.getString("homeTituloNovoTeste"));
 
 		novoTesteController = loader.getController();
@@ -179,7 +180,7 @@ public class MainApp extends Application {
 	public void showQuiz(Conteudo conteudo) {
 
 		loader = getNovoLoader();
-		quizStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "../view/Quiz.fxml"),
+		quizStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "view/Quiz.fxml"),
 				label.getString("homeTituloNovoQuiz"));
 
 		quizController = loader.getController();
@@ -195,7 +196,7 @@ public class MainApp extends Application {
 			Calendar tempoRegistrado, Date dataRegistrada) {
 
 		loader = getNovoLoader();
-		resultadoStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "../view/Resultado.fxml"),
+		resultadoStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "view/Resultado.fxml"),
 				label.getString("homeTituloResultados"));
 
 		resultadoController = loader.getController();

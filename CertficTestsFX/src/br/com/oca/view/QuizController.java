@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import br.com.oca.controller.MainApp;
+import br.com.oca.MainApp;
 import br.com.oca.model.Questao;
 import br.com.oca.model.Resposta;
 import br.com.oca.model.conteudo.Conteudo;
