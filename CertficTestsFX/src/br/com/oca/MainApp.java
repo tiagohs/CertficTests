@@ -22,7 +22,6 @@ import br.com.oca.view.NovoTesteController;
 import br.com.oca.view.QuizController;
 import br.com.oca.view.ResultadoController;
 import br.com.oca.view.RootLayoutController;
-import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,32 +34,78 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
+/**
+ * A Classe Principal da Aplicação, ela é chamada pelo JavaFX e organiza as Scenes da Aplicação.
+ * 
+ * Classe <code>MainApp</code>
+ * 
+ * @author Tiago Henrique
+ * @version 1.0 
+ *
+ */
 public class MainApp extends Application {
+	/** rootLayout */
 	private BorderPane rootLayout;
-	private FXMLLoader loader;
 	
+	/** loader */
+	private FXMLLoader loader;
+
+	/** detalhesQuestoesRespondidasStage */
 	private Stage detalhesQuestoesRespondidasStage;
+
+	/** homeStage */
 	private Stage homeStage;
+
+	/** novoTesteStage */
 	private Stage novoTesteStage;
+
+	/** quizStage */
 	private Stage quizStage;
+
+	/** resultadoStage */
 	private Stage resultadoStage;
 	
+	/** detalhesQuestoesRespondidasController */
 	private DetalhesQuestoesRespondidasController detalhesQuestoesRespondidasController;
+
+	/** rootLayoutController */
 	private RootLayoutController rootLayoutController;
+
+	/** homeController */
 	private HomeController homeController;
+
+	/** novoTesteController */
 	private NovoTesteController novoTesteController;
+
+	/** quizController */
 	private QuizController quizController;
+
+	/** resultadoController */
 	private ResultadoController resultadoController;
 
+	/** listaTentativas */
 	private ObservableList<Tentativa> listaTentativas;
-	private JanelasSource label;
-	private Idioma idioma;
 
+	/** label */
+	private JanelasSource label;
+
+	/** idioma */
+	private Idioma idioma;
+	
+	/**
+	 * Instancia uma Nova Classe MainApp
+	 */
 	public MainApp() {
 	}
 	
+	/**
+	 * Classe Padrão das Aplicações JavaFX.
+	 * Ela é Chamada pela <i>Thread</i> do <i>JavaFX Application</i>, pelo método <i>launched</i>.
+	 * 
+	 * @param homeStage O <i>Stage Primário</i>, da primeira Janela na Aplicação.
+	 * 
+	 */
 	@Override
 	public void start(Stage homeStage) {
 		idioma = showEscolherIdioma();
@@ -70,12 +115,19 @@ public class MainApp extends Application {
 		showHome();
 	}
 
+	/**
+	 * Uma <i>Janela Dialog</i> onde se é perguntado ao Cliente qual <i>Idioma</i> ele deseja que sua aplicação tenha.
+	 * É <i>Obrigatório</i> que se escolha um Idioma.
+	 * 
+	 * @return Retorna o <i>Idioma</i> escolhido, um Enumerado do Tipo <i>Idioma</i>.
+	 */
 	private Idioma showEscolherIdioma() {
 		ChoiceDialog<Idioma> dialog = new ChoiceDialog<Idioma>(Idioma.Ingles, Idioma.values());
 		dialog.setTitle("Escolher Idioma");
 		dialog.setHeaderText("Escolher o Idioma Padrão da Aplicação.");
 		dialog.setContentText("Escolha o Idioma Desejado: ");
-
+		
+		//Verifica no ComboBox qual Opção o Usuário Escolheu.
 		Optional<Idioma> idiomaEscolhido = dialog.showAndWait();
 		if (idiomaEscolhido.isPresent()) {
 			return idiomaEscolhido.get();
@@ -86,22 +138,33 @@ public class MainApp extends Application {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * Para se ler um <i>XML Layout</i>, é necessário um <i>Loader</i>.
+	 * Se é passado nesse momento o <i>Idioma</i> escolhido, para o <i>i18n</i> ser configurado.
+	 * 
+	 * @return um Loader do Tipo <i>FXMLoader</i>
+	 */
 	private FXMLLoader getNovoLoader() {
 		
-		abrirNovaJanela();
 		FXMLLoader carregarFXML = new FXMLLoader();
 		carregarFXML.setResources(label.getBundle());
 
 		return carregarFXML;
 	}
 	
-	private void abrirNovaJanela() {
-		PauseTransition pause = new PauseTransition(Duration.seconds(30));
-		pause.setOnFinished(e -> new Stage().hide());
-		pause.play();
-	}
-	
-	private Stage getNovoStage(FXMLLoader loader, Parent page, String tituloJanela) {
+	/**
+	 * Assim como em uma Peça de teatro, o <i>Stage</i> (Palco) é o container principal de uma <i>Window</i> (Janela).
+	 * Dentro dela terão <i>Scenes</i> (Cenas) e dentro delas, os <i>Nodos</i> (Nós) de JavaFX.
+	 * Esse método cria um Stage com valores padrões, conveniênte a essa aplicação.
+	 * Adiciona um <i>Icone</i> Padrão para Todas as Janelas.
+	 * 
+	 * @param page O <i>Nodo</i> da Janela (<i>BorderPane, AnchorPane</i>) para ser Adicionado a <i>Scene</i> da janela.
+	 * @param tituloJanela O <i>Titulo</i> da Janela em questão.
+	 * 
+	 * @return Retorna um <i>Stage</i> com uma <i>Window</i> configurada.
+	 */
+	private Stage getNovoStage(Parent page, String tituloJanela) {
 
 		Stage tempStage = new Stage();
 		tempStage.initModality(Modality.WINDOW_MODAL);
@@ -115,7 +178,14 @@ public class MainApp extends Application {
 		return tempStage;
 	}
 
-	private Parent getNovaCena(FXMLLoader loader, String caminhoFXML) {
+	/**
+	 * Cria um Novo <i>Nodo (Nós), que pode ser um BorderPane, AnchorPane, TextBox, etc..
+	 * 
+	 * @param loader O <i>loader</i> usado para carregar o <i>XML Layout</i> da janela em questão.
+	 * @param caminhoFXML O Caminho de onde se localiza o arquivo <i>.fxml</i>, contendo o <i>XML Layout</i> da Página.
+	 * @return Retorna um novo <i>Nodo</i> (Nós), que será adicionado em uma Cena.
+	 */
+	private Parent getNewNodo(FXMLLoader loader, String caminhoFXML) {
 		try {
 			return loader.load(this.getClass().getResource(caminhoFXML).openStream());
 		} catch (IOException e) {
@@ -129,7 +199,7 @@ public class MainApp extends Application {
 		homeStage = _homeStage;
 		homeStage.setTitle("CertificTests");
 		loader = getNovoLoader();
-		rootLayout = (BorderPane) getNovaCena(loader, "view/RootLayout.fxml");
+		rootLayout = (BorderPane) getNewNodo(loader, "view/RootLayout.fxml");
 		homeStage.setScene(new Scene(rootLayout));
 		homeStage.show();
 		
@@ -142,7 +212,7 @@ public class MainApp extends Application {
 	public void showHome() {
 
 		loader = getNovoLoader();
-		rootLayout.setCenter(getNovaCena(loader, "view/Home.fxml"));
+		rootLayout.setCenter(getNewNodo(loader, "view/Home.fxml"));
 		
 		atualizaListaTentativas();
 		homeController = loader.getController();
@@ -156,7 +226,7 @@ public class MainApp extends Application {
 	public void showDetalhesQuestoesRespondidas(Tentativa tentativa) {
 		
 		loader = getNovoLoader();
-		detalhesQuestoesRespondidasStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "view/DetalhesQuestoesRespondidas.fxml"),
+		detalhesQuestoesRespondidasStage = getNovoStage((AnchorPane) getNewNodo(loader, "view/DetalhesQuestoesRespondidas.fxml"),
 				label.getString("detalhesQuestoesTitulo"));
 		
 		detalhesQuestoesRespondidasController = loader.getController();
@@ -169,7 +239,7 @@ public class MainApp extends Application {
 	public void showNovoTesteDialog() {
 
 		loader = getNovoLoader();
-		novoTesteStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "view/NovoTeste.fxml"),
+		novoTesteStage = getNovoStage((AnchorPane) getNewNodo(loader, "view/NovoTeste.fxml"),
 				label.getString("homeTituloNovoTeste"));
 
 		novoTesteController = loader.getController();
@@ -183,7 +253,7 @@ public class MainApp extends Application {
 	public void showQuiz(Conteudo conteudo) {
 
 		loader = getNovoLoader();
-		quizStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "view/Quiz.fxml"),
+		quizStage = getNovoStage((AnchorPane) getNewNodo(loader, "view/Quiz.fxml"),
 				label.getString("homeTituloNovoQuiz"));
 
 		quizController = loader.getController();
@@ -199,7 +269,7 @@ public class MainApp extends Application {
 			Calendar tempoRegistrado, Date dataRegistrada) {
 
 		loader = getNovoLoader();
-		resultadoStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "view/Resultado.fxml"),
+		resultadoStage = getNovoStage((AnchorPane) getNewNodo(loader, "view/Resultado.fxml"),
 				label.getString("homeTituloResultados"));
 
 		resultadoController = loader.getController();
