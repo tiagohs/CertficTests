@@ -60,15 +60,13 @@ public class MainApp extends Application {
 
 	public MainApp() {
 	}
-
+	
 	@Override
-	public void start(Stage _homeStage) {
+	public void start(Stage homeStage) {
 		idioma = showEscolherIdioma();
 		label = JanelasSource.getInstance(idioma);
 		
-		atualizaTabelaTentativas();
-
-		initRootLayout();
+		initRootLayout(homeStage);
 		showHome();
 	}
 
@@ -126,12 +124,15 @@ public class MainApp extends Application {
 		return null;
 	}
 
-	public void initRootLayout() {
-
+	public void initRootLayout(Stage _homeStage) {
+		
+		homeStage = _homeStage;
+		homeStage.setTitle("CertificTests");
 		loader = getNovoLoader();
 		rootLayout = (BorderPane) getNovaCena(loader, "view/RootLayout.fxml");
-		homeStage = getNovoStage(loader, rootLayout, "CertificTests");
-
+		homeStage.setScene(new Scene(rootLayout));
+		homeStage.show();
+		
 		rootLayoutController = loader.getController();
 		rootLayoutController.setMainApp(this);
 		rootLayoutController.setDialogHome(homeStage);
@@ -142,18 +143,20 @@ public class MainApp extends Application {
 
 		loader = getNovoLoader();
 		rootLayout.setCenter(getNovaCena(loader, "view/Home.fxml"));
-
+		
+		atualizaListaTentativas();
 		homeController = loader.getController();
 		homeController.setHomeStage(homeStage);
 		homeController.setIdioma(idioma);
 		homeController.setMainApp(this);
 		homeController.setListaTentativas(listaTentativas);
+		homeController.init();
 	}
 	
 	public void showDetalhesQuestoesRespondidas(Tentativa tentativa) {
 		
 		loader = getNovoLoader();
-		detalhesQuestoesRespondidasStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "../view/DetalhesQuestoesRespondidas.fxml"),
+		detalhesQuestoesRespondidasStage = getNovoStage(loader, (AnchorPane) getNovaCena(loader, "view/DetalhesQuestoesRespondidas.fxml"),
 				label.getString("detalhesQuestoesTitulo"));
 		
 		detalhesQuestoesRespondidasController = loader.getController();
@@ -206,12 +209,13 @@ public class MainApp extends Application {
 		resultadoController.setCalculos(new Calculos(conteudo, listaRespostas, tempoRegistrado, dataRegistrada));
 		resultadoController.setDialogHome(homeStage);
 		resultadoController.setIdioma(idioma);
+		resultadoController.setHomeController(homeController);
 		resultadoController.setMainApp(this);
 		resultadoController.calcularResultados();
 
 	}
 
-	public void atualizaTabelaTentativas() {
+	public void atualizaListaTentativas() {
 		listaTentativas = FXCollections.observableArrayList();
 
 		try {

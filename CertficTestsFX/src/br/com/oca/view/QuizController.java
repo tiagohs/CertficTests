@@ -316,7 +316,7 @@ public class QuizController {
 	}
 
 	private void addAlternativasEscolhidas(ArrayList<String> respostas) {
-
+		
 		if (respostas.size() > 0) {
 			if (!isQuestaoJaRespondida())
 				listaRespostas.add(contQuestao,

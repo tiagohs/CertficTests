@@ -10,6 +10,7 @@ import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.util.AlertDialogsFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class HomeController {
 	@FXML
@@ -56,6 +58,16 @@ public class HomeController {
 
 	@FXML
 	private void initialize() {
+		
+	}
+	
+	public void init() {
+		homeStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	          public void handle(WindowEvent we) {
+	        	  handleSair();
+	          }
+	    });
+		
 		botaoNovo.setDisable(true);
 		comboExame.setItems(optionsExame);
 		comboTipoTeste.setItems(optionsTipoTeste);
@@ -64,7 +76,7 @@ public class HomeController {
 		inicializaTabela();
 	}
 
-	private void inicializaTabela() {
+	public void inicializaTabela() {
 
 		colunaTesteEscolhido.setCellValueFactory(new PropertyValueFactory<>("testeEscolhido"));
 		colunaNota.setCellValueFactory(new PropertyValueFactory<>("nota"));

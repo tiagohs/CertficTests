@@ -126,8 +126,6 @@ public class OCPJava7 extends Conteudo {
 						perguntasSource.getString("teste30.exercicio30.opcao_3"))));
 	}
 
-
-
 	private void preenxerTeste60Questoes() {
 
 	}
