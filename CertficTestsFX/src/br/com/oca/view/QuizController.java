@@ -187,13 +187,13 @@ public class QuizController {
 
 		radioGroup = new ToggleGroup();
 		switch (questao.getTipoQuestao()) {
-		case MULTIPLA:
+		case MULTIPLAS_ALTERNATIVAS:
 			comboPainel.setVisible(false);
 			checkPainel.setVisible(true);
 			setQuestao(questao);
 			setMultiplasEscolhas(questao);
 			break;
-		case UNICA:
+		case UMA_ALTERNATIVA:
 			checkPainel.setVisible(false);
 			comboPainel.setVisible(true);
 			setQuestao(questao);
@@ -258,10 +258,10 @@ public class QuizController {
 	private void handleProximo() {
 
 		switch (conteudo.getQuestao(contQuestao).getTipoQuestao()) {
-		case MULTIPLA:
+		case MULTIPLAS_ALTERNATIVAS:
 			addAlternativasEscolhidas();
 			break;
-		case UNICA:
+		case UMA_ALTERNATIVA:
 			addAlternativaEscolhida();
 		}
 	}

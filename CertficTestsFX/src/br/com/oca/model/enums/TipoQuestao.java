@@ -1,5 +1,5 @@
 package br.com.oca.model.enums;
 
 public enum TipoQuestao {
-	UNICA, MULTIPLA;
+	UMA_ALTERNATIVA, MULTIPLAS_ALTERNATIVAS;
 }

@@ -11,10 +11,10 @@ public class Resposta {
 	private ArrayList<String> respostas;
 	
 	public Resposta(String enunciado, ArrayList<String> respostas) {
-		this(enunciado, null, respostas, TipoQuestao.MULTIPLA);
+		this(enunciado, null, respostas, TipoQuestao.MULTIPLAS_ALTERNATIVAS);
 	}
 	public Resposta(String enunciado, String resposta) {
-		this(enunciado, resposta, null, TipoQuestao.UNICA);
+		this(enunciado, resposta, null, TipoQuestao.UMA_ALTERNATIVA);
 	}
 	
 	public Resposta(String enunciado) {

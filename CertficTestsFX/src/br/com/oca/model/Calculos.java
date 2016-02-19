@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 import br.com.oca.model.conteudo.Conteudo;
 
@@ -49,6 +50,30 @@ public class Calculos {
 	/** A data e hora em que o usuário realizou o teste. */
 	private Date dataRegistrada;
 
+	/**
+	 * 
+	 * Instancia uma nova Classe <code>Calculos</code>
+	 * 
+	 * A Classe Calculos realiza todos os Calculos e formatações referentes aos
+	 * testes realizados, como O Numero de questões corretas, nota, tempo
+	 * registrado durante o teste, etc. Recebe o conteudo, com detalhes do
+	 * teste, a lista de respostas do usuário, o tempo registrado e a data
+	 * registrada. Os Calculos por padrão, já são realizados assim que se cria
+	 * uma instancia da classe Calculos. Se for setado novos valores durante a
+	 * execucao da Aplicação, calcularNumeroQuestoesCorretas e calcularNota
+	 * devem ser chamados novamente para se atualizar os resultados.
+	 * 
+	 * @param _conteudo
+	 *            Contém os Detalhes para se realizar o teste (Lista de
+	 *            Questões, Tipo de Teste, Idioma, Nome do Exame..).
+	 * @param _listaRespostas
+	 *            É a lista contendo as respostas do teste que o usuário
+	 *            realizou.
+	 * @param _tempoRegistrado
+	 *            É o tempo de duração do teste realizado pelo Usuário
+	 * @param _dataRegistrada
+	 *            É a data e hora em que o usuário realizou o teste.
+	 */
 	public Calculos(Conteudo _conteudo, ArrayList<Resposta> _listaRespostas, Calendar _tempoRegistrado,
 			Date _dataRegistrada) {
 		nota = 0.0;
@@ -63,48 +88,64 @@ public class Calculos {
 		calcularNota();
 	}
 
+	/**
+	 * 
+	 * Calcula o numero de acertos que o usuário obteve no teste. Deve-se chamar
+	 * esse método antes de calcularNota. Enquanto houver Respostas para serem
+	 * verificadas, e com base no tipo de resposta da Questão (UMA ou MULTIPLA
+	 * Escolha), se é realizado os Cálculos.
+	 * 
+	 */
+	public void calcularNumeroQuestoesCorretas() {
+
+		if (containsResposta()) {
+			for (int numeroQuestao = 0; numeroQuestao < conteudo.getTotalQuestoes(); numeroQuestao++) {
+
+				switch (listaRespostas.get(numeroQuestao).getTipoQuestao()) {
+				case UMA_ALTERNATIVA:
+					if (isRespostaCorreta(conteudo.getQuestao(numeroQuestao), listaRespostas.get(numeroQuestao)))
+						numeroQuestoesCorretas++;
+					break;
+				case MULTIPLAS_ALTERNATIVAS:
+					numeroQuestoesCorretas += getTotalRespostasCorretas(conteudo.getQuestao(numeroQuestao), listaRespostas.get(numeroQuestao));
+				}
+			}
+		}
+
+	}
+
+	private Double getTotalRespostasCorretas(Questao questao, Resposta respostas) {
+		Double totalAcertos = 0.0;
+		Double mediaTotalAcertos = 0.0;
+
+		if (containsResposta()) {
+			for (String alternativaAtual : respostas.getRespostas()) {
+				if (isAlternativaCorreta(alternativaAtual, questao.getListaAlternativas()))
+					totalAcertos++;
+			}
+
+			mediaTotalAcertos = totalAcertos / questao.getAlternativasCorretas().size();
+		}
+
+		return mediaTotalAcertos;
+	}
+
+	private boolean containsResposta() {
+		return listaRespostas.size() > 0;
+	}
+
+	private boolean isAlternativaCorreta(String alternativaAtual, HashMap<Character, String> alternativasCorretas) {
+		return alternativasCorretas.containsValue(alternativaAtual);
+	}
+
 	public void calcularNota() {
 		double media = (double) numeroQuestoesCorretas / conteudo.getTotalQuestoes();
 		nota = media * 100;
 	}
 
-	public void calcularNumeroQuestoesCorretas() {
-
-		if (listaRespostas.size() > 0) {
-			for (int count = 0; count < conteudo.getTotalQuestoes(); count++) {
-
-				switch (listaRespostas.get(count).getTipoQuestao()) {
-					case UNICA:
-						if (isRespostaCorreta(count))
-							numeroQuestoesCorretas++;
-						break;
-					case MULTIPLA:
-						numeroQuestoesCorretas += totalAcertoQuestao(count);
-					}
-			}
-		}
-
-	}
-
-	public Double totalAcertoQuestao(int count) {
-		Double soma = 0.0;
-		Double temp = 0.0;
-
-		if (listaRespostas.size() > 0) {
-			for (String resp : listaRespostas.get(count).getRespostas()) {
-				if (conteudo.getQuestao(count).getListaAlternativas().containsValue(resp))
-					soma++;
-			}
-			
-			temp = soma / conteudo.getQuestao(count).getAlternativasCorretas().size();
-		}
-		
-		return temp;
-	}
-
-	public boolean isRespostaCorreta(int count) {
-		return conteudo.getQuestao(count).getEnunciadoAlternativaCorreta()
-				.equals(listaRespostas.get(count).getResposta());
+	public boolean isRespostaCorreta(Questao questao, Resposta resposta) {
+		return questao.getEnunciadoAlternativaCorreta()
+				.equals(resposta.getResposta());
 	}
 
 	public Double getNota() {

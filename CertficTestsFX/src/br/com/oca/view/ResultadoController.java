@@ -93,10 +93,10 @@ public class ResultadoController {
 		stringResultados += numeroQuestao + " - " + conteudo.getQuestao(count).getEnunciado() + "\n\n";
 
 		switch (listaRespostas.get(count).getTipoQuestao()) {
-		case UNICA:
+		case UMA_ALTERNATIVA:
 			stringResultados += label.getString("resultadosLabelRespostaCorreta")
 					+ conteudo.getQuestao(count).getEnunciadoAlternativaCorreta() + "\n";
-			if (calculos.isRespostaCorreta(count)) {
+			if (calculos.isRespostaCorreta(conteudo.getQuestao(count), listaRespostas.get(count))) {
 				stringResultados += label.getString("resultadosLabelSuaResposta") + " "
 						+ listaRespostas.get(count).getResposta() + "\n\n";
 			}
@@ -107,7 +107,7 @@ public class ResultadoController {
 			}
 
 			break;
-		case MULTIPLA:
+		case MULTIPLAS_ALTERNATIVAS:
 			exibirMultiplasRespostas(conteudo.getQuestao(count), listaRespostas.get(count));
 		}
 

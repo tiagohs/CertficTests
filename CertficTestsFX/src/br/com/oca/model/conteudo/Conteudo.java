@@ -58,7 +58,7 @@ public abstract class Conteudo {
 
 		Questao questao = new Questao(
 				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".questao"),
-				TipoQuestao.MULTIPLA,
+				TipoQuestao.MULTIPLAS_ALTERNATIVAS,
 				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".referencia"),
 				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".enunExtra"),
 				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".numOpcao"));

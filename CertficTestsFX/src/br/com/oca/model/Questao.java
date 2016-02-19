@@ -34,15 +34,15 @@ public class Questao implements Serializable {
 	}
 	
 	public Questao(String _enunciado, ArrayList<String> _alternativasCorretas, String _referencia, String _enunciadoExtras, String _numOpcoesCorretas) {
-		this(_enunciado, new HashMap<Character, String>(), null, _alternativasCorretas, TipoQuestao.MULTIPLA,_referencia, _enunciadoExtras, _numOpcoesCorretas);
+		this(_enunciado, new HashMap<Character, String>(), null, _alternativasCorretas, TipoQuestao.MULTIPLAS_ALTERNATIVAS,_referencia, _enunciadoExtras, _numOpcoesCorretas);
 	}
 	
 	public Questao(String _enunciado, Character _alternativaCorreta, String _referencia, String _enunciadoExtras, String _numOpcoesCorretas) {
-		this(_enunciado, new HashMap<Character, String>(), _alternativaCorreta, null, TipoQuestao.UNICA, _referencia, _enunciadoExtras, _numOpcoesCorretas);
+		this(_enunciado, new HashMap<Character, String>(), _alternativaCorreta, null, TipoQuestao.UMA_ALTERNATIVA, _referencia, _enunciadoExtras, _numOpcoesCorretas);
 	}
 	
 	public Questao() {
-		this("", new HashMap<Character, String>(), ' ', new ArrayList<String>(), TipoQuestao.UNICA, "", "", "");
+		this("", new HashMap<Character, String>(), ' ', new ArrayList<String>(), TipoQuestao.UMA_ALTERNATIVA, "", "", "");
 	}
 	
 	public void addAlternativa(Character letra, String enunciado) {
