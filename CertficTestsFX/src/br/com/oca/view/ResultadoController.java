@@ -71,14 +71,14 @@ public class ResultadoController {
 	          }
 	    }); 
 		
-		labelSuaNota.setText(calculos.getNota() + label.getString("resultadosLabelDe") + "100.00");
-		labelQuestoesCorretas.setText(calculos.getNumeroQuestoesCorretas() + label.getString("resultadosLabelDe")
+		labelSuaNota.setText(calculos.getNotaDoubleValue() + label.getString("resultadosLabelDe") + "100.00");
+		labelQuestoesCorretas.setText(calculos.getNumeroQuestoesCorretasDoubleValue() + label.getString("resultadosLabelDe")
 				+ conteudo.getTotalQuestoes());
 		labelTempoDecorrido.setText(calculos.getTempoDecorridoFormatado());
 		labelDataRegistrada.setText(calculos.getDataRegistradaFormatado());
 
 		if (listaRespostas.size() > 0) {
-			for (int cont = 0; cont < conteudo.getTotalQuestoes(); cont++)
+			for (int cont = 0; cont < conteudo.getTotalQuestoes().intValue(); cont++)
 				setTextoRespostas(cont);
 		} else {
 			stringResultados = label.getString("resultadosLabelNenhumaQuestao");
@@ -143,11 +143,10 @@ public class ResultadoController {
 				out = new ObjectOutputStream(new FileOutputStream(Tentativa.filename));
 			else
 				out = new AppendingObjectOutputStream(new FileOutputStream(Tentativa.filename, true));
-			out.writeObject(new Tentativa(conteudo.getNomeTeste(), conteudo.getTipoTeste(), calculos.getNota(),
-					calculos.getNumeroQuestoesCorretas(), calculos.getTempoDecorridoFormatado(), stringResultados,
+			out.writeObject(new Tentativa(conteudo.getNomeTeste(), conteudo.getTipoTeste(), calculos.getNotaDoubleValue(),
+					calculos.getNumeroQuestoesCorretasDoubleValue(), calculos.getTempoDecorridoFormatado(), stringResultados,
 					calculos.getDataRegistradaFormatado()));
 			out.flush();
-			System.out.println("oI");
 			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -156,7 +155,7 @@ public class ResultadoController {
 
 	@FXML
 	private void handleOk() {
-		mainApp.atualizaListaTentativas();
+		mainApp.getTentativasRegistradas();
 		homeController.setListaTentativas(mainApp.getListaTentativas());
 		homeController.inicializaTabela();
 		dialogHome.show();

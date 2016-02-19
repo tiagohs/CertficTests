@@ -289,7 +289,7 @@ public class QuizController {
 	private void setProximaQuestao() {
 
 		contQuestao++;
-		if (contQuestao <= (conteudo.getTotalQuestoes() - 1)) {
+		if (contQuestao <= (conteudo.getTotalQuestoes().intValue() - 1)) {
 			setNumeroProximaQuestao();
 			verificaQuestao(conteudo.getQuestao(contQuestao));
 			setQuestao(conteudo.getQuestao(contQuestao));
@@ -299,7 +299,7 @@ public class QuizController {
 	}
 
 	private void finalizarQuiz() {
-		mainApp.showResultadoController(listaRespostas, conteudo, tempoRegistrado, dataRegistrada);
+		mainApp.showResultados(listaRespostas, conteudo, tempoRegistrado, dataRegistrada);
 		dialogStage.close();
 	}
 
