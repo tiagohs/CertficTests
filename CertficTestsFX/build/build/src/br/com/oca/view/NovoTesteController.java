@@ -1,6 +1,6 @@
 package br.com.oca.view;
 
-import br.com.oca.controller.MainApp;
+import br.com.oca.MainApp;
 import br.com.oca.model.conteudo.ConteudoFactory;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;

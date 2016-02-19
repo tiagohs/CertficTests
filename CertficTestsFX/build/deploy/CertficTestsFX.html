@@ -19,7 +19,8 @@
         dtjava.embed(
             {
                 id : 'fxApplication',
-                url : 'CertficTestsFX.jnlp',
+                toolkit : 'swing',
+                url : 'CertficTestsFX_browser.jnlp',
                 placeholder : 'javafx-app-placeholder',
                 width : '0',
                 height : '0'
@@ -27,7 +28,9 @@
             {
                 javafx : '8.0+'
             },
-            {}
+            {
+                onGetSplash : function() {}
+            }
         );
     }
     <!-- Embed FX application into web page once page is loaded -->

@@ -18,12 +18,12 @@
           </Menu>
           <Menu mnemonicParsing="false" text="%menuEditar">
             <items>
-                  <MenuItem mnemonicParsing="false" text="%menuRecortar" />
-                  <MenuItem mnemonicParsing="false" text="%menuCopiar" />
-                  <MenuItem mnemonicParsing="false" text="%menuColar" />
+                  <MenuItem fx:id="itemRecortar" mnemonicParsing="false" text="%menuRecortar" />
+                  <MenuItem fx:id="itemCopiar" mnemonicParsing="false" text="%menuCopiar" />
+                  <MenuItem fx:id="itemColar" mnemonicParsing="false" text="%menuColar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="%menuSelecionarTudo" />
-              <MenuItem mnemonicParsing="false" text="%menuDeletar" />
+                  <MenuItem fx:id="itemSelecionarTudo" mnemonicParsing="false" text="%menuSelecionarTudo" />
+              <MenuItem fx:id="itemDeletar" mnemonicParsing="false" text="%menuDeletar" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="%menuAjuda">

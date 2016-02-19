@@ -5,7 +5,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import br.com.oca.controller.MainApp;
+import br.com.oca.MainApp;
 import br.com.oca.model.Calculos;
 import br.com.oca.model.Questao;
 import br.com.oca.model.Resposta;
@@ -37,6 +37,7 @@ public class ResultadoController {
 
 	private Stage dialogHome;
 	private Stage dialogStage;
+	HomeController homeController;
 	private MainApp mainApp;
 
 	private ArrayList<Resposta> listaRespostas;
@@ -133,7 +134,7 @@ public class ResultadoController {
 	}
 
 	private void registrarTentativa() {
-
+		
 		File file = new File(Tentativa.filename);
 		ObjectOutputStream out = null;
 
@@ -146,6 +147,7 @@ public class ResultadoController {
 					calculos.getNumeroQuestoesCorretas(), calculos.getTempoDecorridoFormatado(), stringResultados,
 					calculos.getDataRegistradaFormatado()));
 			out.flush();
+			System.out.println("oI");
 			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -154,10 +156,10 @@ public class ResultadoController {
 
 	@FXML
 	private void handleOk() {
-		dialogHome.close();
-		mainApp.atualizaTabelaTentativas();
-		mainApp.initRootLayout();
-		mainApp.showHome();
+		mainApp.atualizaListaTentativas();
+		homeController.setListaTentativas(mainApp.getListaTentativas());
+		homeController.inicializaTabela();
+		dialogHome.show();
 		dialogStage.close();
 	}
 
@@ -191,5 +193,9 @@ public class ResultadoController {
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
+	}
+	
+	public void setHomeController(HomeController homeController) {
+		this.homeController = homeController;
 	}
 }

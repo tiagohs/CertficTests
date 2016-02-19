@@ -3,8 +3,8 @@
 	<target name="init-fx-tasks">
 		<path id="fxant">
 			<filelist>
-				<file name="C:\Program Files\Java\jdk1.8.0_71\lib\ant-javafx.jar"/>
-				<file name="C:\Program Files\Java\jre1.8.0_71\lib\ext\jfxrt.jar"/>
+				<file name="${java.home}\..\lib\ant-javafx.jar"/>
+				<file name="${java.home}\lib\jfxrt.jar"/>
 				<file name="${basedir}"/>
 			</filelist>
 		</path>
@@ -27,11 +27,6 @@
 		</copy>
 	
 		<mkdir dir="project" />
-		<copy todir="project">
-			<fileset dir="C:\Users\Tiago Henrique\git\CertficTestsFX\CertficTestsFX">
-				<include name="Arquivos Jar/**" />
-			</fileset>
-		</copy>
 		<copy todir="project">
 			<fileset dir="C:\Users\Tiago Henrique\git\CertficTestsFX\CertficTestsFX">
 				<include name="src/**" />
@@ -92,15 +87,17 @@
 			</fileset>
 		</copy>
 	
+	
 		<fx:resources id="appRes">
 			<fx:fileset dir="dist" includes="CertficTestsFX.jar"/>
 			<fx:fileset dir="dist" includes="libs/*"/>
-			<fx:fileset dir="dist" includes="resources/**"/>
+			<fx:fileset dir="dist" includes="resources/*"/>
 		</fx:resources>
 	
 		<fx:application id="fxApplication"
 			name="CertificTests"
-			mainClass="br.com.oca.controller.MainApp"
+			mainClass="br.com.oca.MainApp"
+			toolkit="swing"
 			version="1.0"
 		/>
 	

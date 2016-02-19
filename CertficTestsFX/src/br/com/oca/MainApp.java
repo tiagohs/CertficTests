@@ -201,6 +201,7 @@ public class MainApp extends Application {
 		loader = getNovoLoader();
 		rootLayout = (BorderPane) getNewNodo(loader, "view/RootLayout.fxml");
 		homeStage.setScene(new Scene(rootLayout));
+		homeStage.getIcons().add(new Image("file:resources/images/CertificTests.png"));
 		homeStage.show();
 		
 		rootLayoutController = loader.getController();
