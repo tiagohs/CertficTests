@@ -71,8 +71,8 @@ public class ResultadoController {
 	          }
 	    }); 
 		
-		labelSuaNota.setText(calculos.getNotaDoubleValue() + label.getString("resultadosLabelDe") + "100.00");
-		labelQuestoesCorretas.setText(calculos.getNumeroQuestoesCorretasDoubleValue() + label.getString("resultadosLabelDe")
+		labelSuaNota.setText(String.format("%.2f", calculos.getNota()) + label.getString("resultadosLabelDe") + "100.00");
+		labelQuestoesCorretas.setText(calculos.getNumeroQuestoesCorretas() + label.getString("resultadosLabelDe")
 				+ conteudo.getTotalQuestoes());
 		labelTempoDecorrido.setText(calculos.getTempoDecorridoFormatado());
 		labelDataRegistrada.setText(calculos.getDataRegistradaFormatado());
@@ -143,8 +143,8 @@ public class ResultadoController {
 				out = new ObjectOutputStream(new FileOutputStream(Tentativa.filename));
 			else
 				out = new AppendingObjectOutputStream(new FileOutputStream(Tentativa.filename, true));
-			out.writeObject(new Tentativa(conteudo.getNomeTeste(), conteudo.getTipoTeste(), calculos.getNotaDoubleValue(),
-					calculos.getNumeroQuestoesCorretasDoubleValue(), calculos.getTempoDecorridoFormatado(), stringResultados,
+			out.writeObject(new Tentativa(conteudo.getNomeTeste(), conteudo.getTipoTeste(), calculos.getNota(),
+					calculos.getNumeroQuestoesCorretas(), calculos.getTempoDecorridoFormatado(), stringResultados,
 					calculos.getDataRegistradaFormatado()));
 			out.flush();
 			out.close();

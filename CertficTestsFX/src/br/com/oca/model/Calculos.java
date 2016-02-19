@@ -7,8 +7,6 @@
 
 package br.com.oca.model;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,17 +28,20 @@ import br.com.oca.model.conteudo.Conteudo;
  */
 
 public class Calculos {
-	/** Contém os Detalhes para se realizar o teste (Lista de Questões, Tipo de Teste, Idioma, Nome do Exame..). */
+	/**
+	 * Contém os Detalhes para se realizar o teste (Lista de Questões, Tipo de
+	 * Teste, Idioma, Nome do Exame..).
+	 */
 	private Conteudo conteudo;
-	
+
 	/** Lista com todas as respostas escolhidas pelo Usuário no Teste. */
 	private ArrayList<Resposta> listaRespostas;
 
 	/** A nota que o usuário obteve no teste. */
-	private BigDecimal nota;
+	private Double nota;
 
 	/** O numero de questões que o usuário acertou no teste. */
-	private BigDecimal numeroQuestoesCorretas;
+	private Double numeroQuestoesCorretas;
 
 	/** O tempo que o usuário levou para se realizar o teste. */
 	private Calendar tempoRegistrado;
@@ -50,24 +51,21 @@ public class Calculos {
 
 	public Calculos(Conteudo _conteudo, ArrayList<Resposta> _listaRespostas, Calendar _tempoRegistrado,
 			Date _dataRegistrada) {
-		nota = new BigDecimal(0);
-		numeroQuestoesCorretas = new BigDecimal(0);
-		
+		nota = 0.0;
+		numeroQuestoesCorretas = 0.0;
+
 		conteudo = _conteudo;
 		listaRespostas = _listaRespostas;
 		tempoRegistrado = _tempoRegistrado;
 		dataRegistrada = _dataRegistrada;
 
 		calcularNumeroQuestoesCorretas();
-		System.out.println(getNumeroQuestoesCorretasDoubleValue());
 		calcularNota();
-		System.out.println(getNotaDoubleValue());
 	}
 
 	public void calcularNota() {
-		BigDecimal media = numeroQuestoesCorretas.divide(new BigDecimal(conteudo.getTotalQuestoes()), RoundingMode.HALF_UP);
-		nota = media.multiply(new BigDecimal(100));
-		System.out.println(nota);
+		double media = (double) numeroQuestoesCorretas / conteudo.getTotalQuestoes();
+		nota = media * 100;
 	}
 
 	public void calcularNumeroQuestoesCorretas() {
@@ -76,32 +74,31 @@ public class Calculos {
 			for (int count = 0; count < conteudo.getTotalQuestoes(); count++) {
 
 				switch (listaRespostas.get(count).getTipoQuestao()) {
-				case UNICA:
-					if (isRespostaCorreta(count))
-						numeroQuestoesCorretas = numeroQuestoesCorretas.add(new BigDecimal(1));
-					break;
-				case MULTIPLA:
-					numeroQuestoesCorretas = numeroQuestoesCorretas.add(totalAcertoQuestao(count));
-				}
-
+					case UNICA:
+						if (isRespostaCorreta(count))
+							numeroQuestoesCorretas++;
+						break;
+					case MULTIPLA:
+						numeroQuestoesCorretas += totalAcertoQuestao(count);
+					}
 			}
 		}
 
 	}
 
-	public BigDecimal totalAcertoQuestao(int count) {
-		BigDecimal soma = new BigDecimal(0);
-		BigDecimal temp = new BigDecimal(0);
+	public Double totalAcertoQuestao(int count) {
+		Double soma = 0.0;
+		Double temp = 0.0;
 
 		if (listaRespostas.size() > 0) {
 			for (String resp : listaRespostas.get(count).getRespostas()) {
 				if (conteudo.getQuestao(count).getListaAlternativas().containsValue(resp))
-					soma = soma.add(new BigDecimal(1));
+					soma++;
 			}
-			System.out.println(soma.intValue());
-			temp = soma.divide(new BigDecimal(listaRespostas.get(count).getRespostas().size()));
+			
+			temp = soma / conteudo.getQuestao(count).getAlternativasCorretas().size();
 		}
-
+		
 		return temp;
 	}
 
@@ -109,28 +106,20 @@ public class Calculos {
 		return conteudo.getQuestao(count).getEnunciadoAlternativaCorreta()
 				.equals(listaRespostas.get(count).getResposta());
 	}
-	
-	public BigDecimal getNota() {
+
+	public Double getNota() {
 		return nota;
 	}
-	
-	public Double getNotaDoubleValue() {
-		return nota.doubleValue();
-	}
 
-	public void setNota(BigDecimal nota) {
+	public void setNota(Double nota) {
 		this.nota = nota;
 	}
 
-	public BigDecimal getNumeroQuestoesCorretas() {
+	public Double getNumeroQuestoesCorretas() {
 		return numeroQuestoesCorretas;
 	}
-	
-	public Double getNumeroQuestoesCorretasDoubleValue() {
-		return numeroQuestoesCorretas.doubleValue();
-	}
 
-	public void setNumeroQuestoesCorretas(BigDecimal numeroQuestoesCorretas) {
+	public void setNumeroQuestoesCorretas(Double numeroQuestoesCorretas) {
 		this.numeroQuestoesCorretas = numeroQuestoesCorretas;
 	}
 
