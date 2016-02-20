@@ -258,6 +258,7 @@ public class MainApp extends Application {
 		rootLayout.setCenter(getNewNodo(loader, "view/Home.fxml"));
 
 		homeStage.setTitle("CertificTests");
+		homeStage.setResizable(false);
 		homeStage.setScene(new Scene(rootLayout));
 		homeStage.getIcons().add(new Image(CAMINHO_ICONE_APLICACAO));
 		homeStage.show();
