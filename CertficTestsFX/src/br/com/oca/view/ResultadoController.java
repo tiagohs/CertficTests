@@ -14,6 +14,7 @@ import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.util.AppendingObjectOutputStream;
+import br.com.oca.util.TipoDeQuestaoException;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -79,7 +80,11 @@ public class ResultadoController {
 
 		if (listaRespostas.size() > 0) {
 			for (int cont = 0; cont < conteudo.getTotalQuestoes().intValue(); cont++)
-				setTextoRespostas(cont);
+				try {
+					setTextoRespostas(cont);
+				} catch (TipoDeQuestaoException e) {
+					e.printStackTrace();
+				}
 		} else {
 			stringResultados = label.getString("resultadosLabelNenhumaQuestao");
 		}
@@ -88,7 +93,7 @@ public class ResultadoController {
 		resultados.setWrapText(true);
 	}
 
-	private void setTextoRespostas(int count) {
+	private void setTextoRespostas(int count) throws TipoDeQuestaoException {
 
 		stringResultados += numeroQuestao + " - " + conteudo.getQuestao(count).getEnunciado() + "\n\n";
 
@@ -98,12 +103,12 @@ public class ResultadoController {
 					+ conteudo.getQuestao(count).getEnunciadoAlternativaCorreta() + "\n";
 			if (calculos.isRespostaCorreta(conteudo.getQuestao(count), listaRespostas.get(count))) {
 				stringResultados += label.getString("resultadosLabelSuaResposta") + " "
-						+ listaRespostas.get(count).getResposta() + "\n\n";
+						+ listaRespostas.get(count).getEnunciadoResposta() + "\n\n";
 			}
 
 			else {
 				stringResultados += label.getString("resultadosLabelSuaResposta") + " "
-						+ listaRespostas.get(count).getResposta() + "\n\n";
+						+ listaRespostas.get(count).getEnunciadoResposta() + "\n\n";
 			}
 
 			break;
@@ -114,7 +119,7 @@ public class ResultadoController {
 		numeroQuestao++;
 	}
 
-	private void exibirMultiplasRespostas(Questao questao, Resposta resposta) {
+	private void exibirMultiplasRespostas(Questao questao, Resposta resposta) throws TipoDeQuestaoException {
 
 		stringResultados += label.getString("resultadosLabelRespostasCorretas") + "\n\n";
 		for (int cont = 0; cont < questao.getAlternativasCorretas().size(); cont++) {
@@ -122,11 +127,11 @@ public class ResultadoController {
 		}
 
 		stringResultados += "\n" + label.getString("resultadosLabelSuasRespostas") + "\n\n";
-		for (int cont = 0; cont < resposta.getRespostas().size(); cont++) {
-			if (questao.getAlternativasCorretas().contains(resposta.getRespostas().get(cont))) {
-				stringResultados += resposta.getRespostas().get(cont) + "\n";
+		for (int cont = 0; cont < resposta.getEnunciadoRespostas().size(); cont++) {
+			if (questao.getAlternativasCorretas().contains(resposta.getEnunciadoRespostas().get(cont))) {
+				stringResultados += resposta.getEnunciadoRespostas().get(cont) + "\n";
 			} else {
-				stringResultados += resposta.getRespostas().get(cont) + "\n";
+				stringResultados += resposta.getEnunciadoRespostas().get(cont) + "\n";
 			}
 		}
 

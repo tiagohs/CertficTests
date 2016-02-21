@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import br.com.oca.model.conteudo.Conteudo;
+import br.com.oca.util.TipoDeQuestaoException;
 
 /**
  * 
@@ -34,7 +35,7 @@ public class Calculos {
 	 * Teste, Idioma, Nome do Exame..).
 	 */
 	private Conteudo conteudo;
-
+	
 	/** Lista com todas as respostas escolhidas pelo Usuário no Teste. */
 	private ArrayList<Resposta> listaRespostas;
 
@@ -100,26 +101,47 @@ public class Calculos {
 
 		if (containsResposta()) {
 			for (int numeroQuestao = 0; numeroQuestao < conteudo.getTotalQuestoes(); numeroQuestao++) {
-
-				switch (listaRespostas.get(numeroQuestao).getTipoQuestao()) {
-				case UMA_ALTERNATIVA:
-					if (isRespostaCorreta(conteudo.getQuestao(numeroQuestao), listaRespostas.get(numeroQuestao)))
-						numeroQuestoesCorretas++;
-					break;
-				case MULTIPLAS_ALTERNATIVAS:
-					numeroQuestoesCorretas += getTotalRespostasCorretas(conteudo.getQuestao(numeroQuestao), listaRespostas.get(numeroQuestao));
+				try {
+					switch (listaRespostas.get(numeroQuestao).getTipoQuestao()) {
+					case UMA_ALTERNATIVA:
+						
+							if (isRespostaCorreta(conteudo.getQuestao(numeroQuestao), listaRespostas.get(numeroQuestao)))
+								numeroQuestoesCorretas++;
+						
+						break;
+					case MULTIPLAS_ALTERNATIVAS:
+						numeroQuestoesCorretas += getTotalRespostasCorretas(conteudo.getQuestao(numeroQuestao),
+								listaRespostas.get(numeroQuestao));
+					}
+				} catch (TipoDeQuestaoException e) {
+					e.printStackTrace();
 				}
 			}
 		}
 
 	}
 
-	private Double getTotalRespostasCorretas(Questao questao, Resposta respostas) {
+	/**
+	 * 
+	 * Se Realiza os Cálculos para se saber o número de acertos em uma questão
+	 * que seja de multipla escolha. Esse método é chamado somente se a questão
+	 * for de multipla Escolha, onde com base nas alternativas corretas já
+	 * registradas, se calcula o número de acertos do usuário.
+	 * 
+	 * @param questao
+	 *            Referência a questão com multipla Escolhas.
+	 * @param respostas
+	 *            Referência ao Objeto Resposta que contém detalhes sobre as
+	 *            Respostas do usuário.
+	 * @return Retorna a média de total de Acertos.
+	 * @throws TipoDeQuestaoException 
+	 */
+	private Double getTotalRespostasCorretas(Questao questao, Resposta respostas) throws TipoDeQuestaoException {
 		Double totalAcertos = 0.0;
 		Double mediaTotalAcertos = 0.0;
 
 		if (containsResposta()) {
-			for (String alternativaAtual : respostas.getRespostas()) {
+			for (String alternativaAtual : respostas.getEnunciadoRespostas()) {
 				if (isAlternativaCorreta(alternativaAtual, questao.getListaAlternativas()))
 					totalAcertos++;
 			}
@@ -130,56 +152,165 @@ public class Calculos {
 		return mediaTotalAcertos;
 	}
 
-	private boolean containsResposta() {
-		return listaRespostas.size() > 0;
-	}
-
+	/**
+	 * 
+	 * Se a Questão for de multpla escolha, esse método será chamado. Verifica
+	 * se determinada alternativa é correta. Por Exemplo, em uma questão que
+	 * contém 4 Alternativas corretas, o usuário durante o teste irá escolher 4
+	 * alternativas. Sendo assim, pra cada alternativa escolhida, esse método
+	 * verifica se é correta.
+	 * 
+	 * @param alternativaAtual
+	 *            Alternativa que será verificada, ou seja, se é correta ou não.
+	 * @param alternativasCorretas
+	 *            HashMap contendo as alternativas corretas da questão.
+	 * @return Retorna true se a alternativa escolhida pelo usuário se encontra
+	 *         no HashMap, false se não se encontrar.
+	 */
 	private boolean isAlternativaCorreta(String alternativaAtual, HashMap<Character, String> alternativasCorretas) {
 		return alternativasCorretas.containsValue(alternativaAtual);
 	}
 
+	/**
+	 * 
+	 * Verifica se ainda contém Questões para serem Verificadas.
+	 * 
+	 * @return Se Ainda possui alguma questão, returna true, se não, false.
+	 */
+	private boolean containsResposta() {
+		return listaRespostas.size() > 0;
+	}
+
+	/**
+	 * 
+	 * Calcula a nota que o usuário recebeu no teste. Tendo o numero de questões
+	 * Corretas e o total de questões realizadas, se faz a média.
+	 * 
+	 */
 	public void calcularNota() {
 		double media = (double) numeroQuestoesCorretas / conteudo.getTotalQuestoes();
 		nota = media * 100;
 	}
 
-	public boolean isRespostaCorreta(Questao questao, Resposta resposta) {
-		return questao.getEnunciadoAlternativaCorreta()
-				.equals(resposta.getResposta());
+	/**
+	 * 
+	 * Esse método é chamado somente se a questão conter somente uma alternativa
+	 * correta. Se verifica com base na alternativa correta e na alternativa
+	 * escolhida pelo usuário se essa é correta.
+	 * 
+	 * @param questao
+	 *            Referênca a questão com somente uma alternativa correta.
+	 * @param resposta
+	 *            Referência ao Objeto Resposta que contém detalhes sobre a
+	 *            Resposta do usuário.
+	 * @return Retorna true se a alternativa for correta, e false se não for.
+	 * @throws TipoDeQuestaoException 
+	 */
+	public boolean isRespostaCorreta(Questao questao, Resposta resposta) throws TipoDeQuestaoException {
+		return questao.getEnunciadoAlternativaCorreta().equals(resposta.getEnunciadoResposta());
 	}
 
+	/**
+	 * 
+	 * Obtém a Nota do Usuário no teste realizado.
+	 * 
+	 * @return A Nota do Usuário.
+	 */
 	public Double getNota() {
 		return nota;
 	}
 
+	/**
+	 * 
+	 * Se Define uma nova Nota.
+	 * 
+	 * @param nota
+	 *            A Nova nota.
+	 */
 	public void setNota(Double nota) {
 		this.nota = nota;
 	}
 
+	/**
+	 * 
+	 * Obtém o numero de questões corretas no teste realizado.
+	 * 
+	 * @return O numero de questões corretas.
+	 */
 	public Double getNumeroQuestoesCorretas() {
 		return numeroQuestoesCorretas;
 	}
 
+	/**
+	 * 
+	 * Se Define um novo Numero de Questões Corretas.
+	 * 
+	 * @param numeroQuestoesCorretas
+	 *            O Novo Número de Questões Corretas.
+	 */
 	public void setNumeroQuestoesCorretas(Double numeroQuestoesCorretas) {
 		this.numeroQuestoesCorretas = numeroQuestoesCorretas;
 	}
 
+	/**
+	 * 
+	 * Obtém o Tempo Decorrido Formatado, no formato String. O Padrão usado é o
+	 * Brasileiro: 00:00:00.
+	 * 
+	 * @return O Tempo decorrido no Teste.
+	 */
 	public String getTempoDecorridoFormatado() {
 		return new SimpleDateFormat("HH:mm:ss").format(tempoRegistrado.getTime());
 	}
 
+	/**
+	 * 
+	 * Obtém a Data e Hora em que o usuário fez o Teste, no formato String. O
+	 * Padrão usado é o Brasileiro: 99/99/9999 00:00:00.
+	 * 
+	 * @return A Data e Hora em que o usuário fez o Teste.
+	 */
 	public String getDataRegistradaFormatado() {
 		return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dataRegistrada);
 	}
 
+	/**
+	 * 
+	 * Obtém a Data e Hora em que o usuário fez o Teste, no formato Date.
+	 * 
+	 * @return A Data e Hora em que o usuário fez o Teste
+	 */
 	public Date getDataRegistrada() {
 		return dataRegistrada;
 	}
 
+	/**
+	 * 
+	 * Se Define uma Nova Data e Hora.
+	 * 
+	 * @param dataRegistrada
+	 *            A Nova Data e Hora.
+	 */
+	public void setDataRegistrada(Date dataRegistrada) {
+		this.dataRegistrada = dataRegistrada;
+	}
+
+	/**
+	 * Obtém o Tempo Decorrido no Teste.
+	 * 
+	 * @return O Tempo Decorrido no Teste.
+	 */
 	public Calendar getTempoDecorrido() {
 		return tempoRegistrado;
 	}
 
+	/**
+	 * 
+	 * Se Define um Novo Tempo de duração do teste.
+	 * 
+	 * @param tempoDecorrido
+	 *            O Novo Tempo de duração do teste
+	 */
 	public void setTempoDecorrido(Calendar tempoDecorrido) {
 		this.tempoRegistrado = tempoDecorrido;
 	}

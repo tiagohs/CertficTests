@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import br.com.oca.model.Questao;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
-import br.com.oca.model.enums.TipoQuestao;
 import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.model.i18n.perguntas.PerguntasSource;
 
@@ -57,8 +56,7 @@ public abstract class Conteudo {
 	protected void addQuestao(int quantidadeQuestao, int numQuestao, ArrayList<String> alternativasCorretas) {
 
 		Questao questao = new Questao(
-				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".questao"),
-				TipoQuestao.MULTIPLAS_ALTERNATIVAS,
+				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".questao"), alternativasCorretas,
 				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".referencia"),
 				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".enunExtra"),
 				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".numOpcao"));
@@ -72,7 +70,6 @@ public abstract class Conteudo {
 				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_3"));
 		questao.addAlternativa('E',
 				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_4"));
-		questao.setAlternativasCorretas(alternativasCorretas);
 
 		listaQuestoes.add(questao);
 	}
