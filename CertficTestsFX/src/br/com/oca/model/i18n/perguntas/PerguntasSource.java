@@ -7,6 +7,7 @@ import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 
 public class PerguntasSource {
+	private static final String FILENAME = "br.com.oca.model.i18n.perguntas/perguntas";
 	private volatile static PerguntasSource instance;
 	
 	private ResourceBundle bundle;
@@ -15,7 +16,7 @@ public class PerguntasSource {
 	
 	private PerguntasSource(Idioma idiomaEscolhido, Certificacao _nomeExame) {
 		nomeExame = _nomeExame;
-		bundle = ResourceBundle.getBundle("br.com.oca.model.i18n.perguntas/perguntas" + nomeExame.getNomeCurto(), idiomaEscolhido.getLocale());
+		bundle = ResourceBundle.getBundle(FILENAME + nomeExame.getNomeCurto(), idiomaEscolhido.getLocale());
 	}
 	
 	public static PerguntasSource getInstance(Idioma idiomaEscolhido, Certificacao nomeExame) {
@@ -48,7 +49,7 @@ public class PerguntasSource {
 	}
 	
 	public void setNovoIdioma(Idioma novoIdioma) {
-		bundle = ResourceBundle.getBundle("br.com.oca.model.i18n.perguntas/perguntas" + nomeExame.getNomeCurto(), novoIdioma.getLocale());
+		bundle = ResourceBundle.getBundle(FILENAME + nomeExame.getNomeCurto(), novoIdioma.getLocale());
 	}
 	
 }

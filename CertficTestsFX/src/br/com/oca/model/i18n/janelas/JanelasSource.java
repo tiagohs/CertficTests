@@ -5,12 +5,13 @@ import java.util.ResourceBundle;
 import br.com.oca.model.enums.Idioma;
 
 public class JanelasSource {
+	private static final String FILENAME = "br.com.oca.model.i18n.janelas/janelas";
 	private volatile static JanelasSource instance;
-	
+
 	private ResourceBundle bundle;
 	
 	private JanelasSource(Idioma idiomaEscolhido) {
-		bundle = ResourceBundle.getBundle("br.com.oca.model.i18n.janelas/janelas", idiomaEscolhido.getLocale());
+		bundle = ResourceBundle.getBundle(FILENAME, idiomaEscolhido.getLocale());
 	}
 	
 	public static JanelasSource getInstance(Idioma idiomaEscolhido) {
@@ -39,6 +40,6 @@ public class JanelasSource {
 	}
 	
 	public void setNovoIdioma(Idioma novoIdioma) {
-		bundle = ResourceBundle.getBundle("br.com.oca.model.i18n.janelas/janelas", novoIdioma.getLocale());
+		bundle = ResourceBundle.getBundle(FILENAME, novoIdioma.getLocale());
 	}
 }

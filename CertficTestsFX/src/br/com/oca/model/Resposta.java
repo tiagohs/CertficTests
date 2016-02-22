@@ -34,7 +34,10 @@ public class Resposta {
 	/** O Enunciado da Resposta. */
 	private String enunciadoResposta;
 
-	/** Lista com os Enunciados das Alternativas Corretas. */
+	/**
+	 * Lista com os Enunciados das Alternativas Corretas, caso a Questão for de
+	 * Multipla Escolha.
+	 */
 	private ArrayList<String> enunciadoRespostas;
 
 	/**
@@ -176,7 +179,8 @@ public class Resposta {
 	 * 
 	 * Se Define o novo tipo da Questão.
 	 * 
-	 * @param tipoQuestao O novo tipo da Questão.
+	 * @param tipoQuestao
+	 *            O novo tipo da Questão.
 	 */
 	public void setTipoQuestao(TipoQuestao tipoQuestao) {
 		this.tipoQuestao = tipoQuestao;
