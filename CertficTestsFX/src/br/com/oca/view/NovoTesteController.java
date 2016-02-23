@@ -2,11 +2,11 @@ package br.com.oca.view;
 
 import br.com.oca.MainApp;
 import br.com.oca.config.JanelasConfig;
-import br.com.oca.model.conteudo.ConteudoFactory;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
 import br.com.oca.util.AlertDialogsFactory;
+import br.com.oca.util.ConteudoFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;

@@ -1,5 +1,8 @@
-package br.com.oca.model.conteudo;
+package br.com.oca.util;
 
+import br.com.oca.model.conteudo.Conteudo;
+import br.com.oca.model.conteudo.OCAJava7;
+import br.com.oca.model.conteudo.OCPJava7;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
