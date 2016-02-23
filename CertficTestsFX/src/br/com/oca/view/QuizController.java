@@ -5,16 +5,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import br.com.oca.MainApp;
-import br.com.oca.model.Questao;
 import br.com.oca.model.Resposta;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.model.i18n.perguntas.PerguntasSource;
+import br.com.oca.model.questao.Questao;
 import br.com.oca.util.AlertDialogsFactory;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -32,6 +33,8 @@ import javafx.stage.WindowEvent;
 
 public class QuizController {
 	public static final int VELOCIDADE_CRONOMETRO = 1000;
+	public static final int UM_MINUTO = 60;
+	public static final int UMA_HORA = 60;
 
 	@FXML
 	private Label labelNumeroQuestao;
@@ -117,13 +120,13 @@ public class QuizController {
 
 	public void iniciarQuiz() {
 		perguntasLabel = PerguntasSource.getInstance(idioma, conteudo.getNomeTeste());
-		
+
 		dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-	          public void handle(WindowEvent we) {
-	              handleSair();
-	          }
-	    });   
-		
+			public void handle(WindowEvent we) {
+				handleSair();
+			}
+		});
+
 		labelNomeExame.setText(conteudo.getNomeTeste().getNomeExtenso());
 		labelNumeroQuestao.setText(janelaLabels.getString("quizLabelNumQuestao1") + numeroAtualQuestao
 				+ janelaLabels.getString("quizLabelNumQuestao2") + conteudo.getTotalQuestoes());
@@ -142,12 +145,12 @@ public class QuizController {
 					public void run() {
 						currentSegundos++;
 
-						if (currentSegundos == 60) {
+						if (currentSegundos == UM_MINUTO) {
 							currentMinutos++;
 							currentSegundos = 0;
 						}
 
-						if (currentMinutos == 60) {
+						if (currentMinutos == UMA_HORA) {
 							currentHora++;
 							currentMinutos = 0;
 						}
@@ -304,19 +307,19 @@ public class QuizController {
 	}
 
 	private void addAlternativasEscolhidas() {
-		ArrayList<String> respostas = new ArrayList<String>();
-
-		verificaAlternativaSelecionada(checkAlternativaA, respostas);
-		verificaAlternativaSelecionada(checkAlternativaB, respostas);
-		verificaAlternativaSelecionada(checkAlternativaC, respostas);
-		verificaAlternativaSelecionada(checkAlternativaD, respostas);
-		verificaAlternativaSelecionada(checkAlternativaE, respostas);
+		HashMap<Character, String> respostas = new HashMap<Character, String>();
+		
+		verificaAlternativaSelecionada(checkAlternativaA, 'A', respostas);
+		verificaAlternativaSelecionada(checkAlternativaB, 'B', respostas);
+		verificaAlternativaSelecionada(checkAlternativaC, 'C', respostas);
+		verificaAlternativaSelecionada(checkAlternativaD, 'D', respostas);
+		verificaAlternativaSelecionada(checkAlternativaE, 'E', respostas);
 
 		addAlternativasEscolhidas(respostas);
 	}
 
-	private void addAlternativasEscolhidas(ArrayList<String> respostas) {
-		
+	private void addAlternativasEscolhidas(HashMap<Character, String> respostas) {
+
 		if (respostas.size() > 0) {
 			if (!isQuestaoJaRespondida())
 				listaRespostas.add(contQuestao,
@@ -337,10 +340,9 @@ public class QuizController {
 		return listaRespostas.contains(new Resposta(conteudo.getQuestao(contQuestao).getEnunciado()));
 	}
 
-	private void verificaAlternativaSelecionada(CheckBox alternativa, ArrayList<String> respostas) {
-		if (alternativa.isSelected()) {
-			respostas.add(alternativa.getText());
-		}
+	private void verificaAlternativaSelecionada(CheckBox alternativa, Character letra, HashMap<Character, String> respostas) {
+		if (alternativa.isSelected()) 
+			respostas.put(letra, alternativa.getText());
 	}
 
 	@FXML

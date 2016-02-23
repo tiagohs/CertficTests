@@ -6,7 +6,7 @@
  */
 package br.com.oca.model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import br.com.oca.model.enums.TipoQuestao;
 
@@ -35,10 +35,10 @@ public class Resposta {
 	private String enunciadoResposta;
 
 	/**
-	 * Lista com os Enunciados das Alternativas Corretas, caso a Questão for de
+	 * Lista com sds Alternativas Corretas, caso a Questão for de
 	 * Multipla Escolha.
 	 */
-	private ArrayList<String> enunciadoRespostas;
+	private HashMap<Character, String> listaRespostas;
 
 	/**
 	 * 
@@ -50,7 +50,7 @@ public class Resposta {
 	 * @param respostas
 	 *            Lista com os Enunciados das Alternativas Corretas.
 	 */
-	public Resposta(String enunciado, ArrayList<String> respostas) {
+	public Resposta(String enunciado, HashMap<Character, String> respostas) {
 		this(enunciado, null, respostas, TipoQuestao.MULTIPLAS_ALTERNATIVAS);
 	}
 
@@ -93,11 +93,11 @@ public class Resposta {
 	 * @param _tipoQuestao
 	 *            O Tipo de Questão (Uma ou Multipla Alternativas).
 	 */
-	public Resposta(String _enunciadoQuestao, String _enunciadoResposta, ArrayList<String> _enunciadoRespostas,
+	public Resposta(String _enunciadoQuestao, String _enunciadoResposta, HashMap<Character, String> _enunciadoRespostas,
 			TipoQuestao _tipoQuestao) {
 		enunciadoQuestao = _enunciadoQuestao;
 		enunciadoResposta = _enunciadoResposta;
-		enunciadoRespostas = _enunciadoRespostas;
+		listaRespostas = _enunciadoRespostas;
 		tipoQuestao = _tipoQuestao;
 	}
 
@@ -142,29 +142,29 @@ public class Resposta {
 	public void setEnunciadoResposta(String resposta) {
 		this.enunciadoResposta = resposta;
 	}
-
+	
 	/**
 	 * 
-	 * Obtém a lista com o Enunciado das respostas, caso seja uma questão de
+	 * Obtém a lista com a lista de respostas, caso seja uma questão de
 	 * multipla escolha.
 	 * 
-	 * @return A lista com o Enunciado das respostas
+	 * @return A lista com a lista de respostas
 	 */
-	public ArrayList<String> getEnunciadoRespostas() {
-		return enunciadoRespostas;
+	public HashMap<Character, String> getListaRespostas() {
+		return listaRespostas;
 	}
-
+	
 	/**
 	 * 
-	 * Se Define a nova lista com o enunciado das respostas.
+	 * Se Define a nova lista com a lista de respostas.
 	 * 
 	 * @param respostas
-	 *            A nova lista com o enunciado das respostas.
+	 *            A nova lista com a lista de respostas.
 	 */
-	public void setEnunciadoRespostas(ArrayList<String> respostas) {
-		this.enunciadoRespostas = respostas;
+	public void setListaRespostas(HashMap<Character, String> listaRespostas) {
+		this.listaRespostas = listaRespostas;
 	}
-
+	
 	/**
 	 * 
 	 * Obtém o Tipo da Questão.

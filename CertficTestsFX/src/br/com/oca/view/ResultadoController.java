@@ -4,15 +4,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Map.Entry;
 
 import br.com.oca.MainApp;
 import br.com.oca.model.Calculos;
-import br.com.oca.model.Questao;
 import br.com.oca.model.Resposta;
 import br.com.oca.model.Tentativa;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.i18n.janelas.JanelasSource;
+import br.com.oca.model.questao.Questao;
+import br.com.oca.model.questao.QuestaoUmaAlternativa;
+import br.com.oca.model.questao.QuestaoVariasAlternativas;
 import br.com.oca.util.AppendingObjectOutputStream;
 import br.com.oca.util.TipoDeQuestaoException;
 import javafx.event.EventHandler;
@@ -67,12 +70,13 @@ public class ResultadoController {
 
 	private void showResultados() {
 		dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-	          public void handle(WindowEvent we) {
-	              handleOk();
-	          }
-	    }); 
-		
-		labelSuaNota.setText(String.format("%.2f", calculos.getNota()) + label.getString("resultadosLabelDe") + "100.00");
+			public void handle(WindowEvent we) {
+				handleOk();
+			}
+		});
+
+		labelSuaNota
+				.setText(String.format("%.2f", calculos.getNota()) + label.getString("resultadosLabelDe") + "100.00");
 		labelQuestoesCorretas.setText(calculos.getNumeroQuestoesCorretas() + label.getString("resultadosLabelDe")
 				+ conteudo.getTotalQuestoes());
 		labelTempoDecorrido.setText(calculos.getTempoDecorridoFormatado());
@@ -94,52 +98,48 @@ public class ResultadoController {
 	}
 
 	private void setTextoRespostas(int count) throws TipoDeQuestaoException {
+		Questao questao = conteudo.getQuestao(count);
+		Resposta resposta = listaRespostas.get(count);
 
-		stringResultados += numeroQuestao + " - " + conteudo.getQuestao(count).getEnunciado() + "\n\n";
+		stringResultados += numeroQuestao + " - " + questao.getEnunciado() + "\n\n";
 
-		switch (listaRespostas.get(count).getTipoQuestao()) {
-		case UMA_ALTERNATIVA:
-			stringResultados += label.getString("resultadosLabelRespostaCorreta")
-					+ conteudo.getQuestao(count).getEnunciadoAlternativaCorreta() + "\n";
-			if (calculos.isRespostaCorreta(conteudo.getQuestao(count), listaRespostas.get(count))) {
-				stringResultados += label.getString("resultadosLabelSuaResposta") + " "
-						+ listaRespostas.get(count).getEnunciadoResposta() + "\n\n";
-			}
-
-			else {
-				stringResultados += label.getString("resultadosLabelSuaResposta") + " "
-						+ listaRespostas.get(count).getEnunciadoResposta() + "\n\n";
-			}
-
-			break;
-		case MULTIPLAS_ALTERNATIVAS:
-			exibirMultiplasRespostas(conteudo.getQuestao(count), listaRespostas.get(count));
+		switch (resposta.getTipoQuestao()) {
+			case UMA_ALTERNATIVA:
+				exibirUmaAlternativa(questao, resposta);
+				break;
+			case MULTIPLAS_ALTERNATIVAS:
+				exibirMultiplasRespostas(questao, resposta);
 		}
 
 		numeroQuestao++;
 	}
 
+	private void exibirUmaAlternativa(Questao questao, Resposta resposta) {
+
+		stringResultados += label.getString("resultadosLabelRespostaCorreta")
+				+ ((QuestaoUmaAlternativa) questao).getEnunciadoAlternativaCorreta() + "\n";
+		stringResultados += label.getString("resultadosLabelSuaResposta") + " " + resposta.getEnunciadoResposta()
+				+ "\n\n";
+	}
+
 	private void exibirMultiplasRespostas(Questao questao, Resposta resposta) throws TipoDeQuestaoException {
 
 		stringResultados += label.getString("resultadosLabelRespostasCorretas") + "\n\n";
-		for (int cont = 0; cont < questao.getAlternativasCorretas().size(); cont++) {
-			stringResultados += questao.getAlternativasCorretas().get(cont) + "\n";
+		for (Entry<Character, String> entry : ((QuestaoVariasAlternativas) questao).getAlternativasCorretas()
+				.entrySet()) {
+			stringResultados += entry.getValue() + "\n";
 		}
 
 		stringResultados += "\n" + label.getString("resultadosLabelSuasRespostas") + "\n\n";
-		for (int cont = 0; cont < resposta.getEnunciadoRespostas().size(); cont++) {
-			if (questao.getAlternativasCorretas().contains(resposta.getEnunciadoRespostas().get(cont))) {
-				stringResultados += resposta.getEnunciadoRespostas().get(cont) + "\n";
-			} else {
-				stringResultados += resposta.getEnunciadoRespostas().get(cont) + "\n";
-			}
+		for (int cont = 0; cont < resposta.getListaRespostas().size(); cont++) {
+			stringResultados += resposta.getListaRespostas().get(cont) + "\n";
 		}
 
 		stringResultados += "\n";
 	}
 
 	private void registrarTentativa() {
-		
+
 		File file = new File(Tentativa.filename);
 		ObjectOutputStream out = null;
 
@@ -198,7 +198,7 @@ public class ResultadoController {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
-	
+
 	public void setHomeController(HomeController homeController) {
 		this.homeController = homeController;
 	}
