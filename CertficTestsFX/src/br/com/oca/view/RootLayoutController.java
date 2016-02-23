@@ -1,8 +1,8 @@
 package br.com.oca.view;
 
 import br.com.oca.MainApp;
+import br.com.oca.config.JanelasConfig;
 import br.com.oca.model.enums.Idioma;
-import br.com.oca.model.i18n.janelas.JanelasSource;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -22,12 +22,12 @@ public class RootLayoutController {
 	private MenuItem itemDeletar;
 	
 	private MainApp mainApp;
-	private JanelasSource label;
+	private JanelasConfig label;
 	
 	private Stage dialogHome;
 	
 	public RootLayoutController() {
-		label = JanelasSource.getInstance(Idioma.Portugues);
+		label = JanelasConfig.getInstance(Idioma.Portugues);
 	}
 	
 	public void init() {

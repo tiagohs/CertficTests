@@ -10,11 +10,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import br.com.oca.MainApp;
+import br.com.oca.config.JanelasConfig;
+import br.com.oca.config.PerguntasConfig;
 import br.com.oca.model.Resposta;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
-import br.com.oca.model.i18n.janelas.JanelasSource;
-import br.com.oca.model.i18n.perguntas.PerguntasSource;
 import br.com.oca.model.questao.Questao;
 import br.com.oca.util.AlertDialogsFactory;
 import javafx.application.Platform;
@@ -94,8 +94,8 @@ public class QuizController {
 	private ArrayList<Resposta> listaRespostas;
 	private Conteudo conteudo;
 
-	private JanelasSource janelaLabels;
-	private PerguntasSource perguntasLabel;
+	private JanelasConfig janelaLabels;
+	private PerguntasConfig perguntasLabel;
 
 	private int currentSegundos = 0;
 	private int currentMinutos = 0;
@@ -115,11 +115,11 @@ public class QuizController {
 		contQuestao = 0;
 		numeroAtualQuestao = 1;
 		dataRegistrada = new Date();
-		janelaLabels = JanelasSource.getInstance(idioma);
+		janelaLabels = JanelasConfig.getInstance(idioma);
 	}
 
 	public void iniciarQuiz() {
-		perguntasLabel = PerguntasSource.getInstance(idioma, conteudo.getNomeTeste());
+		perguntasLabel = PerguntasConfig.getInstance(idioma, conteudo.getNomeTeste());
 
 		dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {

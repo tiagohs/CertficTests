@@ -1,12 +1,12 @@
 package br.com.oca.view;
 
 import br.com.oca.MainApp;
+import br.com.oca.config.JanelasConfig;
 import br.com.oca.model.Tentativa;
 import br.com.oca.model.conteudo.ConteudoFactory;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
-import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.util.AlertDialogsFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,7 +41,7 @@ public class HomeController {
 	@FXML
 	private ComboBox<TipoTeste> comboTipoTeste;
 
-	private JanelasSource label;
+	private JanelasConfig label;
 	private ObservableList<Tentativa> listaTentativas;
 	private ObservableList<Certificacao> optionsExame;
 	private ObservableList<TipoTeste> optionsTipoTeste;
@@ -71,7 +71,7 @@ public class HomeController {
 		botaoNovo.setDisable(true);
 		comboExame.setItems(optionsExame);
 		comboTipoTeste.setItems(optionsTipoTeste);
-		label = JanelasSource.getInstance(idioma);
+		label = JanelasConfig.getInstance(idioma);
 
 		inicializaTabela();
 	}

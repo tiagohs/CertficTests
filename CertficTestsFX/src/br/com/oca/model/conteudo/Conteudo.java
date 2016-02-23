@@ -3,10 +3,10 @@ package br.com.oca.model.conteudo;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import br.com.oca.config.PerguntasConfig;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
-import br.com.oca.model.i18n.perguntas.PerguntasSource;
 import br.com.oca.model.questao.Questao;
 import br.com.oca.model.questao.QuestaoUmaAlternativa;
 import br.com.oca.model.questao.QuestaoVariasAlternativas;
@@ -17,7 +17,7 @@ public abstract class Conteudo {
 	public static final int TESTE_90_QUESTOES = 90;
 
 	protected ArrayList<Questao> listaQuestoes;
-	protected PerguntasSource perguntasSource;
+	protected PerguntasConfig perguntasSource;
 	protected Certificacao nomeTeste;
 	protected Idioma idiomaTeste;
 	protected TipoTeste tipoTeste;
@@ -27,7 +27,7 @@ public abstract class Conteudo {
 		nomeTeste = _nomeTeste;
 		idiomaTeste = _idiomaTeste;
 		tipoTeste = _tipoTeste;
-		perguntasSource = PerguntasSource.getInstance(idiomaTeste, nomeTeste);
+		perguntasSource = PerguntasConfig.getInstance(idiomaTeste, nomeTeste);
 
 		preenxerQuestoes();
 	}

@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import br.com.oca.MainApp;
+import br.com.oca.config.JanelasConfig;
 import br.com.oca.model.Calculos;
 import br.com.oca.model.Resposta;
 import br.com.oca.model.Tentativa;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
-import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.model.questao.Questao;
 import br.com.oca.model.questao.QuestaoUmaAlternativa;
 import br.com.oca.model.questao.QuestaoVariasAlternativas;
@@ -45,7 +45,7 @@ public class ResultadoController {
 	private MainApp mainApp;
 
 	private ArrayList<Resposta> listaRespostas;
-	private JanelasSource label;
+	private JanelasConfig label;
 	private Idioma idioma;
 	private Conteudo conteudo;
 	private String stringResultados;
@@ -55,7 +55,7 @@ public class ResultadoController {
 	public ResultadoController() {
 		stringResultados = "";
 		numeroQuestao = 1;
-		label = JanelasSource.getInstance(idioma);
+		label = JanelasConfig.getInstance(idioma);
 	}
 
 	@FXML

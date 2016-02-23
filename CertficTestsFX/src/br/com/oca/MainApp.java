@@ -17,12 +17,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 
+import br.com.oca.config.JanelasConfig;
 import br.com.oca.model.Calculos;
 import br.com.oca.model.Resposta;
 import br.com.oca.model.Tentativa;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
-import br.com.oca.model.i18n.janelas.JanelasSource;
 import br.com.oca.view.DetalhesQuestoesRespondidasController;
 import br.com.oca.view.HomeController;
 import br.com.oca.view.NovoTesteController;
@@ -104,7 +104,7 @@ public class MainApp extends Application {
 	private Idioma idioma;
 
 	/** A Referência ao <i>i18n, com Base no <i>Idioma</i> Escolhido. */
-	private JanelasSource label;
+	private JanelasConfig label;
 
 	/**
 	 * Instancia uma Nova Classe <code>MainApp</code>
@@ -123,7 +123,7 @@ public class MainApp extends Application {
 	@Override
 	public void start(Stage _homeStage) {
 		idioma = showEscolherIdioma();
-		label = JanelasSource.getInstance(idioma);
+		label = JanelasConfig.getInstance(idioma);
 		homeStage = _homeStage;
 
 		initRootLayout();
