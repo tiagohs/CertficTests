@@ -9,15 +9,12 @@ import java.util.Map.Entry;
 import br.com.oca.MainApp;
 import br.com.oca.config.JanelasConfig;
 import br.com.oca.model.Calculos;
+import br.com.oca.model.Questao;
 import br.com.oca.model.Resposta;
 import br.com.oca.model.Tentativa;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
-import br.com.oca.model.questao.Questao;
-import br.com.oca.model.questao.QuestaoUmaAlternativa;
-import br.com.oca.model.questao.QuestaoVariasAlternativas;
 import br.com.oca.util.AppendingObjectOutputStream;
-import br.com.oca.util.TipoDeQuestaoException;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -84,11 +81,7 @@ public class ResultadoController {
 
 		if (listaRespostas.size() > 0) {
 			for (int cont = 0; cont < conteudo.getTotalQuestoes().intValue(); cont++)
-				try {
-					setTextoRespostas(cont);
-				} catch (TipoDeQuestaoException e) {
-					e.printStackTrace();
-				}
+				setTextoRespostas(cont);
 		} else {
 			stringResultados = label.getString("resultadosLabelNenhumaQuestao");
 		}
@@ -97,44 +90,35 @@ public class ResultadoController {
 		resultados.setWrapText(true);
 	}
 
-	private void setTextoRespostas(int count) throws TipoDeQuestaoException {
+	private void setTextoRespostas(int count) {
 		Questao questao = conteudo.getQuestao(count);
 		Resposta resposta = listaRespostas.get(count);
 
 		stringResultados += numeroQuestao + " - " + questao.getEnunciado() + "\n\n";
 
-		switch (resposta.getTipoQuestao()) {
-			case UMA_ALTERNATIVA:
-				exibirUmaAlternativa(questao, resposta);
-				break;
-			case MULTIPLAS_ALTERNATIVAS:
-				exibirMultiplasRespostas(questao, resposta);
-		}
+		if (questao.getTotalAlternativasCorretas() > 1)
+			exibirRespostas(questao, resposta, label.getString("resultadosLabelRespostasCorretas") + "\n\n",
+					"\n" + label.getString("resultadosLabelSuasRespostas") + "\n\n");
+		else
+			exibirRespostas(questao, resposta, label.getString("resultadosLabelRespostaCorreta"),
+					label.getString("resultadosLabelSuaResposta") + " ");
 
 		numeroQuestao++;
 	}
 
-	private void exibirUmaAlternativa(Questao questao, Resposta resposta) {
+	private void exibirRespostas(Questao questao, Resposta resposta, String auxRespostaCorreta,
+			String auxSuasRespostas) {
 
-		stringResultados += label.getString("resultadosLabelRespostaCorreta")
-				+ ((QuestaoUmaAlternativa) questao).getEnunciadoAlternativaCorreta() + "\n";
-		stringResultados += label.getString("resultadosLabelSuaResposta") + " " + resposta.getEnunciadoResposta()
-				+ "\n\n";
-	}
-
-	private void exibirMultiplasRespostas(Questao questao, Resposta resposta) throws TipoDeQuestaoException {
-
-		stringResultados += label.getString("resultadosLabelRespostasCorretas") + "\n\n";
-		for (Entry<Character, String> entry : ((QuestaoVariasAlternativas) questao).getAlternativasCorretas()
-				.entrySet()) {
+		stringResultados += auxRespostaCorreta;
+		for (Entry<Character, String> entry : questao.getAlternativasCorretas().entrySet()) {
 			stringResultados += entry.getValue() + "\n";
 		}
-
-		stringResultados += "\n" + label.getString("resultadosLabelSuasRespostas") + "\n\n";
-		for (int cont = 0; cont < resposta.getListaRespostas().size(); cont++) {
-			stringResultados += resposta.getListaRespostas().get(cont) + "\n";
+		
+		stringResultados += auxSuasRespostas;
+		for (Entry<Character, String> entry : resposta.getListaRespostas().entrySet()) {
+			stringResultados += entry.getValue() + "\n";
 		}
-
+		
 		stringResultados += "\n";
 	}
 

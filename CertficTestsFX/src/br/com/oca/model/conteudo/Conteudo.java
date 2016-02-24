@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import br.com.oca.config.PerguntasConfig;
+import br.com.oca.model.Questao;
 import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
-import br.com.oca.model.questao.Questao;
-import br.com.oca.model.questao.QuestaoUmaAlternativa;
-import br.com.oca.model.questao.QuestaoVariasAlternativas;
 
 public abstract class Conteudo {
 	public static final int TESTE_30_QUESTOES = 30;
@@ -34,30 +32,9 @@ public abstract class Conteudo {
 
 	protected abstract void preenxerQuestoes();
 
-	protected void addQuestao(int quantidadeQuestao, int numQuestao, Character alternativaCorreta) {
-		Questao questao = new QuestaoUmaAlternativa(
-				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".questao"),
-				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".enunExtra"),
-				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".numOpcao"),
-				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".referencia"),
-				alternativaCorreta);
-		questao.addAlternativa('A',
-				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_0"));
-		questao.addAlternativa('B',
-				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_1"));
-		questao.addAlternativa('C',
-				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_2"));
-		questao.addAlternativa('D',
-				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_3"));
-		questao.addAlternativa('E',
-				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".opcao_4"));
-
-		listaQuestoes.add(questao);
-	}
-
 	protected void addQuestao(int quantidadeQuestao, int numQuestao, HashMap<Character, String> alternativasCorretas) {
 
-		Questao questao = new QuestaoVariasAlternativas(
+		Questao questao = new Questao(
 				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".questao"),
 				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".enunExtra"),
 				perguntasSource.getString("teste" + quantidadeQuestao + ".exercicio" + numQuestao + ".numOpcao"),

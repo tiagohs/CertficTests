@@ -8,8 +8,6 @@ package br.com.oca.model;
 
 import java.util.HashMap;
 
-import br.com.oca.model.enums.TipoQuestao;
-
 /**
  * 
  * A Classe Resposta representa uma Resposta do Usuário para cada Questão que
@@ -25,48 +23,14 @@ import br.com.oca.model.enums.TipoQuestao;
  */
 
 public class Resposta {
-	/** O Tipo de Questão (Uma ou Multipla Alternativas). */
-	private TipoQuestao tipoQuestao;
-
 	/** O Enunciado da Questão. */
 	private String enunciadoQuestao;
-
-	/** O Enunciado da Resposta. */
-	private String enunciadoResposta;
-
+	
 	/**
 	 * Lista com sds Alternativas Corretas, caso a Questão for de
 	 * Multipla Escolha.
 	 */
 	private HashMap<Character, String> listaRespostas;
-
-	/**
-	 * 
-	 * Instância uma nova Resposta. Se Instância uma Resposta onde a Questão é
-	 * de Multipla Escolha.
-	 * 
-	 * @param enunciado
-	 *            O Enunciado da Questão.
-	 * @param respostas
-	 *            Lista com os Enunciados das Alternativas Corretas.
-	 */
-	public Resposta(String enunciado, HashMap<Character, String> respostas) {
-		this(enunciado, null, respostas, TipoQuestao.MULTIPLAS_ALTERNATIVAS);
-	}
-
-	/**
-	 * 
-	 * Instância uma nova Resposta. Se Instância uma Resposta onde a Questão
-	 * contém somente uma alternativa.
-	 * 
-	 * @param _enunciadoQuestao
-	 *            O Enunciado da Questão.
-	 * @param _enunciadoResposta
-	 *            O Enunciado da Resposta.
-	 */
-	public Resposta(String _enunciadoQuestao, String _enunciadoResposta) {
-		this(_enunciadoQuestao, _enunciadoResposta, null, TipoQuestao.UMA_ALTERNATIVA);
-	}
 
 	/**
 	 * 
@@ -77,7 +41,7 @@ public class Resposta {
 	 *            O Enunciado da Questão.
 	 */
 	public Resposta(String _enunciadoQuestao) {
-		this(_enunciadoQuestao, null, null, null);
+		this(_enunciadoQuestao, null);
 	}
 
 	/**
@@ -93,12 +57,9 @@ public class Resposta {
 	 * @param _tipoQuestao
 	 *            O Tipo de Questão (Uma ou Multipla Alternativas).
 	 */
-	public Resposta(String _enunciadoQuestao, String _enunciadoResposta, HashMap<Character, String> _enunciadoRespostas,
-			TipoQuestao _tipoQuestao) {
+	public Resposta(String _enunciadoQuestao, HashMap<Character, String> _listaRespostas) {
 		enunciadoQuestao = _enunciadoQuestao;
-		enunciadoResposta = _enunciadoResposta;
-		listaRespostas = _enunciadoRespostas;
-		tipoQuestao = _tipoQuestao;
+		listaRespostas = _listaRespostas;
 	}
 
 	/**
@@ -124,27 +85,6 @@ public class Resposta {
 
 	/**
 	 * 
-	 * Obtém o Enunciado da Resposta.
-	 * 
-	 * @return O Enunciado da Resposta.
-	 */
-	public String getEnunciadoResposta() {
-		return enunciadoResposta;
-	}
-
-	/**
-	 * 
-	 * Se Define o novo Enunciado da Resposta.
-	 * 
-	 * @param resposta
-	 *            O novo Enunciado da Resposta.
-	 */
-	public void setEnunciadoResposta(String resposta) {
-		this.enunciadoResposta = resposta;
-	}
-	
-	/**
-	 * 
 	 * Obtém a lista com a lista de respostas, caso seja uma questão de
 	 * multipla escolha.
 	 * 
@@ -163,27 +103,6 @@ public class Resposta {
 	 */
 	public void setListaRespostas(HashMap<Character, String> listaRespostas) {
 		this.listaRespostas = listaRespostas;
-	}
-	
-	/**
-	 * 
-	 * Obtém o Tipo da Questão.
-	 * 
-	 * @return O Tipo da Questão.
-	 */
-	public TipoQuestao getTipoQuestao() {
-		return tipoQuestao;
-	}
-
-	/**
-	 * 
-	 * Se Define o novo tipo da Questão.
-	 * 
-	 * @param tipoQuestao
-	 *            O novo tipo da Questão.
-	 */
-	public void setTipoQuestao(TipoQuestao tipoQuestao) {
-		this.tipoQuestao = tipoQuestao;
 	}
 
 	/*

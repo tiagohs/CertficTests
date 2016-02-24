@@ -12,10 +12,10 @@ import java.util.TimerTask;
 import br.com.oca.MainApp;
 import br.com.oca.config.JanelasConfig;
 import br.com.oca.config.PerguntasConfig;
+import br.com.oca.model.Questao;
 import br.com.oca.model.Resposta;
 import br.com.oca.model.conteudo.Conteudo;
 import br.com.oca.model.enums.Idioma;
-import br.com.oca.model.questao.Questao;
 import br.com.oca.util.AlertDialogsFactory;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -189,14 +189,13 @@ public class QuizController {
 	private void verificaQuestao(Questao questao) {
 
 		radioGroup = new ToggleGroup();
-		switch (questao.getTipoQuestao()) {
-		case MULTIPLAS_ALTERNATIVAS:
+		
+		if (questao.getTotalAlternativasCorretas() > 1) {
 			comboPainel.setVisible(false);
 			checkPainel.setVisible(true);
 			setQuestao(questao);
 			setMultiplasEscolhas(questao);
-			break;
-		case UMA_ALTERNATIVA:
+		} else {
 			checkPainel.setVisible(false);
 			comboPainel.setVisible(true);
 			setQuestao(questao);
@@ -227,7 +226,7 @@ public class QuizController {
 	}
 
 	private void setUnicaEscolha(Questao questao) {
-
+		
 		setUnicaEscolha(questao, radioAlternativaA, 'A');
 		setUnicaEscolha(questao, radioAlternativaB, 'B');
 		setUnicaEscolha(questao, radioAlternativaC, 'C');
@@ -259,54 +258,27 @@ public class QuizController {
 
 	@FXML
 	private void handleProximo() {
-
-		switch (conteudo.getQuestao(contQuestao).getTipoQuestao()) {
-		case MULTIPLAS_ALTERNATIVAS:
-			addAlternativasEscolhidas();
-			break;
-		case UMA_ALTERNATIVA:
-			addAlternativaEscolhida();
-		}
+		
+		if (conteudo.getQuestao(contQuestao).getTotalAlternativasCorretas() > 1) 
+			validarCheckBox();
+		else 
+			validarComboBox();
+		
 	}
 
-	private void addAlternativaEscolhida() {
+	private void validarComboBox() {
+		HashMap<Character, String> respostas = new HashMap<Character, String>();
+		
+		verificaAlternativaSelecionada(radioAlternativaA, 'A', respostas);
+		verificaAlternativaSelecionada(radioAlternativaB, 'B', respostas);
+		verificaAlternativaSelecionada(radioAlternativaC, 'C', respostas);
+		verificaAlternativaSelecionada(radioAlternativaD, 'D', respostas);
+		verificaAlternativaSelecionada(radioAlternativaE, 'E', respostas);
 
-		RadioButton radioResposta = (RadioButton) radioGroup.getSelectedToggle();
-
-		if (radioResposta != null) {
-			if (!isQuestaoJaRespondida())
-				listaRespostas.add(contQuestao,
-						new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), radioResposta.getText()));
-			else
-				listaRespostas.set(contQuestao,
-						new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), radioResposta.getText()));
-			setProximaQuestao();
-		} else {
-			AlertDialogsFactory.getAlertDialog(AlertType.ERROR,
-					janelaLabels.getString("quizAlertErroAleternativaTitulo"),
-					janelaLabels.getString("quizAlertErroAleternativaCabecalho"),
-					janelaLabels.getString("quizAlertErroAleternativaConteudo"));
-		}
+		addAlternativasEscolhidas(respostas);
 	}
-
-	private void setProximaQuestao() {
-
-		contQuestao++;
-		if (contQuestao <= (conteudo.getTotalQuestoes().intValue() - 1)) {
-			setNumeroProximaQuestao();
-			verificaQuestao(conteudo.getQuestao(contQuestao));
-			setQuestao(conteudo.getQuestao(contQuestao));
-		} else {
-			finalizarQuiz();
-		}
-	}
-
-	private void finalizarQuiz() {
-		mainApp.showResultados(listaRespostas, conteudo, tempoRegistrado, dataRegistrada);
-		dialogStage.close();
-	}
-
-	private void addAlternativasEscolhidas() {
+	
+	private void validarCheckBox() {
 		HashMap<Character, String> respostas = new HashMap<Character, String>();
 		
 		verificaAlternativaSelecionada(checkAlternativaA, 'A', respostas);
@@ -341,10 +313,34 @@ public class QuizController {
 	}
 
 	private void verificaAlternativaSelecionada(CheckBox alternativa, Character letra, HashMap<Character, String> respostas) {
+		System.out.println(alternativa.getText());
 		if (alternativa.isSelected()) 
 			respostas.put(letra, alternativa.getText());
 	}
+	
+	private void verificaAlternativaSelecionada(RadioButton alternativa, Character letra, HashMap<Character, String> respostas) {
+		System.out.println(alternativa.getText());
+		if (alternativa.isSelected()) 
+			respostas.put(letra, alternativa.getText());
+	}
+	
+	private void setProximaQuestao() {
 
+		contQuestao++;
+		if (contQuestao <= (conteudo.getTotalQuestoes().intValue() - 1)) {
+			setNumeroProximaQuestao();
+			verificaQuestao(conteudo.getQuestao(contQuestao));
+			setQuestao(conteudo.getQuestao(contQuestao));
+		} else {
+			finalizarQuiz();
+		}
+	}
+
+	private void finalizarQuiz() {
+		mainApp.showResultados(listaRespostas, conteudo, tempoRegistrado, dataRegistrada);
+		dialogStage.close();
+	}
+	
 	@FXML
 	private void handleAjuda() {
 		AlertDialogsFactory.getAlertDialog(AlertType.INFORMATION,
@@ -354,7 +350,7 @@ public class QuizController {
 				perguntasLabel.getString("teste" + conteudo.getTipoTeste().getTotalQuestoes() + ".exercicio"
 						+ numeroAtualQuestao + ".ajuda.conteudo"));
 	}
-
+	
 	@FXML
 	private void handleSair() {
 		dialogHome.show();

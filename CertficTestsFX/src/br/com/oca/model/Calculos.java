@@ -13,8 +13,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import br.com.oca.model.conteudo.Conteudo;
-import br.com.oca.model.questao.Questao;
-import br.com.oca.model.questao.QuestaoVariasAlternativas;
 
 /**
  * 
@@ -98,19 +96,12 @@ public class Calculos {
 	 * 
 	 */
 	public void calcularNumeroQuestoesCorretas() {
-
+		Questao questao = null;
 		int numeroQuestao = 0;
+
 		for (Resposta resposta : listaRespostas) {
-			Questao questao = conteudo.getQuestao(numeroQuestao);
-			switch (resposta.getTipoQuestao()) {
-			case UMA_ALTERNATIVA:
-				if (questao.isRespostaCorreta(questao.getLetraAlternativa(resposta.getEnunciadoResposta())))
-					numeroQuestoesCorretas++;
-				break;
-			case MULTIPLAS_ALTERNATIVAS:
-				numeroQuestoesCorretas += ((QuestaoVariasAlternativas) questao)
-						.getTotalRespostasCorretas(listaRespostas.get(numeroQuestao).getListaRespostas());
-			}
+			questao = conteudo.getQuestao(numeroQuestao);
+			numeroQuestoesCorretas += questao.getTotalAcertos(resposta.getListaRespostas());
 			numeroQuestao++;
 		}
 

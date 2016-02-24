@@ -45,9 +45,21 @@ public class OCPJava7 extends Conteudo {
 			}
 		});
 
-		addQuestao(TESTE_30_QUESTOES, 2, 'A');
-		addQuestao(TESTE_30_QUESTOES, 3, 'A');
-		addQuestao(TESTE_30_QUESTOES, 4, 'E');
+		addQuestao(TESTE_30_QUESTOES, 2, new HashMap<Character, String>() {
+			{
+				put('A', perguntasSource.getString("teste30.exercicio3.opcao_0"));
+			}
+		});
+		addQuestao(TESTE_30_QUESTOES, 3, new HashMap<Character, String>() {
+			{
+				put('A', perguntasSource.getString("teste30.exercicio3.opcao_0"));
+			}
+		});
+		addQuestao(TESTE_30_QUESTOES, 4, new HashMap<Character, String>() {
+			{
+				put('E', perguntasSource.getString("teste30.exercicio3.opcao_4"));
+			}
+		});
 
 		addQuestao(TESTE_30_QUESTOES, 5, new HashMap<Character, String>() {
 			{
@@ -56,9 +68,21 @@ public class OCPJava7 extends Conteudo {
 			}
 		});
 
-		addQuestao(TESTE_30_QUESTOES, 6, 'E');
-		addQuestao(TESTE_30_QUESTOES, 7, 'D');
-		addQuestao(TESTE_30_QUESTOES, 8, 'D');
+		addQuestao(TESTE_30_QUESTOES, 6, new HashMap<Character, String>() {
+			{
+				put('E', perguntasSource.getString("teste30.exercicio3.opcao_4"));
+			}
+		});
+		addQuestao(TESTE_30_QUESTOES, 7, new HashMap<Character, String>() {
+			{
+				put('D', perguntasSource.getString("teste30.exercicio3.opcao_3"));
+			}
+		});
+		addQuestao(TESTE_30_QUESTOES, 8, new HashMap<Character, String>() {
+			{
+				put('D', perguntasSource.getString("teste30.exercicio3.opcao_3"));
+			}
+		});
 
 		addQuestao(TESTE_30_QUESTOES, 9, new HashMap<Character, String>() {
 			{
@@ -75,8 +99,16 @@ public class OCPJava7 extends Conteudo {
 			}
 		});
 
-		addQuestao(TESTE_30_QUESTOES, 11, 'C');
-		addQuestao(TESTE_30_QUESTOES, 12, 'B');
+		addQuestao(TESTE_30_QUESTOES, 11, new HashMap<Character, String>() {
+			{
+				put('C', perguntasSource.getString("teste30.exercicio3.opcao_2"));
+			}
+		});
+		addQuestao(TESTE_30_QUESTOES, 12, new HashMap<Character, String>() {
+			{
+				put('B', perguntasSource.getString("teste30.exercicio3.opcao_1"));
+			}
+		});
 
 		addQuestao(TESTE_30_QUESTOES, 13, new HashMap<Character, String>() {
 			{
@@ -94,8 +126,16 @@ public class OCPJava7 extends Conteudo {
 			}
 		});
 
-		addQuestao(TESTE_30_QUESTOES, 15, 'B');
-		addQuestao(TESTE_30_QUESTOES, 16, 'E');
+		addQuestao(TESTE_30_QUESTOES, 15, new HashMap<Character, String>() {
+			{
+				put('B', perguntasSource.getString("teste30.exercicio3.opcao_1"));
+			}
+		});
+		addQuestao(TESTE_30_QUESTOES, 16, new HashMap<Character, String>() {
+			{
+				put('E', perguntasSource.getString("teste30.exercicio3.opcao_4"));
+			}
+		});
 
 		addQuestao(TESTE_30_QUESTOES, 17, new HashMap<Character, String>() {
 			{
@@ -105,7 +145,11 @@ public class OCPJava7 extends Conteudo {
 			}
 		});
 
-		addQuestao(TESTE_30_QUESTOES, 18, 'D');
+		addQuestao(TESTE_30_QUESTOES, 18, new HashMap<Character, String>() {
+			{
+				put('D', perguntasSource.getString("teste30.exercicio3.opcao_3"));
+			}
+		});
 
 		addQuestao(TESTE_30_QUESTOES, 19, new HashMap<Character, String>() {
 			{
@@ -114,7 +158,11 @@ public class OCPJava7 extends Conteudo {
 			}
 		});
 
-		addQuestao(TESTE_30_QUESTOES, 20, 'D');
+		addQuestao(TESTE_30_QUESTOES, 20, new HashMap<Character, String>() {
+			{
+				put('D', perguntasSource.getString("teste30.exercicio3.opcao_3"));
+			}
+		});
 
 		addQuestao(TESTE_30_QUESTOES, 21, new HashMap<Character, String>() {
 			{
@@ -124,7 +172,11 @@ public class OCPJava7 extends Conteudo {
 			}
 		});
 
-		addQuestao(TESTE_30_QUESTOES, 22, 'B');
+		addQuestao(TESTE_30_QUESTOES, 22, new HashMap<Character, String>() {
+			{
+				put('B', perguntasSource.getString("teste30.exercicio3.opcao_1"));
+			}
+		});
 
 		addQuestao(TESTE_30_QUESTOES, 23, new HashMap<Character, String>() {
 			{
@@ -142,9 +194,21 @@ public class OCPJava7 extends Conteudo {
 			}
 		});
 
-		addQuestao(TESTE_30_QUESTOES, 25, 'C');
-		addQuestao(TESTE_30_QUESTOES, 26, 'E');
-		addQuestao(TESTE_30_QUESTOES, 27, 'D');
+		addQuestao(TESTE_30_QUESTOES, 25, new HashMap<Character, String>() {
+			{
+				put('C', perguntasSource.getString("teste30.exercicio3.opcao_2"));
+			}
+		});
+		addQuestao(TESTE_30_QUESTOES, 26, new HashMap<Character, String>() {
+			{
+				put('E', perguntasSource.getString("teste30.exercicio3.opcao_4"));
+			}
+		});
+		addQuestao(TESTE_30_QUESTOES, 27, new HashMap<Character, String>() {
+			{
+				put('D', perguntasSource.getString("teste30.exercicio3.opcao_3"));
+			}
+		});
 
 		addQuestao(TESTE_30_QUESTOES, 28, new HashMap<Character, String>() {
 			{
