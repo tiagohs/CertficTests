@@ -313,13 +313,13 @@ public class QuizController {
 	}
 
 	private void verificaAlternativaSelecionada(CheckBox alternativa, Character letra, HashMap<Character, String> respostas) {
-		System.out.println(alternativa.getText());
+		
 		if (alternativa.isSelected()) 
 			respostas.put(letra, alternativa.getText());
 	}
 	
 	private void verificaAlternativaSelecionada(RadioButton alternativa, Character letra, HashMap<Character, String> respostas) {
-		System.out.println(alternativa.getText());
+		
 		if (alternativa.isSelected()) 
 			respostas.put(letra, alternativa.getText());
 	}
