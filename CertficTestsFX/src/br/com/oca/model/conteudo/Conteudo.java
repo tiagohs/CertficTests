@@ -30,7 +30,22 @@ public abstract class Conteudo {
 		preenxerQuestoes();
 	}
 
-	protected abstract void preenxerQuestoes();
+	protected void preenxerQuestoes() {
+		switch (tipoTeste) {
+		case TESTE_30_QUESTOES:
+			preenxerTeste30Questoes();
+			break;
+		case TESTE_60_QUESTOES:
+			preenxerTeste60Questoes();
+			break;
+		case TESTE_90_QUESTOES:
+			preenxerTeste90Questoes();
+		}
+	}
+	
+	protected abstract void preenxerTeste30Questoes();
+	protected abstract void preenxerTeste60Questoes();
+	protected abstract void preenxerTeste90Questoes();
 
 	protected void addQuestao(int quantidadeQuestao, int numQuestao, HashMap<Character, String> alternativasCorretas) {
 
