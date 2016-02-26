@@ -341,6 +341,12 @@ public class OCAJava7 extends Conteudo {
 			}
 		});
 
+		addQuestao(TESTE_60_QUESTOES, 19, new HashMap<Character, String>() {
+			{
+				put('D', perguntasSource.getString("teste60.exercicio19.opcao_3"));
+			}
+		});
+
 		addQuestao(TESTE_60_QUESTOES, 20, new HashMap<Character, String>() {
 			{
 				put('B', perguntasSource.getString("teste60.exercicio20.opcao_1"));
@@ -366,6 +372,12 @@ public class OCAJava7 extends Conteudo {
 		addQuestao(TESTE_60_QUESTOES, 23, new HashMap<Character, String>() {
 			{
 				put('D', perguntasSource.getString("teste60.exercicio23.opcao_3"));
+			}
+		});
+		
+		addQuestao(TESTE_60_QUESTOES, 24, new HashMap<Character, String>() {
+			{
+				put('A', perguntasSource.getString("teste60.exercicio24.opcao_0"));
 			}
 		});
 
@@ -406,6 +418,20 @@ public class OCAJava7 extends Conteudo {
 				put('C', perguntasSource.getString("teste60.exercicio34.opcao_2"));
 			}
 		});
+		
+		addQuestao(TESTE_60_QUESTOES, 35, new HashMap<Character, String>() {
+			{
+				put('D', perguntasSource.getString("teste60.exercicio35.opcao_3"));
+			}
+		});
+		
+		addQuestao(TESTE_60_QUESTOES, 36, new HashMap<Character, String>() {
+			{
+				put('A', perguntasSource.getString("teste60.exercicio36.opcao_0"));
+				put('B', perguntasSource.getString("teste60.exercicio36.opcao_1"));
+				put('C', perguntasSource.getString("teste60.exercicio36.opcao_2"));
+			}
+		});
 
 		addQuestao(TESTE_60_QUESTOES, 37, new HashMap<Character, String>() {
 			{
@@ -443,9 +469,9 @@ public class OCAJava7 extends Conteudo {
 				put('D', perguntasSource.getString("teste60.exercicio43.opcao_3"));
 			}
 		});
-		
+
 		addQuestao(TESTE_60_QUESTOES, 44, new HashMap<Character, String>() {
-			{		
+			{
 				put('B', perguntasSource.getString("teste60.exercicio44.opcao_1"));
 
 			}
@@ -486,7 +512,7 @@ public class OCAJava7 extends Conteudo {
 				put('D', perguntasSource.getString("teste60.exercicio53.opcao_3"));
 			}
 		});
-		
+
 		addQuestao(TESTE_60_QUESTOES, 54, new HashMap<Character, String>() {
 			{
 				put('A', perguntasSource.getString("teste60.exercicio54.opcao_0"));
