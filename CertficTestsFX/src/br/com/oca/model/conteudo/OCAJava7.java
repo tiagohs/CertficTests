@@ -374,7 +374,7 @@ public class OCAJava7 extends Conteudo {
 				put('D', perguntasSource.getString("teste60.exercicio23.opcao_3"));
 			}
 		});
-		
+
 		addQuestao(TESTE_60_QUESTOES, 24, new HashMap<Character, String>() {
 			{
 				put('A', perguntasSource.getString("teste60.exercicio24.opcao_0"));
@@ -418,13 +418,13 @@ public class OCAJava7 extends Conteudo {
 				put('C', perguntasSource.getString("teste60.exercicio34.opcao_2"));
 			}
 		});
-		
+
 		addQuestao(TESTE_60_QUESTOES, 35, new HashMap<Character, String>() {
 			{
 				put('D', perguntasSource.getString("teste60.exercicio35.opcao_3"));
 			}
 		});
-		
+
 		addQuestao(TESTE_60_QUESTOES, 36, new HashMap<Character, String>() {
 			{
 				put('A', perguntasSource.getString("teste60.exercicio36.opcao_0"));
@@ -476,6 +476,19 @@ public class OCAJava7 extends Conteudo {
 
 			}
 		});
+		
+		addQuestao(TESTE_60_QUESTOES, 45, new HashMap<Character, String>() {
+			{
+				put('D', perguntasSource.getString("teste60.exercicio45.opcao_3"));
+			}
+		});
+		
+		addQuestao(TESTE_60_QUESTOES, 46, new HashMap<Character, String>() {
+			{
+				put('A', perguntasSource.getString("teste60.exercicio46.opcao_0"));
+				put('B', perguntasSource.getString("teste60.exercicio46.opcao_1"));
+			}
+		});
 
 		addQuestao(TESTE_60_QUESTOES, 47, new HashMap<Character, String>() {
 			{
@@ -518,6 +531,12 @@ public class OCAJava7 extends Conteudo {
 				put('A', perguntasSource.getString("teste60.exercicio54.opcao_0"));
 				put('C', perguntasSource.getString("teste60.exercicio54.opcao_2"));
 				put('D', perguntasSource.getString("teste60.exercicio54.opcao_3"));
+			}
+		});
+		
+		addQuestao(TESTE_60_QUESTOES, 55, new HashMap<Character, String>() {
+			{
+				put('B', perguntasSource.getString("teste60.exercicio55.opcao_1"));
 			}
 		});
 
