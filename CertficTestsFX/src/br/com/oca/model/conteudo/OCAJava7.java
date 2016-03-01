@@ -286,6 +286,12 @@ public class OCAJava7 extends Conteudo {
 				put('E', perguntasSource.getString("teste60.exercicio8.opcao_4"));
 			}
 		});
+		
+		addQuestao(TESTE_60_QUESTOES, 9, new HashMap<Character, String>() {
+			{
+				put('C', perguntasSource.getString("teste60.exercicio9.opcao_2"));
+			}
+		});
 
 		addQuestao(TESTE_60_QUESTOES, 10, new HashMap<Character, String>() {
 			{
@@ -308,11 +314,18 @@ public class OCAJava7 extends Conteudo {
 				put('D', perguntasSource.getString("teste60.exercicio12.opcao_3"));
 			}
 		});
+		
+		addQuestao(TESTE_60_QUESTOES, 13, new HashMap<Character, String>() {
+			{
+				put('A', perguntasSource.getString("teste60.exercicio13.opcao_0"));
+				put('C', perguntasSource.getString("teste60.exercicio13.opcao_2"));
+			}
+		});
 
 		addQuestao(TESTE_60_QUESTOES, 14, new HashMap<Character, String>() {
 			{
-				put('A', perguntasSource.getString("teste60.exercicio12.opcao_0"));
-				put('D', perguntasSource.getString("teste60.exercicio12.opcao_3"));
+				put('A', perguntasSource.getString("teste60.exercicio14.opcao_0"));
+				put('D', perguntasSource.getString("teste60.exercicio14.opcao_3"));
 			}
 		});
 
@@ -381,10 +394,35 @@ public class OCAJava7 extends Conteudo {
 			}
 		});
 
+		addQuestao(TESTE_60_QUESTOES, 25, new HashMap<Character, String>() {
+			{
+				put('A', perguntasSource.getString("teste60.exercicio25.opcao_0"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 26, new HashMap<Character, String>() {
+			{
+				put('B', perguntasSource.getString("teste60.exercicio26.opcao_1"));
+				put('C', perguntasSource.getString("teste60.exercicio26.opcao_2"));
+			}
+		});
+
 		addQuestao(TESTE_60_QUESTOES, 27, new HashMap<Character, String>() {
 			{
 				put('D', perguntasSource.getString("teste60.exercicio27.opcao_3"));
 				put('E', perguntasSource.getString("teste60.exercicio27.opcao_4"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 28, new HashMap<Character, String>() {
+			{
+				put('C', perguntasSource.getString("teste60.exercicio28.opcao_2"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 29, new HashMap<Character, String>() {
+			{
+				put('D', perguntasSource.getString("teste60.exercicio29.opcao_3"));
 			}
 		});
 
@@ -442,6 +480,20 @@ public class OCAJava7 extends Conteudo {
 			}
 		});
 
+		addQuestao(TESTE_60_QUESTOES, 38, new HashMap<Character, String>() {
+			{
+				put('B', perguntasSource.getString("teste60.exercicio38.opcao_1"));
+				put('C', perguntasSource.getString("teste60.exercicio38.opcao_2"));
+				put('D', perguntasSource.getString("teste60.exercicio38.opcao_3"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 39, new HashMap<Character, String>() {
+			{
+				put('D', perguntasSource.getString("teste60.exercicio39.opcao_3"));
+			}
+		});
+
 		addQuestao(TESTE_60_QUESTOES, 40, new HashMap<Character, String>() {
 			{
 				put('C', perguntasSource.getString("teste60.exercicio40.opcao_2"));
@@ -476,13 +528,13 @@ public class OCAJava7 extends Conteudo {
 
 			}
 		});
-		
+
 		addQuestao(TESTE_60_QUESTOES, 45, new HashMap<Character, String>() {
 			{
 				put('D', perguntasSource.getString("teste60.exercicio45.opcao_3"));
 			}
 		});
-		
+
 		addQuestao(TESTE_60_QUESTOES, 46, new HashMap<Character, String>() {
 			{
 				put('A', perguntasSource.getString("teste60.exercicio46.opcao_0"));
@@ -496,6 +548,18 @@ public class OCAJava7 extends Conteudo {
 				put('C', perguntasSource.getString("teste60.exercicio47.opcao_2"));
 				put('D', perguntasSource.getString("teste60.exercicio47.opcao_3"));
 				put('E', perguntasSource.getString("teste60.exercicio47.opcao_4"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 48, new HashMap<Character, String>() {
+			{
+				put('B', perguntasSource.getString("teste60.exercicio48.opcao_1"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 49, new HashMap<Character, String>() {
+			{
+				put('B', perguntasSource.getString("teste60.exercicio49.opcao_1"));
 			}
 		});
 
@@ -533,10 +597,16 @@ public class OCAJava7 extends Conteudo {
 				put('D', perguntasSource.getString("teste60.exercicio54.opcao_3"));
 			}
 		});
-		
+
 		addQuestao(TESTE_60_QUESTOES, 55, new HashMap<Character, String>() {
 			{
 				put('B', perguntasSource.getString("teste60.exercicio55.opcao_1"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 56, new HashMap<Character, String>() {
+			{
+				put('C', perguntasSource.getString("teste60.exercicio56.opcao_2"));
 			}
 		});
 
@@ -552,14 +622,19 @@ public class OCAJava7 extends Conteudo {
 			}
 		});
 
+		addQuestao(TESTE_60_QUESTOES, 59, new HashMap<Character, String>() {
+			{
+				put('C', perguntasSource.getString("teste60.exercicio59.opcao_2"));
+				put('D', perguntasSource.getString("teste60.exercicio59.opcao_3"));
+			}
+		});
+
 		addQuestao(TESTE_60_QUESTOES, 60, new HashMap<Character, String>() {
 			{
 				put('B', perguntasSource.getString("teste60.exercicio60.opcao_1"));
 			}
 		});
 	}
-
-
 
 	@Override
 	protected void preenxerTeste90Questoes() {
