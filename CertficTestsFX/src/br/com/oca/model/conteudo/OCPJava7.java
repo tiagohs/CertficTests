@@ -1,7 +1,5 @@
 package br.com.oca.model.conteudo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import br.com.oca.model.enums.Certificacao;
@@ -229,9 +227,92 @@ public class OCPJava7 extends Conteudo {
 
 	}
 
+
+
 	@Override
 	protected void preenxerTeste60Questoes() {
 
+		addQuestao(TESTE_60_QUESTOES, 1, new HashMap<Character, String>() {
+			{
+				put('A', perguntasSource.getString("teste60.exercicio1.opcao_0"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 2, new HashMap<Character, String>() {
+			{
+				put('A', perguntasSource.getString("teste60.exercicio2.opcao_0"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 10, new HashMap<Character, String>() {
+			{
+				put('A', perguntasSource.getString("teste60.exercicio10.opcao_0"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 11, new HashMap<Character, String>() {
+			{
+				put('E', perguntasSource.getString("teste60.exercicio11.opcao_4"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 12, new HashMap<Character, String>() {
+			{
+				put('B', perguntasSource.getString("teste60.exercicio12.opcao_1"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 13, new HashMap<Character, String>() {
+			{
+				put('B', perguntasSource.getString("teste60.exercicio13.opcao_1"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 14, new HashMap<Character, String>() {
+			{
+				put('A', perguntasSource.getString("teste60.exercicio14.opcao_0"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 15, new HashMap<Character, String>() {
+			{
+				put('A', perguntasSource.getString("teste60.exercicio15.opcao_0"));
+				put('D', perguntasSource.getString("teste60.exercicio15.opcao_3"));
+				put('E', perguntasSource.getString("teste60.exercicio15.opcao_4"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 16, new HashMap<Character, String>() {
+			{
+				put('C', perguntasSource.getString("teste60.exercicio16.opcao_2"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 17, new HashMap<Character, String>() {
+			{
+				put('B', perguntasSource.getString("teste60.exercicio17.opcao_1"));
+				put('C', perguntasSource.getString("teste60.exercicio17.opcao_2"));
+				put('D', perguntasSource.getString("teste60.exercicio17.opcao_3"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 18, new HashMap<Character, String>() {
+			{
+				put('D', perguntasSource.getString("teste60.exercicio18.opcao_3"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 19, new HashMap<Character, String>() {
+			{
+				put('B', perguntasSource.getString("teste60.exercicio19.opcao_1"));
+			}
+		});
+		
+		addQuestao(TESTE_60_QUESTOES, 20, new HashMap<Character, String>() {
+			{
+				put('D', perguntasSource.getString("teste60.exercicio20.opcao_3"));
+			}
+		});
 	}
 
 	@Override

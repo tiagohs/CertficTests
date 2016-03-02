@@ -42,7 +42,7 @@ public class DetalhesQuestoesRespondidasController {
 		
 		testeEscolhido.setText(tentativa.getTesteEscolhido());
 		nota.setText(String.format("%.2f", tentativa.getNota()) + " de 100.0");
-		acertos.setText(tentativa.getNumeroAcertos().toString() + " de " + tentativa.getTipoTeste().getTotalQuestoes());
+		acertos.setText(String.format("%.2f", tentativa.getNumeroAcertos()) + " de " + tentativa.getTipoTeste().getTotalQuestoes());
 		tempoDuracao.setText(tentativa.getTempoRegistrado());
 		dataRegistrada.setText(tentativa.getDataRegistrada());
 		questoesRespondidas.setText("Questões Respondidas: \n\n" + tentativa.getListaRespostas());

@@ -74,7 +74,7 @@ public class ResultadoController {
 
 		labelSuaNota
 				.setText(String.format("%.2f", calculos.getNota()) + label.getString("resultadosLabelDe") + "100.00");
-		labelQuestoesCorretas.setText(calculos.getNumeroQuestoesCorretas() + label.getString("resultadosLabelDe")
+		labelQuestoesCorretas.setText(String.format("%.2f", calculos.getNumeroQuestoesCorretas()) + label.getString("resultadosLabelDe")
 				+ conteudo.getTotalQuestoes());
 		labelTempoDecorrido.setText(calculos.getTempoDecorridoFormatado());
 		labelDataRegistrada.setText(calculos.getDataRegistradaFormatado());
