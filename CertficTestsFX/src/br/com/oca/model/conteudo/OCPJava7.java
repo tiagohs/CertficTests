@@ -227,8 +227,6 @@ public class OCPJava7 extends Conteudo {
 
 	}
 
-
-
 	@Override
 	protected void preenxerTeste60Questoes() {
 
@@ -307,13 +305,41 @@ public class OCPJava7 extends Conteudo {
 				put('B', perguntasSource.getString("teste60.exercicio19.opcao_1"));
 			}
 		});
-		
+
 		addQuestao(TESTE_60_QUESTOES, 20, new HashMap<Character, String>() {
 			{
 				put('D', perguntasSource.getString("teste60.exercicio20.opcao_3"));
 			}
 		});
+
+		addQuestao(TESTE_60_QUESTOES, 21, new HashMap<Character, String>() {
+			{
+				put('D', perguntasSource.getString("teste60.exercicio21.opcao_3"));
+			}
+		});
+
+		addQuestao(TESTE_60_QUESTOES, 22, new HashMap<Character, String>() {
+			{
+				put('C', perguntasSource.getString("teste60.exercicio22.opcao_2"));
+			}
+		});
+		
+		addQuestao(TESTE_60_QUESTOES, 23, new HashMap<Character, String>() {
+			{
+				put('E', perguntasSource.getString("teste60.exercicio23.opcao_4"));
+			}
+		});
+		
+		addQuestao(TESTE_60_QUESTOES, 24, new HashMap<Character, String>() {
+			{
+				put('A', perguntasSource.getString("teste60.exercicio24.opcao_0"));
+				put('C', perguntasSource.getString("teste60.exercicio24.opcao_2"));
+				put('D', perguntasSource.getString("teste60.exercicio24.opcao_3"));
+			}
+		});
 	}
+
+
 
 	@Override
 	protected void preenxerTeste90Questoes() {
