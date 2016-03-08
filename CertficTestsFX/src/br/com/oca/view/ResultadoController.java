@@ -93,9 +93,9 @@ public class ResultadoController {
 	private void setTextoRespostas(int count) {
 		Questao questao = conteudo.getQuestao(count);
 		Resposta resposta = listaRespostas.get(count);
-
-		stringResultados += numeroQuestao + " - " + questao.getEnunciado() + "\n\n";
-
+		
+		stringResultados += numeroQuestao + " " + label.getString("quizLabelNumQuestao1") + ":\n\n";
+		
 		if (questao.isVariasRespostas())
 			exibirRespostas(questao, resposta, label.getString("resultadosLabelRespostasCorretas") + "\n\n",
 					"\n" + label.getString("resultadosLabelSuasRespostas") + "\n\n");
