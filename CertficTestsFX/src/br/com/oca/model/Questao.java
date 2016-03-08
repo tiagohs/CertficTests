@@ -122,8 +122,7 @@ public class Questao implements Serializable {
 
 	/**
 	 * 
-	 * Método usado somente se a questão for de multipla escolha, usado para se
-	 * adicionar alternativas corretas.
+	 * Usado para se adicionar alternativas corretas.
 	 * 
 	 * @param alternativa
 	 *            A Alternativa Correta.
@@ -143,6 +142,17 @@ public class Questao implements Serializable {
 	 */
 	public int getTotalAlternativasCorretas() {
 		return alternativasCorretas.size();
+	}
+
+	/**
+	 * 
+	 * Verifica se o numero de respostas corretas é maior que 1.
+	 * 
+	 * @return se o numero de Respostas Corretas é maior que 1, retorna true, se
+	 *         não, false.
+	 */
+	public boolean isVariasRespostas() {
+		return getTotalAlternativasCorretas() > 1;
 	}
 
 	/**

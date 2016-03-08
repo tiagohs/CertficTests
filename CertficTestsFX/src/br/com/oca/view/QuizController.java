@@ -190,7 +190,7 @@ public class QuizController {
 
 		radioGroup = new ToggleGroup();
 		
-		if (questao.getTotalAlternativasCorretas() > 1) {
+		if (questao.isVariasRespostas()) {
 			comboPainel.setVisible(false);
 			checkPainel.setVisible(true);
 			setQuestao(questao);
@@ -259,7 +259,7 @@ public class QuizController {
 	@FXML
 	private void handleProximo() {
 		
-		if (conteudo.getQuestao(contQuestao).getTotalAlternativasCorretas() > 1) 
+		if (conteudo.getQuestao(contQuestao).isVariasRespostas()) 
 			validarCheckBox();
 		else 
 			validarComboBox();
@@ -292,7 +292,7 @@ public class QuizController {
 
 	private void addAlternativasEscolhidas(HashMap<Character, String> respostas) {
 
-		if (respostas.size() > 0) {
+		if (isSelecionouAlgumaResposta(respostas)) {
 			if (!isQuestaoJaRespondida())
 				listaRespostas.add(contQuestao,
 						new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), respostas));
@@ -301,11 +301,15 @@ public class QuizController {
 						new Resposta(conteudo.getQuestao(contQuestao).getEnunciado(), respostas));
 			setProximaQuestao();
 		} else {
-			AlertDialogsFactory.getAlertDialog(AlertType.ERROR,
+			AlertDialogsFactory.getAlertDialog(AlertType.CONFIRMATION,
 					janelaLabels.getString("quizAlertErroAleternativaTitulo"),
 					janelaLabels.getString("quizAlertErroAleternativaCabecalho"),
 					janelaLabels.getString("quizAlertErroAleternativaConteudo"));
 		}
+	}
+	
+	private boolean isSelecionouAlgumaResposta(HashMap<Character, String> respostas) {
+		return respostas.size() > 0;
 	}
 
 	private boolean isQuestaoJaRespondida() {

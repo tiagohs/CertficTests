@@ -96,7 +96,7 @@ public class ResultadoController {
 
 		stringResultados += numeroQuestao + " - " + questao.getEnunciado() + "\n\n";
 
-		if (questao.getTotalAlternativasCorretas() > 1)
+		if (questao.isVariasRespostas())
 			exibirRespostas(questao, resposta, label.getString("resultadosLabelRespostasCorretas") + "\n\n",
 					"\n" + label.getString("resultadosLabelSuasRespostas") + "\n\n");
 		else
