@@ -1,3 +1,9 @@
+/**
+ * 
+ * Copyright (c) 2016, CertificTests and/or its affiliates. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ * 
+ */
 package br.com.oca.model.conteudo;
 
 import java.util.HashMap;
@@ -6,19 +12,59 @@ import br.com.oca.model.enums.Certificacao;
 import br.com.oca.model.enums.Idioma;
 import br.com.oca.model.enums.TipoTeste;
 
+/**
+ * 
+ * A Classe OCAJava7 preenxe todas as questões referentes ao Exame Oracle
+ * Certified Associate, Java SE 7 Programmer.
+ * 
+ * Classe <code>OCAJava7</code>
+ * 
+ * @author Tiago Henrique
+ * @version 1.0
+ *
+ */
 public class OCAJava7 extends Conteudo {
+	/**
+	 * Váriavel de referencia a instancia da Classe, usada no Design Pattners
+	 * Singleton.
+	 */
 	private volatile static OCAJava7 instance;
 
-	private OCAJava7(Certificacao nomeTeste, Idioma idiomaTeste, TipoTeste tipoTeste) {
-		super(nomeTeste, idiomaTeste, tipoTeste);
+	/**
+	 * 
+	 * Cria uma Nova Instância da Classe OCAJava7
+	 * 
+	 * @param exame
+	 *            O Enumero refenciando o Exame Escolhido (OCA, OCP..).
+	 * @param idiomaTeste
+	 *            O Idioma que terá as questões (EN, PT_BR..).
+	 * @param tipoTeste
+	 *            O Tipo de Teste (30, 60 ou 90 Questões).
+	 */
+	private OCAJava7(Certificacao exame, Idioma idiomaTeste, TipoTeste tipoTeste) {
+		super(exame, idiomaTeste, tipoTeste);
 	}
 
-	public static OCAJava7 getInstance(Certificacao nomeTeste, Idioma idiomaTeste, TipoTeste tipoTeste) {
+	/**
+	 * 
+	 * Método usado para se criar a instancia da classe, somente por ele é
+	 * possível se criar uma instância da classe. Esse método é utilizado no
+	 * Design Pattners Singleton.
+	 * 
+	 * @param exame
+	 *            O Enumero refenciando o Exame Escolhido (OCA, OCP..).
+	 * @param idiomaTeste
+	 *            O Idioma que terá as questões (EN, PT_BR..).
+	 * @param tipoTeste
+	 *            O Tipo de Teste (30, 60 ou 90 Questões).
+	 * @return A Instância da Classe OCAJava7.
+	 */
+	public static OCAJava7 getInstance(Certificacao exame, Idioma idiomaTeste, TipoTeste tipoTeste) {
 
 		if (instance == null) {
 			synchronized (OCAJava7.class) {
 				if (instance == null) {
-					instance = new OCAJava7(nomeTeste, idiomaTeste, tipoTeste);
+					instance = new OCAJava7(exame, idiomaTeste, tipoTeste);
 				}
 			}
 		}
@@ -26,6 +72,9 @@ public class OCAJava7 extends Conteudo {
 		return instance;
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.oca.model.conteudo.Conteudo#preenxerTeste30Questoes()
+	 */
 	@Override
 	protected void preenxerTeste30Questoes() {
 
@@ -227,6 +276,9 @@ public class OCAJava7 extends Conteudo {
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.oca.model.conteudo.Conteudo#preenxerTeste60Questoes()
+	 */
 	@Override
 	protected void preenxerTeste60Questoes() {
 
@@ -286,7 +338,7 @@ public class OCAJava7 extends Conteudo {
 				put('E', perguntasSource.getString("teste60.exercicio8.opcao_4"));
 			}
 		});
-		
+
 		addQuestao(TESTE_60_QUESTOES, 9, new HashMap<Character, String>() {
 			{
 				put('C', perguntasSource.getString("teste60.exercicio9.opcao_2"));
@@ -314,7 +366,7 @@ public class OCAJava7 extends Conteudo {
 				put('D', perguntasSource.getString("teste60.exercicio12.opcao_3"));
 			}
 		});
-		
+
 		addQuestao(TESTE_60_QUESTOES, 13, new HashMap<Character, String>() {
 			{
 				put('A', perguntasSource.getString("teste60.exercicio13.opcao_0"));
@@ -636,6 +688,9 @@ public class OCAJava7 extends Conteudo {
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.oca.model.conteudo.Conteudo#preenxerTeste90Questoes()
+	 */
 	@Override
 	protected void preenxerTeste90Questoes() {
 

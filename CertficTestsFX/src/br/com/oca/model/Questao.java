@@ -12,8 +12,6 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Objects;
 
-import br.com.oca.util.TipoDeQuestaoException;
-
 /**
  * 
  * A Classe Questão guarda todas as informações necessárias de uma questão nos

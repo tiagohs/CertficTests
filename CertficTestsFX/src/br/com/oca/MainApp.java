@@ -270,7 +270,7 @@ public class MainApp extends Application {
 		homeController.setIdioma(idioma);
 		homeController.setMainApp(this);
 		homeController.setListaTentativas(listaTentativas);
-		homeController.init();
+		homeController.initHome();
 	}
 
 	/**
@@ -312,7 +312,7 @@ public class MainApp extends Application {
 		novoTesteController = loader.getController();
 		novoTesteController.setIdioma(idioma);
 		novoTesteController.setDialogStage(novoTesteStage);
-		novoTesteController.setDialogHome(homeStage);
+		novoTesteController.setHomeStage(homeStage);
 		novoTesteController.setMainApp(this);
 		novoTesteController.inicializaJanela();
 	}

@@ -18,7 +18,9 @@ import java.util.Locale;
  *
  */
 public enum Idioma {
-	Portugues("Português", new Locale("pt", "BR")), Ingles("Inglês", new Locale("en", "US"));
+	/** Os Idiomas Disponiveis para a Aplicação. */
+	Portugues("Português", new Locale("pt", "BR")), 
+	Ingles("Inglês", new Locale("en", "US"));
 
 	/** O nome em extenso do <code>Idioma</code>. */
 	private String nome;
