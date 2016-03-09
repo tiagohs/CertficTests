@@ -1,158 +1,403 @@
 package br.com.oca.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
+/**
+ * 
+ * Copyright (c) 2016, CertificTests and/or its affiliates. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ * 
+ */
 
-import br.com.oca.model.enums.TipoQuestao;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Objects;
+
+/**
+ * 
+ * A Classe Questão guarda todas as informações necessárias de uma questão nos
+ * testes, o tipo, se for de multipla escolha ou não, as alternativas,
+ * enunciado, e métodos auxiliares na aplicação que referêncie uma questão.
+ * 
+ * Classe <code>Questao</code>
+ * 
+ * @author Tiago Henrique
+ * @version 1.0
+ *
+ */
 
 public class Questao implements Serializable {
+	/** Serial UID usado pelo Java. */
 	private static final long serialVersionUID = 1L;
-	
-	private TipoQuestao tipoQuestao;
+
+	/** O Enunciado da Questão. */
 	private String enunciado;
+
+	/** Conteúdo Extra dos Enunciados (Códigos, por exemplo). */
 	private String enunciadoExtras;
+
+	/**
+	 * Numero de Opcoes Corretas da Questão, usado na view para auxiliar o
+	 * usuário.
+	 */
 	private String numOpcoesCorretas;
+
+	/** Referência da Questão, de onde foi retirada (De um Livro ou Site). */
 	private String referencia;
+
+	/** A lista de alternativas da Questão. */
 	private HashMap<Character, String> listaAlternativas;
-	private Character alternativaCorreta;
-	private ArrayList<String> alternativasCorretas;
-	
-	public Questao(String _enunciado, HashMap<Character, String> _alternativas, Character _alternativaCorreta, ArrayList<String> _alternativasCorretas, TipoQuestao _tipoQuestao, String _referencia, String _enunciadoExtras, String _numOpcoesCorretas) {
-		enunciado = _enunciado;
-		listaAlternativas = _alternativas;
-		alternativaCorreta = _alternativaCorreta;
-		alternativasCorretas = _alternativasCorretas;
-		tipoQuestao = _tipoQuestao;
-		referencia = _referencia;
-		enunciadoExtras = _enunciadoExtras;
-		numOpcoesCorretas = _numOpcoesCorretas;
+
+	/** As alternativas corretas da Questão. */
+	private HashMap<Character, String> alternativasCorretas;
+
+	/**
+	 * 
+	 * Instancia uma nova questão com várias alternativas corretas, sem passar a
+	 * lista de alternativas.
+	 * 
+	 * @param enunciado
+	 *            O Enunciado da Questão.
+	 * @param enunciadoExtras
+	 *            Numero de Opcoes Corretas da Questão, usado na view para
+	 *            auxiliar o usuário.
+	 * @param numOpcoesCorretas
+	 *            Numero de Opcoes Corretas da Questão, usado na view para
+	 *            auxiliar o usuário.
+	 * @param referencia
+	 *            Referência da Questão, de onde foi retirada (De um Livro ou
+	 *            Site).
+	 * @param alternativasCorretas
+	 *            As alternativas corretas da Questão.
+	 */
+	public Questao(String enunciado, String enunciadoExtras, String numOpcoesCorretas, String referencia,
+			HashMap<Character, String> alternativasCorretas) {
+		this(enunciado, enunciadoExtras, numOpcoesCorretas, referencia, new HashMap<Character, String>(),
+				alternativasCorretas);
 	}
-	
-	public Questao(String _enunciado, TipoQuestao _tipoQuestao, String _referencia, String _enunciadoExtras, String _numOpcoesCorretas) {
-		this(_enunciado, new HashMap<Character, String>(), ' ', new ArrayList<String>(), _tipoQuestao, _referencia, _enunciadoExtras, _numOpcoesCorretas);
+
+	/**
+	 * 
+	 * Instancia uma nova questão com várias alternativas corretas.
+	 * 
+	 * @param enunciado
+	 *            O Enunciado da Questão.
+	 * @param enunciadoExtras
+	 *            Numero de Opcoes Corretas da Questão, usado na view para
+	 *            auxiliar o usuário.
+	 * @param numOpcoesCorretas
+	 *            Numero de Opcoes Corretas da Questão, usado na view para
+	 *            auxiliar o usuário.
+	 * @param referencia
+	 *            Referência da Questão, de onde foi retirada (De um Livro ou
+	 *            Site).
+	 * @param listaAlternativas
+	 *            A lista de alternativas da Questão.
+	 * @param alternativasCorretas
+	 *            As alternativas corretas da Questão.
+	 */
+	public Questao(String enunciado, String enunciadoExtras, String numOpcoesCorretas, String referencia,
+			HashMap<Character, String> listaAlternativas, HashMap<Character, String> alternativasCorretas) {
+		this.enunciado = enunciado;
+		this.enunciadoExtras = enunciadoExtras;
+		this.numOpcoesCorretas = numOpcoesCorretas;
+		this.referencia = referencia;
+		this.listaAlternativas = listaAlternativas;
+		this.alternativasCorretas = alternativasCorretas;
 	}
-	
-	public Questao(String _enunciado, ArrayList<String> _alternativasCorretas, String _referencia, String _enunciadoExtras, String _numOpcoesCorretas) {
-		this(_enunciado, new HashMap<Character, String>(), null, _alternativasCorretas, TipoQuestao.MULTIPLA,_referencia, _enunciadoExtras, _numOpcoesCorretas);
-	}
-	
-	public Questao(String _enunciado, Character _alternativaCorreta, String _referencia, String _enunciadoExtras, String _numOpcoesCorretas) {
-		this(_enunciado, new HashMap<Character, String>(), _alternativaCorreta, null, TipoQuestao.UNICA, _referencia, _enunciadoExtras, _numOpcoesCorretas);
-	}
-	
-	public Questao() {
-		this("", new HashMap<Character, String>(), ' ', new ArrayList<String>(), TipoQuestao.UNICA, "", "", "");
-	}
-	
+
+	/**
+	 * 
+	 * Adiciona uma Alternativa na Questão.
+	 * 
+	 * @param letra
+	 *            Letra da Alternativa (A, B, C, D ou E).
+	 * @param enunciado
+	 *            O enunciado da Alternativa.
+	 */
 	public void addAlternativa(Character letra, String enunciado) {
 		listaAlternativas.put(letra, enunciado);
 	}
-	
+
+	/**
+	 * 
+	 * Usado para se adicionar alternativas corretas.
+	 * 
+	 * @param alternativa
+	 *            A Alternativa Correta.
+	 * @throws TipoDeQuestaoException
+	 *             Verifica o Tipo de Questão, se for de multipla escolha, lança
+	 *             uma excessão.
+	 */
+	public void addAlternativaCorreta(Character letra, String alternativa) {
+		alternativasCorretas.put(letra, alternativa);
+	}
+
+	/**
+	 * 
+	 * Se Calcula o total de alternativas corretas.
+	 * 
+	 * @return o total de alternativas corretas.
+	 */
+	public int getTotalAlternativasCorretas() {
+		return alternativasCorretas.size();
+	}
+
+	/**
+	 * 
+	 * Verifica se o numero de respostas corretas é maior que 1.
+	 * 
+	 * @return se o numero de Respostas Corretas é maior que 1, retorna true, se
+	 *         não, false.
+	 */
+	public boolean isVariasRespostas() {
+		return getTotalAlternativasCorretas() > 1;
+	}
+
+	/**
+	 * 
+	 * Se Realiza os Cálculos para se saber o número de acertos em uma questão
+	 * que seja de multipla escolha. Esse método é chamado somente se a questão
+	 * for de multipla Escolha, onde com base nas alternativas corretas já
+	 * registradas, se calcula o número de acertos do usuário.
+	 * 
+	 * @param listaRespostas
+	 *            a lista de respostas.
+	 * @return Retorna a média de total de Acertos.
+	 */
+	public Double getTotalAcertos(HashMap<Character, String> listaRespostas) {
+
+		Double totalAcertos = 0.0;
+		Double mediaTotalAcertos = 0.0;
+
+		for (Character alternativaAtual : listaRespostas.keySet()) {
+			if (isRespostaCorreta(alternativaAtual))
+				totalAcertos++;
+		}
+
+		mediaTotalAcertos = totalAcertos / getTotalAlternativasCorretas();
+
+		return mediaTotalAcertos;
+	}
+
+	public Character getLetraAlternativa(String enunciado) {
+		for (Entry<Character, String> entry : listaAlternativas.entrySet()) {
+			if (Objects.equals(enunciado, entry.getValue())) {
+				return entry.getKey();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 
+	 * Obtém o Enunciado da Questão.
+	 * 
+	 * @return O Enunciado da Questão.
+	 */
 	public String getEnunciado() {
 		return enunciado;
 	}
 
+	/**
+	 * 
+	 * Se Define um Novo enunciado para a questão.
+	 * 
+	 * @param enunciado
+	 *            O Novo Enunciado.
+	 */
 	public void setEnunciado(String enunciado) {
 		this.enunciado = enunciado;
 	}
 
-	public HashMap<Character, String> getlistaAlternativas() {
-		return listaAlternativas;
+	/**
+	 * 
+	 * Verificia se contém determinada alternativa, a partir da letra.
+	 * 
+	 * @param letraAlternativa
+	 *            A Letra da Alternativa.
+	 * @return Retorna true se contém, false se não.
+	 */
+	public boolean containsAlternativa(Character letraAlternativa) {
+		return listaAlternativas.containsKey(letraAlternativa);
 	}
 
-	public void setlistaAlternativas(HashMap<Character, String> alternativas) {
-		this.listaAlternativas = alternativas;
-	}
-	
-	public Character getAlternativaCorreta() {
-		return alternativaCorreta;
-	}
-
-	public void setAlternativaCorreta(Character alternativaCorreta) {
-		this.alternativaCorreta = alternativaCorreta;
-	}
-	
-	public String getEnunciadoAlternativaCorreta() {
-		return getAlternativa(alternativaCorreta);
-	}
-	
-	public boolean containsAlternativa(Character key) {
-		return listaAlternativas.containsKey(key);
-	}
-	
-	public String getAlternativa(Character letra) {
-		return listaAlternativas.get(letra);
-	}
-	
+	/**
+	 * 
+	 * Obtém o Numero total de Alternativas.
+	 * 
+	 * @return o Numero total de Alternativas.
+	 */
 	public int getNumeroTotalAlternativas() {
 		return listaAlternativas.size();
 	}
-	
+
+	/**
+	 * 
+	 * Obtém a Lista de Alternativas da Questão.
+	 * 
+	 * @return A Lista de Alternativas da Questão.
+	 */
 	public HashMap<Character, String> getListaAlternativas() {
 		return listaAlternativas;
 	}
-	
-	public void setListaAlternativas(
-			HashMap<Character, String> listaAlternativas) {
+
+	/**
+	 * 
+	 * Se Define uma Nova lista de Alternativas.
+	 * 
+	 * @param listaAlternativas
+	 *            A Nova lista de Alternativas.
+	 */
+	public void setListaAlternativas(HashMap<Character, String> listaAlternativas) {
 		this.listaAlternativas = listaAlternativas;
 	}
-	
-	public TipoQuestao getTipoQuestao() {
-		return tipoQuestao;
+
+	/**
+	 * 
+	 * Se Obtém uma Alternativa, com base na letra passada por parâmetro.
+	 * 
+	 * @param letra
+	 *            A Letra da Alternativa que se deseja.
+	 * @return A Alternativa que se deseja.
+	 */
+	public String getAlternativa(Character letra) {
+		return listaAlternativas.get(letra);
 	}
-	
-	public void setTipoQuestao(TipoQuestao tipoQuestao) {
-		this.tipoQuestao = tipoQuestao;
-	}
-	
-	public ArrayList<String> getAlternativasCorretas() {
-		return alternativasCorretas;
-	}
-	
-	public void setAlternativasCorretas(ArrayList<String> alternativasCorretas) {
-		this.alternativasCorretas = alternativasCorretas;
-	}
-	
-	public void addAlternativaCorreta(String alternativa) {
-		alternativasCorretas.add(alternativa);
-	}
-	
+
+	/**
+	 * 
+	 * Obtém a Referencia da Questão, de onde foi retirada (De um Livro ou
+	 * Site).
+	 * 
+	 * @return A Referencia da Questão.
+	 */
 	public String getReferencia() {
 		return referencia;
 	}
 
+	/**
+	 * 
+	 * Se Define uma nova Referência, de onde foi retirada (De um Livro ou
+	 * Site).
+	 * 
+	 * @param referencia
+	 *            A nova Referência
+	 */
 	public void setReferencia(String referencia) {
 		this.referencia = referencia;
 	}
-	
+
+	/**
+	 * 
+	 * Obtém o Conteúdo Extra dos Enunciados (Códigos, por exemplo).
+	 * 
+	 * @return o Conteúdo Extra dos Enunciados.
+	 */
 	public String getEnunciadoExtras() {
 		return enunciadoExtras;
 	}
-	
+
+	/**
+	 * 
+	 * Se Define o novo Conteúdo Extra do Enunciado (Códigos, por exemplo).
+	 * 
+	 * @param enunciadoExtras
+	 *            O novo Conteúdo Extra do Enunciado.
+	 */
 	public void setEnunciadoExtras(String enunciadoExtras) {
 		this.enunciadoExtras = enunciadoExtras;
 	}
-	
+
+	/**
+	 * 
+	 * Obtém o Numero de Opcoes Corretas da Questão, usado na view para auxiliar
+	 * o usuário.
+	 * 
+	 * @return O Numero de Opcoes Corretas da Questão
+	 */
 	public String getNumOpcoesCorretas() {
 		return numOpcoesCorretas;
 	}
 
+	/**
+	 * 
+	 * Se Define o novo Numero de Opcoes Corretas da Questão, usado na view para
+	 * auxiliar o usuário.
+	 * 
+	 * @param numOpcoesCorretas
+	 *            O novo Numero de Opcoes Corretas da Questão.
+	 */
 	public void setNumOpcoesCorretas(String numOpcoesCorretas) {
 		this.numOpcoesCorretas = numOpcoesCorretas;
 	}
 
+	/**
+	 * 
+	 * Esse método é chamado somente se a questão conter somente uma alternativa
+	 * correta. Se verifica com base na alternativa correta e na alternativa
+	 * escolhida pelo usuário se essa é correta.
+	 * 
+	 * @param questao
+	 *            Referênca a questão com somente uma alternativa correta.
+	 * @param resposta
+	 *            Referência ao Objeto Resposta que contém detalhes sobre a
+	 *            Resposta do usuário.
+	 * @return Retorna true se a alternativa for correta, e false se não for.
+	 * @throws TipoDeQuestaoException
+	 */
+
+	/**
+	 * 
+	 * Retorna todas as alternativas corretas.
+	 * 
+	 * @return as alternativas corretas.
+	 * @throws TipoDeQuestaoException
+	 *             Verifica o Tipo de Questão, se for de Somente uma alternativa
+	 *             Correta, lança uma excessão.
+	 */
+	public HashMap<Character, String> getAlternativasCorretas() {
+		return alternativasCorretas;
+	}
+
+	/**
+	 * 
+	 * Se Define novas alternativas corretas.
+	 * 
+	 * @param alternativasCorretas
+	 *            As novas alternativas corretas.
+	 * @throws TipoDeQuestaoException
+	 *             Verifica o Tipo de Questão, se for de Somente uma alternativa
+	 *             Correta, lança uma excessão.
+	 */
+	public void setAlternativasCorretas(HashMap<Character, String> alternativasCorretas) {
+		this.alternativasCorretas = alternativasCorretas;
+	}
+
+	public boolean isRespostaCorreta(Character letraAlternativa) {
+		return alternativasCorretas.containsKey(letraAlternativa);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
-		
+
 		if (obj instanceof Questao) {
 			Questao questao = (Questao) obj;
 			return getEnunciado().equals(questao.getEnunciado());
 		}
-		
+
 		return super.equals(obj);
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		return super.hashCode();

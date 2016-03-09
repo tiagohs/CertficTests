@@ -34,12 +34,12 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <Label fx:id="nota" layoutX="55.0" layoutY="46.0" text="15.223 de 100.0">
+      <Label fx:id="nota" layoutX="55.0" layoutY="46.0" prefHeight="19.0" prefWidth="132.0" text="15.223 de 100.0">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      <Label fx:id="acertos" layoutX="382.0" layoutY="46.0" prefHeight="19.0" prefWidth="62.0" text="30 de 30">
+      <Label fx:id="acertos" layoutX="382.0" layoutY="46.0" prefHeight="19.0" prefWidth="107.0" text="30 de 30">
          <font>
             <Font size="13.0" />
          </font>

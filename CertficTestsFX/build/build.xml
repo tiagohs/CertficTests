@@ -92,6 +92,7 @@
 			<fx:fileset dir="dist" includes="CertficTestsFX.jar"/>
 			<fx:fileset dir="dist" includes="libs/*"/>
 			<fx:fileset dir="dist" includes="resources/*"/>
+			<fx:fileset dir="dist" includes="config/*"/>
 		</fx:resources>
 	
 		<fx:application id="fxApplication"

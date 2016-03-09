@@ -24,7 +24,6 @@ import br.com.oca.util.AppendingObjectOutputStream;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -104,9 +103,6 @@ public class ResultadoController {
 	 */
 	private StringBuilder stringResultados;
 
-	/** Numero da Questão em Determinado momento. */
-	private Integer numeroQuestao;
-
 	/**
 	 * Referencia a Classe calculos, onde será realizado todos os calculos do
 	 * teste.
@@ -118,7 +114,6 @@ public class ResultadoController {
 	 * initialize() do JavaFX.
 	 */
 	public ResultadoController() {
-		numeroQuestao = 1;
 		label = JanelasConfig.getInstance(idioma);
 	}
 

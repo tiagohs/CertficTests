@@ -17,8 +17,8 @@
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Label>
-      <Button fx:id="ajuda" layoutX="536.0" layoutY="647.0" mnemonicParsing="false" onAction="#handleAjuda" prefHeight="39.0" prefWidth="93.0" text="%botaoAjuda" />
-      <Button fx:id="proximaQuestao" layoutX="215.0" layoutY="647.0" mnemonicParsing="false" onAction="#handleProximo" prefHeight="39.0" prefWidth="156.0" text="%botaoProximo" />
+      <Button fx:id="ajuda" layoutX="451.0" layoutY="647.0" mnemonicParsing="false" onAction="#handleAjuda" prefHeight="39.0" prefWidth="178.0" text="%botaoAjuda" />
+      <Button fx:id="proximaQuestao" layoutX="202.0" layoutY="647.0" mnemonicParsing="false" onAction="#handleProximo" prefHeight="39.0" prefWidth="156.0" text="%botaoProximo" />
       <Button fx:id="anteriorQuestao" layoutX="40.0" layoutY="647.0" mnemonicParsing="false" onAction="#handleAnterior" prefHeight="39.0" prefWidth="156.0" text="%botaoAnterior" />
       <Button fx:id="sair" layoutX="634.0" layoutY="647.0" mnemonicParsing="false" onAction="#handleSair" prefHeight="39.0" prefWidth="96.0" text="%botaoSair" />
       <Label fx:id="labelTempoDecorrido" alignment="CENTER_RIGHT" layoutX="531.0" layoutY="29.0" prefHeight="26.0" prefWidth="198.0" text="Tempo Decorrido: 00:02:00" />
@@ -41,7 +41,7 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Pane fx:id="comboPainel" layoutX="27.0" layoutY="424.0" prefHeight="214.0" prefWidth="695.0">
+      <Pane fx:id="radioPainel" layoutX="27.0" layoutY="424.0" prefHeight="214.0" prefWidth="695.0">
          <children>
             <RadioButton fx:id="radioAlternativaA" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="681.0" text="A " />
             <RadioButton fx:id="radioAlternativaB" layoutX="14.0" layoutY="58.0" mnemonicParsing="false" text="B  " />

@@ -88,7 +88,9 @@ public abstract class Conteudo {
 			preenxerTeste60Questoes();
 			break;
 		case TESTE_90_QUESTOES:
-			preenxerTeste90Questoes();
+			preenxerTeste60Questoes();
+			preenxerTeste30Questoes();
+			//preenxerTeste90Questoes();
 		}
 	}
 
