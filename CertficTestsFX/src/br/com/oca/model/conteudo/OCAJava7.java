@@ -72,7 +72,9 @@ public class OCAJava7 extends Conteudo {
 		return instance;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see br.com.oca.model.conteudo.Conteudo#preenxerTeste30Questoes()
 	 */
 	@Override
@@ -276,7 +278,9 @@ public class OCAJava7 extends Conteudo {
 		});
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see br.com.oca.model.conteudo.Conteudo#preenxerTeste60Questoes()
 	 */
 	@Override
@@ -688,12 +692,21 @@ public class OCAJava7 extends Conteudo {
 		});
 	}
 
-	/* (non-Javadoc)
+
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see br.com.oca.model.conteudo.Conteudo#preenxerTeste90Questoes()
 	 */
 	@Override
 	protected void preenxerTeste90Questoes() {
 		
+		addQuestao(TESTE_90_QUESTOES, 1, new HashMap<Character, String>() {
+			{
+				put('B', perguntasSource.getString("teste90.exercicio1.opcao_1"));
+			}
+		});
 	}
 
 }
