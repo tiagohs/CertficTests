@@ -4,13 +4,6 @@
 
 <b>Sobre o App</b>: CertificTests é uma pequena Aplicação Desktop feita em Java, contendo questões de várias Provas de Certificações, como OCA e OCP, feito sem fins lucrativos, para estudos e dúvidas, contendo mais de 90 Questões em cada Exame.
 
-Finalizei a pouco tempo Java, e como hobby, ou até mesmo para colocar em prática os meus conhecimentos em java, padrões de projetos e analise, criei esse app do zero. Fiz escolhas simples, sem muito ou quase nada de Java EE ou Banco de dados.
-Utilizei JavaFX para a parte visual, e como não entrei em Java WEB ainda, fiz essa versão Desktop (apesar de ser inviável hoje em dia, onde tudo é WEB) somente para brincar e aprender coisas novas (Aprendi sozinho JavaFX e a aplicar i18n corretamente, por exemplo). A persistência também é simples, com arquivos.. eu realmente não me preocupei com a sotisficação nessas escolhas, e sim em aplicar basicamente tudo o que aprendi até agora..
-
-A quem testá-lo e usá-lo, agradeço. Tanto de OCA quanto de OCP tem mais de 90 Questões, dividido em 2 tipos de testes, e espero que ajude quem estiver estudando para essas Provas. Futuramente penso em colocar mais questões, além de Java 8 (Só tem no App java 7).
-
-Qualquer erro que encontrarem podem me notificar, agradeceria muito. Críticas e sujestões também serão bem Vindas..!
-
 Pra quem quiser o App Direto:
 
 Localização do Jar:
@@ -18,4 +11,31 @@ CertficTestsFX/build/dist/
 
 Uma versão .exe:
 CertficTestsFX/build/deploy/bundles/
+
+### Desenvolvido por:
+
+Tiago Henrique da Silva - tiago.hsilva@al.infnet.edu.br / tiago.silva.93@hotmail.com
+
+<p><a href="https://www.facebook.com/tiago.henrique.16">
+  <img alt="Follow me on Facebook" src="https://image.freepik.com/free-icon/facebook-symbol_318-37686.png" data-canonical-src="https://image.freepik.com/free-icon/facebook-symbol_318-37686.png" style="max-width:100%;" height="60" width="60">
+</a>
+<a href="https://br.linkedin.com/in/tiago-henrique-395868b7">
+  <img alt="Add me to Linkedin" src="http://image.flaticon.com/icons/svg/34/34405.svg" data-canonical-src="http://image.flaticon.com/icons/svg/34/34405.svg" style="max-width:100%;" height="60" width="60">
+</a></p>
+
+## License
+
+    Copyright 2015 Tiago Henrique da Silva
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
 
