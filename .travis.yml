@@ -3,4 +3,7 @@ language: java
 jdk:
   - oraclejdk8
 
+before_script:
+  - ant -Dbasedir=`pwd` -f /home/travis/build/tiagohs/CertficTests/build/build.xml
+
 script: ant build
