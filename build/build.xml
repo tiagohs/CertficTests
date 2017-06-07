@@ -79,10 +79,10 @@
 		<delete file="dist"/>
 		<delete file="deploy" />
 	
-		<mkdir dir="dist" />
-		<mkdir dir="dist/libs" />
+		<mkdir dir="build/dist" />
+		<mkdir dir="build/dist/libs" />
 	
-		<copy todir="dist/libs">
+		<copy todir="build/dist/libs">
 			<fileset dir="externalLibs">
 				<include name="*" />
 			</fileset>
@@ -107,7 +107,7 @@
 	
 	
 	
-		<fx:jar destfile="dist/CertficTestsFX.jar">
+		<fx:jar destfile="build/dist/CertficTestsFX.jar">
 			<fx:application refid="fxApplication"/>
 			<fileset dir="build/classes">
 			</fileset>
