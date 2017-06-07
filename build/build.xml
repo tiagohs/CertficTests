@@ -68,7 +68,7 @@
 	
 		<!-- Copy over none Java-Files -->
 		<copy todir="build/classes">
-		<fileset dir="project/src">
+		<fileset dir="build/project/src">
 			<exclude name="**/*.java"/>
 		</fileset>
 		</copy>
