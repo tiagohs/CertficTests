@@ -21,14 +21,14 @@
 		<mkdir dir="externalLibs" />
 	
 		<copy todir="externalLibs">
-			<fileset dir="C:\Users\Tiago Henrique\git\CertficTests\CertficTestsFX\lib">
+			<fileset dir="\..\lib">
 				<filename name="controlsfx-8.0.6_20.jar"/>
 			</fileset>
 		</copy>
 	
 		<mkdir dir="project" />
 		<copy todir="project">
-			<fileset dir="C:\Users\Tiago Henrique\git\CertficTests\CertficTestsFX">
+			<fileset dir="\..\CertficTestsFX">
 				<include name="src/**" />
 			</fileset>
 		</copy>
@@ -132,7 +132,7 @@
 			outfile="CertficTestsFX" nativeBundles="exe"
 			updatemode="background" >
 	
-			<fx:platform basedir="C:\Java\jre8_32"/>
+			<fx:platform basedir="${java.home}"/>
 			<fx:info title="CertficTestsFX" vendor="oca.com.br"/>
 	
 			<fx:application refId="fxApplication"/>
