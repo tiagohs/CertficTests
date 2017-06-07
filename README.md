@@ -1,5 +1,7 @@
 # CertificTests
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4c64c4ddf98a4b939809dabf19df9827)](https://www.codacy.com/app/tiagohs/CertficTests?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tiagohs/CertficTests&amp;utm_campaign=Badge_Grade)
+
 <p>CertificTests é uma Aplicação Desktop feita em JavaFX, contendo questões de várias Provas de Certificações, como OCA e OCP, feito sem fins lucrativos, para estudos, contendo mais de 90 Questões em cada Exame.</p>
 
 <p>Na aplicação você poderá:</p>
