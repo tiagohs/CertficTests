@@ -11,6 +11,8 @@ branches:
 jdk:
   - oraclejdk7
 
+script: ant build
+
 sudo: required
 
 before_install:
