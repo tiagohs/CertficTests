@@ -40,6 +40,7 @@
 		<mkdir dir="build/src" />
 		<mkdir dir="build/libs" />
 		<mkdir dir="build/classes" />
+		<mkdir dir="build/project/src" />
 	
 		<!-- Copy project-libs references -->
 		<copy todir="build/libs">
@@ -52,7 +53,7 @@
 	
 		<!-- Copy project sources itself -->
 		<copy todir="build/src">
-			<fileset dir="build/project/src">
+			<fileset dir="project/src">
 				<include name="**/*"/>
 			</fileset>
 		</copy>
