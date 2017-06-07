@@ -132,7 +132,7 @@
 			outfile="CertficTestsFX" nativeBundles="exe"
 			updatemode="background" >
 	
-			<fx:platform basedir="${java.home}"/>
+			<fx:platform basedir="C:\Java\jre8_32"/>
 			<fx:info title="CertficTestsFX" vendor="oca.com.br"/>
 	
 			<fx:application refId="fxApplication"/>
