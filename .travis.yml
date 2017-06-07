@@ -2,6 +2,7 @@ addons:
   sonarqube: true
 
 language: java
+install: ant deps
 
 branches:
   only:
