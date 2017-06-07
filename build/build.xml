@@ -21,14 +21,14 @@
 		<mkdir dir="externalLibs" />
 	
 		<copy todir="externalLibs">
-			<fileset dir="\..\lib">
+			<fileset dir="/lib">
 				<filename name="controlsfx-8.0.6_20.jar"/>
 			</fileset>
 		</copy>
 	
 		<mkdir dir="project" />
 		<copy todir="project">
-			<fileset dir="\..\CertficTestsFX">
+			<fileset dir="/">
 				<include name="src/**" />
 			</fileset>
 		</copy>
