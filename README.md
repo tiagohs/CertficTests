@@ -1,16 +1,45 @@
-# CertficTests
+# CertificTests
 
-<b>CertificTests</b>
+<p>CertificTests é uma Aplicação Desktop feita em JavaFX, contendo questões de várias Provas de Certificações, como OCA e OCP, feito sem fins lucrativos, para estudos, contendo mais de 90 Questões em cada Exame.</p>
 
-<b>Sobre o App</b>: CertificTests é uma pequena Aplicação Desktop feita em Java, contendo questões de várias Provas de Certificações, como OCA e OCP, feito sem fins lucrativos, para estudos e dúvidas, contendo mais de 90 Questões em cada Exame.
+<p>Na aplicação você poderá:</p>
 
-Pra quem quiser o App Direto:
+<ul>
+  <li>Escolher entre duas linguagens, Português e Inglês;</li>
+  <li>Obter histórico de Exames realizados, e ver detalhes de cada um;</li>
+  <li>Obter ajuda em cada questão realizada;</li>
+  <li>Ambiente parecido com o da prova, com cronômetro por exemplo;</li>
+  <li>Opções de teste de 30, 60 e 90 Questões;</li>
+  <li>Ao final de cada teste, você terá um resumo de acertos e erros, tempo de duração, e o gabarito da prova comentado;</li>
+</ul>
 
-Localização do Jar:
-CertficTestsFX/build/dist/
+### Download do Software:
 
-Uma versão .exe:
-CertficTestsFX/build/deploy/bundles/
+<ul>
+  <li>Arquivo JAR: <a href="https://github.com/tiagohs/CertficTests/raw/master/deploy/CertificTests.rar">Download</a></li>
+  <li>Instalador: <a href="https://github.com/tiagohs/CertficTests/raw/master/CertficTestsFX/build/deploy/bundles/CertificTests-1.0.exe">Download</a></li>
+</ul>
+
+### Libaries utilizadas nesse Projeto:
+
+<ul>
+  <li><a href="http://code.makery.ch/blog/javafx-dialogs-official/">JavaFX Dialogs</a> - <i>Deprecated</i>: mantenho no projeto, mas a librarie finalmente foi adicionada oficialmente ao javaFX </li>
+  <li><a href="http://fxexperience.com/controlsfx/">ControlsFX</a></li>
+</ul>
+
+## Screens
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tiagohs/CertficTests/master/arts/pagina_inicial.png" width="380" height="340"> 
+  <img src="https://raw.githubusercontent.com/tiagohs/CertficTests/master/arts/questao.png" width="380" height="340"> 
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tiagohs/CertficTests/master/arts/questao_ajuda.png" width="380" height="340"> 
+  <img src="https://raw.githubusercontent.com/tiagohs/CertficTests/master/arts/teste_finalizado.png" width="380" height="340"> 
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tiagohs/CertficTests/master/arts/resumo_teste_feito.png" width="680" height="640">
+</p>
 
 ### Desenvolvido por:
 
