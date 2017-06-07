@@ -21,14 +21,14 @@
 		<mkdir dir="externalLibs" />
 	
 		<copy todir="externalLibs">
-			<fileset dir="/lib">
+			<fileset dir="/../lib">
 				<filename name="controlsfx-8.0.6_20.jar"/>
 			</fileset>
 		</copy>
 	
 		<mkdir dir="project" />
 		<copy todir="project">
-			<fileset dir="/">
+			<fileset dir="./">
 				<include name="src/**" />
 			</fileset>
 		</copy>
@@ -40,7 +40,6 @@
 		<mkdir dir="build/src" />
 		<mkdir dir="build/libs" />
 		<mkdir dir="build/classes" />
-		<mkdir dir="build/project/src" />
 	
 		<!-- Copy project-libs references -->
 		<copy todir="build/libs">
@@ -53,7 +52,7 @@
 	
 		<!-- Copy project sources itself -->
 		<copy todir="build/src">
-			<fileset dir="build/project/src">
+			<fileset dir="project/src">
 				<include name="**/*"/>
 			</fileset>
 		</copy>
@@ -68,7 +67,7 @@
 	
 		<!-- Copy over none Java-Files -->
 		<copy todir="build/classes">
-		<fileset dir="build/project/src">
+		<fileset dir="project/src">
 			<exclude name="**/*.java"/>
 		</fileset>
 		</copy>
@@ -79,10 +78,10 @@
 		<delete file="dist"/>
 		<delete file="deploy" />
 	
-		<mkdir dir="build/dist" />
-		<mkdir dir="build/dist/libs" />
+		<mkdir dir="dist" />
+		<mkdir dir="dist/libs" />
 	
-		<copy todir="build/dist/libs">
+		<copy todir="dist/libs">
 			<fileset dir="externalLibs">
 				<include name="*" />
 			</fileset>
@@ -107,7 +106,7 @@
 	
 	
 	
-		<fx:jar destfile="build/dist/CertficTestsFX.jar">
+		<fx:jar destfile="dist/CertficTestsFX.jar">
 			<fx:application refid="fxApplication"/>
 			<fileset dir="build/classes">
 			</fileset>
