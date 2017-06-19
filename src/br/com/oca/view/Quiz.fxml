@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.*?>
@@ -9,25 +10,24 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="758.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.QuizController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.QuizController">
    <children>
-      <Label fx:id="labelNumeroQuestao" layoutX="22.0" layoutY="14.0" prefHeight="26.0" prefWidth="129.0" text="Questão 1 de 30" />
-      <Separator layoutX="22.0" layoutY="35.0" prefHeight="7.0" prefWidth="397.0" />
-      <Label fx:id="labelNomeExame" layoutX="22.0" layoutY="42.0" prefHeight="26.0" prefWidth="354.0" text="Oracle Certified Associate, Java SE 7 Programmer">
+      <Pane prefHeight="361.0" prefWidth="786.0" style="-fx-background-color: #e4e0fc;">
+         <children>
+            <Label fx:id="labelTempoDecorrido" alignment="CENTER_RIGHT" layoutX="563.0" layoutY="26.0" prefHeight="26.0" prefWidth="198.0" text="Tempo Decorrido: 00:02:00" textFill="#474083" />
+         </children>
+      </Pane>
+      <Label fx:id="labelNumeroQuestao" layoutX="22.0" layoutY="14.0" prefHeight="26.0" prefWidth="129.0" text="Questão 1 de 30" textFill="#1d146b" />
+      <Label fx:id="labelNomeExame" layoutX="22.0" layoutY="37.0" prefHeight="26.0" prefWidth="354.0" text="Oracle Certified Associate, Java SE 7 Programmer" textFill="#504699">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Label>
-      <Button fx:id="ajuda" layoutX="451.0" layoutY="647.0" mnemonicParsing="false" onAction="#handleAjuda" prefHeight="39.0" prefWidth="178.0" text="%botaoAjuda" />
-      <Button fx:id="proximaQuestao" layoutX="202.0" layoutY="647.0" mnemonicParsing="false" onAction="#handleProximo" prefHeight="39.0" prefWidth="156.0" text="%botaoProximo" />
-      <Button fx:id="anteriorQuestao" layoutX="40.0" layoutY="647.0" mnemonicParsing="false" onAction="#handleAnterior" prefHeight="39.0" prefWidth="156.0" text="%botaoAnterior" />
-      <Button fx:id="sair" layoutX="634.0" layoutY="647.0" mnemonicParsing="false" onAction="#handleSair" prefHeight="39.0" prefWidth="96.0" text="%botaoSair" />
-      <Label fx:id="labelTempoDecorrido" alignment="CENTER_RIGHT" layoutX="531.0" layoutY="29.0" prefHeight="26.0" prefWidth="198.0" text="Tempo Decorrido: 00:02:00" />
-      <Label fx:id="labelReferencia" alignment="CENTER_RIGHT" layoutX="17.0" layoutY="367.0" prefHeight="17.0" prefWidth="713.0" text="DESCHMUKH, Hanumant. Oracle Certified Associate Java SE 7 Programmer Practice Exams (1Z0-803). 1.ed. EUA, q.01, p.20." textAlignment="RIGHT" textOverrun="CLIP" />
-      <Pane layoutX="20.0" layoutY="68.0" prefHeight="282.0" prefWidth="713.0">
+      <Label fx:id="labelReferencia" alignment="CENTER_RIGHT" layoutX="51.0" layoutY="367.0" prefHeight="17.0" prefWidth="713.0" text="DESCHMUKH, Hanumant. Oracle Certified Associate Java SE 7 Programmer Practice Exams (1Z0-803). 1.ed. EUA, q.01, p.20." textAlignment="RIGHT" textOverrun="CLIP" />
+      <Pane layoutX="20.0" layoutY="68.0" prefHeight="282.0" prefWidth="744.0" style="-fx-background-color: #e4e0fc;">
          <children>
-            <ScrollPane fx:id="scrollEnunciado" prefHeight="293.0" prefWidth="713.0">
+            <ScrollPane prefHeight="293.0" prefWidth="744.0" styleClass="root">
                <content>
-               <Label fx:id="labelEnunciadoQuestao" maxHeight="713.0" prefWidth="713.0" text="Enunciado">
+               <Label fx:id="labelEnunciadoQuestao" maxHeight="713.0" prefWidth="743.0" text="Enunciado">
                   <padding>
                      <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                   </padding>
@@ -36,28 +36,32 @@
             </ScrollPane>
          </children>
       </Pane>
-      <Label fx:id="labelNumOpcoesCorretas" layoutX="36.0" layoutY="398.0" prefHeight="17.0" prefWidth="244.0" text="Escolha 1 Opção:">
+      <Label fx:id="labelNumOpcoesCorretas" layoutX="23.0" layoutY="399.0" prefHeight="17.0" prefWidth="244.0" text="Escolha 1 Opção:">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
-      </Label>
-      <Pane fx:id="radioPainel" layoutX="27.0" layoutY="424.0" prefHeight="214.0" prefWidth="695.0">
+      </Label> 
+      <Pane fx:id="radioPainel" layoutX="14.0" layoutY="425.0" prefHeight="214.0" prefWidth="695.0">
          <children>
-            <RadioButton fx:id="radioAlternativaA" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="681.0" text="A " />
-            <RadioButton fx:id="radioAlternativaB" layoutX="14.0" layoutY="58.0" mnemonicParsing="false" text="B  " />
-            <RadioButton fx:id="radioAlternativaC" layoutX="14.0" layoutY="98.0" mnemonicParsing="false" text="C " />
-            <RadioButton fx:id="radioAlternativaD" layoutX="14.0" layoutY="137.0" mnemonicParsing="false" text="D" />
-            <RadioButton fx:id="radioAlternativaE" layoutX="15.0" layoutY="177.0" mnemonicParsing="false" text="E" />
+            <JFXRadioButton fx:id="radioAlternativaA" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="681.0" text="A" />
+            <JFXRadioButton fx:id="radioAlternativaB" layoutX="14.0" layoutY="58.0" text="B" />
+            <JFXRadioButton fx:id="radioAlternativaC" layoutX="14.0" layoutY="98.0" text="C" />
+            <JFXRadioButton fx:id="radioAlternativaD" layoutX="14.0" layoutY="137.0" text="D" />
+            <JFXRadioButton fx:id="radioAlternativaE" layoutX="15.0" layoutY="177.0" text="E" />
          </children>
       </Pane>
-      <Pane fx:id="checkPainel" layoutX="37.0" layoutY="434.0" prefHeight="204.0" prefWidth="695.0">
+      <Pane fx:id="checkPainel" layoutX="24.0" layoutY="435.0" prefHeight="204.0" prefWidth="695.0">
          <children>
-            <CheckBox fx:id="checkAlternativaA" layoutY="4.0" mnemonicParsing="false" text="--- A" />
-            <CheckBox fx:id="checkAlternativaB" layoutX="1.0" layoutY="48.0" mnemonicParsing="false" text="--- B" />
-            <CheckBox fx:id="checkAlternativaC" layoutX="1.0" layoutY="88.0" mnemonicParsing="false" text="--- C" />
-            <CheckBox fx:id="checkAlternativaD" layoutX="1.0" layoutY="127.0" mnemonicParsing="false" text="--- D" />
-            <CheckBox fx:id="checkAlternativaE" layoutX="2.0" layoutY="168.0" mnemonicParsing="false" text="--- E" />
+            <JFXCheckBox fx:id="checkAlternativaA" layoutY="4.0" mnemonicParsing="false" text="--- A" />
+            <JFXCheckBox fx:id="checkAlternativaB" layoutX="1.0" layoutY="48.0" mnemonicParsing="false" text="--- B" />
+            <JFXCheckBox fx:id="checkAlternativaC" layoutX="1.0" layoutY="88.0" mnemonicParsing="false" text="--- C" />
+            <JFXCheckBox fx:id="checkAlternativaD" layoutX="1.0" layoutY="127.0" mnemonicParsing="false" text="--- D" />
+            <JFXCheckBox fx:id="checkAlternativaE" layoutX="2.0" layoutY="168.0" mnemonicParsing="false" text="--- E" />
          </children>
       </Pane>
+      <JFXButton fx:id="anteriorQuestao" layoutX="30.0" layoutY="647.0" onAction="#handleAnterior" prefHeight="39.0" prefWidth="152.0" styleClass="button-default" text="%botaoAnterior" />
+      <JFXButton fx:id="proximaQuestao" layoutX="202.0" layoutY="647.0" onAction="#handleProximo" prefHeight="39.0" prefWidth="152.0" styleClass="button-default" text="%botaoProximo" />
+      <JFXButton fx:id="ajuda" layoutX="472.0" layoutY="647.0" onAction="#handleAjuda" prefHeight="39.0" prefWidth="184.0" styleClass="button-default" text="%botaoAjuda" />
+      <JFXButton fx:id="sair" layoutX="668.0" layoutY="647.0" onAction="#handleSair" prefHeight="39.0" prefWidth="96.0" styleClass="button-default" text="%botaoSair" />
    </children>
 </AnchorPane>

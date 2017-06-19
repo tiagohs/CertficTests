@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?scenebuilder-preview-i18n-resource DE_de.properties?>
 
-<AnchorPane prefHeight="541.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.HomeController">
+<AnchorPane prefHeight="541.0" prefWidth="786.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.HomeController">
    <children>
-      <TableView fx:id="tabelaTentativas" layoutX="3.0" layoutY="5.0" prefHeight="445.0" prefWidth="778.0">
+      <TableView fx:id="tabelaTentativas" layoutX="3.0" layoutY="5.0" prefHeight="445.0" prefWidth="778.0" styleClass="table-row-cell">
         <columns>
           <TableColumn fx:id="colunaTesteEscolhido" prefWidth="415.0" text="%tabelaTesteEscolhido" />
             <TableColumn fx:id="colunaNota" minWidth="0.0" prefWidth="72.0" text="%tabelaNota" />
@@ -17,12 +18,11 @@
             <TableColumn fx:id="colunaData" prefWidth="122.0" text="%tabelaData" />
         </columns>
       </TableView>
-      <Button fx:id="botaoNovo" layoutX="517.0" layoutY="483.0" mnemonicParsing="false" onAction="#handleBotaoNovo" prefHeight="35.0" prefWidth="107.0" text="%botaoNovo" />
-      <Button layoutX="640.0" layoutY="483.0" mnemonicParsing="false" onAction="#handleSair" prefHeight="35.0" prefWidth="107.0" text="%botaoSair" />
-      <ComboBox fx:id="comboExame" layoutX="40.0" layoutY="489.0" onHidden="#handleComboExame" prefHeight="25.0" prefWidth="216.0" promptText="%comboSelecioneExame" />
-      <ComboBox fx:id="comboTipoTeste" layoutX="277.0" layoutY="489.0" onHidden="#handleComboTipoTeste" prefHeight="25.0" prefWidth="206.0" promptText="%comboSelecioneTipoTeste" />
       <Label layoutX="14.0" layoutY="461.0" text="%homeLabelNovoTeste" />
-      <Separator layoutX="96.0" layoutY="469.0" prefHeight="3.0" prefWidth="680.0" />
       <Separator layoutX="12.0" layoutY="526.0" prefHeight="3.0" prefWidth="763.0" />
+      <JFXButton fx:id="botaoNovo" layoutX="522.0" layoutY="483.0" onAction="#handleBotaoNovo" prefHeight="35.0" prefWidth="113.0" ripplerFill="#1f00ff" styleClass="button-default" text="%botaoNovo" />
+      <JFXButton layoutX="650.0" layoutY="483.0" onAction="#handleSair" prefHeight="35.0" prefWidth="113.0" ripplerFill="#1d00fc" styleClass="button-default" text="%botaoSair" />
+      <JFXComboBox fx:id="comboExame" layoutX="29.0" layoutY="488.0" prefHeight="25.0" prefWidth="206.0" promptText="%comboSelecioneExame" />
+      <JFXComboBox fx:id="comboTipoTeste" layoutX="271.0" layoutY="489.0" prefHeight="25.0" prefWidth="206.0" promptText="%comboSelecioneTipoTeste" />
    </children>
 </AnchorPane>

@@ -462,6 +462,7 @@ public class QuizController {
 	 */
 	private void setUnicaEscolha(Questao questao, RadioButton radioAlternativa, Character letra) {
 		radioAlternativa.setText(questao.getAlternativa(letra));
+		
 		radioAlternativa.setWrapText(true);
 		radioAlternativa.setSelected(false);
 	}

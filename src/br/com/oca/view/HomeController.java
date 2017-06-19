@@ -148,7 +148,7 @@ public class HomeController {
 	 */
 	@FXML
 	private void initialize() {
-
+		
 	}
 
 	/**
@@ -192,7 +192,7 @@ public class HomeController {
 		colunaAcertos.setCellValueFactory(new PropertyValueFactory<>("numeroAcertos"));
 		colunaTempo.setCellValueFactory(new PropertyValueFactory<>("tempoRegistrado"));
 		colunaData.setCellValueFactory(new PropertyValueFactory<>("dataRegistrada"));
-
+		
 		tabelaTentativas.setItems(listaTentativas);
 
 		tabelaTentativas.getSelectionModel().selectedItemProperty()

@@ -193,7 +193,10 @@ public class MainApp extends Application {
 		tempStage.setResizable(false);
 		tempStage.setTitle(tituloJanela);
 		tempStage.getIcons().add(new Image(CAMINHO_ICONE_APLICACAO));
-		tempStage.setScene(new Scene(page));
+		Scene scene = new Scene(page);
+		
+		scene.getStylesheets().add(this.getClass().getResource("/assets/Home.css").toExternalForm());
+		tempStage.setScene(scene);
 
 		tempStage.show();
 
@@ -256,10 +259,13 @@ public class MainApp extends Application {
 
 		loader = getNovoLoader();
 		rootLayout.setCenter(getNewNodo(loader, "view/Home.fxml"));
-
+		
+		Scene rootScene = new Scene(rootLayout);
+		rootScene.getStylesheets().add(this.getClass().getResource("/assets/Home.css").toExternalForm());
+		
 		homeStage.setTitle("CertificTests");
 		homeStage.setResizable(false);
-		homeStage.setScene(new Scene(rootLayout));
+		homeStage.setScene(rootScene);
 		homeStage.getIcons().add(new Image(CAMINHO_ICONE_APLICACAO));
 		homeStage.show();
 
