@@ -8,6 +8,8 @@ package br.com.oca.util;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 /**
  * 
@@ -49,21 +51,26 @@ public class AlertDialogsFactory {
 	 * @return a Alert totalmente formatada.
 	 */
 	public static Alert getAlertDialog(AlertType tipoDialog, String titulo, String cabecalho, String descricao) {
-
+		Alert alert = null;
+		
 		switch (tipoDialog) {
 		case CONFIRMATION:
-			return preenxer(new Alert(AlertType.CONFIRMATION), titulo, cabecalho, descricao);
+			alert = preenxer(new Alert(AlertType.CONFIRMATION), titulo, cabecalho, descricao);
 		case ERROR:
-			return preenxer(new Alert(AlertType.ERROR), titulo, cabecalho, descricao);
+			alert = preenxer(new Alert(AlertType.ERROR), titulo, cabecalho, descricao);
 		case INFORMATION:
-			return preenxer(new Alert(AlertType.INFORMATION), titulo, cabecalho, descricao);
+			alert = preenxer(new Alert(AlertType.INFORMATION), titulo, cabecalho, descricao);
 		case WARNING:
-			return preenxer(new Alert(AlertType.WARNING), titulo, cabecalho, descricao);
+			alert = preenxer(new Alert(AlertType.WARNING), titulo, cabecalho, descricao);
 		case NONE:
-			return preenxer(new Alert(AlertType.NONE), titulo, cabecalho, descricao);
-		default:
-			return null;
+			alert = preenxer(new Alert(AlertType.NONE), titulo, cabecalho, descricao);
 		}
+		
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image("file:resources/images/CertificTests.png"));
+		alert.getDialogPane().getStylesheets().add(AlertDialogsFactory.class.getResource("/assets/Home.css").toExternalForm());
+		
+		return alert;
 	}
 
 	/**

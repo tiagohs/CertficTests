@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 import br.com.oca.MainApp;
 import br.com.oca.config.JanelasConfig;
 import br.com.oca.config.PerguntasConfig;
@@ -26,11 +27,13 @@ import br.com.oca.util.AlertDialogsFactory;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -678,12 +681,21 @@ public class QuizController {
 	 */
 	@FXML
 	private void handleAjuda() {
-		AlertDialogsFactory.getAlertDialog(AlertType.INFORMATION,
-				janelaLabels.getString("quizAjudaTitulo") + numeroAtualQuestao,
-				perguntasLabel.getString("teste" + conteudo.getTipoTeste().getTotalQuestoes() + ".exercicio"
-						+ numeroAtualQuestao + ".ajuda.cabecalho"),
-				perguntasLabel.getString("teste" + conteudo.getTipoTeste().getTotalQuestoes() + ".exercicio"
-						+ numeroAtualQuestao + ".ajuda.conteudo"));
+		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(janelaLabels.getString("quizAjudaTitulo") + numeroAtualQuestao);
+		alert.setHeaderText(perguntasLabel.getString("teste" + conteudo.getTipoTeste().getTotalQuestoes() + ".exercicio"
+				+ numeroAtualQuestao + ".ajuda.cabecalho"));
+		alert.setContentText(perguntasLabel.getString("teste" + conteudo.getTipoTeste().getTotalQuestoes() + ".exercicio"
+				+ numeroAtualQuestao + ".ajuda.conteudo"));
+		
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		
+		// Add a custom icon.
+		stage.getIcons().add(new Image("file:resources/images/CertificTests.png"));
+		alert.getDialogPane().getStylesheets().add(this.getClass().getResource("/assets/Home.css").toExternalForm());
+		
+		alert.showAndWait();
 	}
 
 	/**

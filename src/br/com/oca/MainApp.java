@@ -143,7 +143,9 @@ public class MainApp extends Application {
 		dialog.setTitle("Escolher Idioma");
 		dialog.setHeaderText("Escolher o Idioma Padrão da Aplicação.");
 		dialog.setContentText("Escolha o Idioma Desejado: ");
-
+		dialog.getDialogPane().getStylesheets().add(this.getClass().getResource("/assets/Home.css").toExternalForm());
+		((Stage) dialog.getDialogPane().getScene().getWindow()).getIcons().add(new Image("file:resources/images/CertificTests.png"));
+		
 		// Verifica no ComboBox qual Opção o Usuário Escolheu.
 		Optional<Idioma> idiomaEscolhido = dialog.showAndWait();
 		if (idiomaEscolhido.isPresent()) {

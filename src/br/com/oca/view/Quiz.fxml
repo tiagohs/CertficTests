@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.QuizController">
+<AnchorPane maxHeight="-Infinity" maxWidth="786.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="722.0" prefWidth="773.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.QuizController">
    <children>
-      <Pane prefHeight="361.0" prefWidth="786.0" style="-fx-background-color: #e4e0fc;">
+      <Pane prefHeight="361.0" prefWidth="800.0" style="-fx-background-color: #e4e0fc;">
          <children>
             <Label fx:id="labelTempoDecorrido" alignment="CENTER_RIGHT" layoutX="563.0" layoutY="26.0" prefHeight="26.0" prefWidth="198.0" text="Tempo Decorrido: 00:02:00" textFill="#474083" />
          </children>
@@ -54,14 +54,14 @@
          <children>
             <JFXCheckBox fx:id="checkAlternativaA" layoutY="4.0" mnemonicParsing="false" text="--- A" />
             <JFXCheckBox fx:id="checkAlternativaB" layoutX="1.0" layoutY="48.0" mnemonicParsing="false" text="--- B" />
-            <JFXCheckBox fx:id="checkAlternativaC" layoutX="1.0" layoutY="88.0" mnemonicParsing="false" text="--- C" />
+            <JFXCheckBox fx:id="checkAlternativaC" layoutX="1.0" layoutY="85.0" mnemonicParsing="false" text="--- C" />
             <JFXCheckBox fx:id="checkAlternativaD" layoutX="1.0" layoutY="127.0" mnemonicParsing="false" text="--- D" />
             <JFXCheckBox fx:id="checkAlternativaE" layoutX="2.0" layoutY="168.0" mnemonicParsing="false" text="--- E" />
          </children>
       </Pane>
-      <JFXButton fx:id="anteriorQuestao" layoutX="30.0" layoutY="647.0" onAction="#handleAnterior" prefHeight="39.0" prefWidth="152.0" styleClass="button-default" text="%botaoAnterior" />
-      <JFXButton fx:id="proximaQuestao" layoutX="202.0" layoutY="647.0" onAction="#handleProximo" prefHeight="39.0" prefWidth="152.0" styleClass="button-default" text="%botaoProximo" />
-      <JFXButton fx:id="ajuda" layoutX="472.0" layoutY="647.0" onAction="#handleAjuda" prefHeight="39.0" prefWidth="184.0" styleClass="button-default" text="%botaoAjuda" />
-      <JFXButton fx:id="sair" layoutX="668.0" layoutY="647.0" onAction="#handleSair" prefHeight="39.0" prefWidth="96.0" styleClass="button-default" text="%botaoSair" />
+      <JFXButton fx:id="anteriorQuestao" layoutX="30.0" layoutY="661.0" onAction="#handleAnterior" prefHeight="39.0" prefWidth="152.0" styleClass="button-default" text="%botaoAnterior" />
+      <JFXButton fx:id="proximaQuestao" layoutX="202.0" layoutY="661.0" onAction="#handleProximo" prefHeight="39.0" prefWidth="152.0" styleClass="button-default" text="%botaoProximo" />
+      <JFXButton fx:id="ajuda" layoutX="472.0" layoutY="661.0" onAction="#handleAjuda" prefHeight="39.0" prefWidth="184.0" styleClass="button-default" text="%botaoAjuda" />
+      <JFXButton fx:id="sair" layoutX="668.0" layoutY="661.0" onAction="#handleSair" prefHeight="39.0" prefWidth="96.0" styleClass="button-default" text="%botaoSair" />
    </children>
 </AnchorPane>

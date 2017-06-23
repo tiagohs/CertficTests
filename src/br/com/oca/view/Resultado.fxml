@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="733.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.ResultadoController">
+<AnchorPane prefHeight="733.0" prefWidth="680.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.oca.view.ResultadoController">
 	<children>
-		<Pane layoutX="166.0" layoutY="14.0" prefHeight="65.0" prefWidth="349.0" AnchorPane.bottomAnchor="494.0" AnchorPane.leftAnchor="166.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="14.0">
+		<Pane layoutX="166.0" layoutY="14.0" prefHeight="65.0" prefWidth="349.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="494.0" AnchorPane.leftAnchor="166.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="14.0">
 			<children>
-				<Label layoutX="111.0" layoutY="9.0" text="Sua Nota:" />
-				<Label layoutX="61.0" layoutY="36.0" text="Questões Corretas:" />
-				<Label fx:id="labelSuaNota" layoutX="189.0" layoutY="9.0" prefHeight="17.0" prefWidth="100.0" text="NOTA" />
-				<Label fx:id="labelQuestoesCorretas" layoutX="189.0" layoutY="36.0" prefHeight="17.0" prefWidth="100.0" text="QUESTOES" />
+      				<Label layoutX="111.0" layoutY="9.0" text="Sua Nota:" />
+      				<Label layoutX="61.0" layoutY="36.0" text="Questões Corretas:" />
+      				<Label fx:id="labelSuaNota" layoutX="189.0" layoutY="9.0" prefHeight="17.0" prefWidth="100.0" text="NOTA" />
+      				<Label fx:id="labelQuestoesCorretas" layoutX="189.0" layoutY="36.0" prefHeight="17.0" prefWidth="100.0" text="QUESTOES" />
             <Separator layoutX="13.0" layoutY="29.0" prefHeight="4.0" prefWidth="308.0" />
             <Separator layoutX="13.0" layoutY="58.0" prefHeight="4.0" prefWidth="308.0" />
             <Label layoutX="64.0" layoutY="70.0" text="Tempo Decorrido:" />
@@ -33,6 +34,6 @@
                </Label>
                </content>
             </ScrollPane>
-      <Button layoutX="282.0" layoutY="687.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="32.0" prefWidth="117.0" text="Ok" />
+      <JFXButton layoutX="271.0" layoutY="685.0" onAction="#handleOk" prefHeight="34.0" prefWidth="140.0" styleClass="button-default" text="Ok" />
 	</children>
 </AnchorPane>

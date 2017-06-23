@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -18,7 +19,6 @@
             </Label>
          </content>
       </ScrollPane>
-      <Button layoutX="292.0" layoutY="690.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="32.0" prefWidth="117.0" text="Ok" />
       <Label fx:id="testeEscolhido" layoutX="18.0" layoutY="14.0" prefHeight="20.0" prefWidth="451.0" text="Teste Escolhido">
          <font>
             <Font name="System Bold Italic" size="14.0" />
@@ -64,5 +64,6 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
+      <JFXButton layoutX="290.0" layoutY="698.0" onAction="#handleOk" prefHeight="34.0" prefWidth="146.0" styleClass="button-default" text="Ok" />
    </children>
 </AnchorPane>
